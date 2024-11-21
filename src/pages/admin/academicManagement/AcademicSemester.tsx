@@ -6,7 +6,7 @@ const AcademicSemester = () => {
 
     return (
         <div>
-            <h1>this is academic semester component</h1>
+            <h1>Academic Semester</h1>
         </div>
     );
 };

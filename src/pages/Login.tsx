@@ -65,7 +65,7 @@ const Login = () => {
                             <PHInput
                                 type="text"
                                 name="id"
-                                style={{ borderRadius: '8px', marginBottom: "8px" }}
+                                style={{ borderRadius: '8px'}}
                                 placeholder="User ID"
                             />
                             {/* {errors.id && <span style={{ color: 'red', fontSize: '12px' }}>{errors.id.message as string}</span>} */}

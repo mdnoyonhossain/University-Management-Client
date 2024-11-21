@@ -1,7 +1,10 @@
 const StudentDashboard = () => {
     return (
         <div>
-            <h1>this is student dashboard</h1>
+            <h1 style={{ color: '#2e7d32', textAlign: 'center', }}>Hi, Student Welcome to PH University Management System</h1>
+            <p style={{ fontSize: '16px', color: '#555', textAlign: 'center', }}>
+                Your one-stop solution for managing academic and administrative tasks.
+            </p>
         </div>
     );
 };

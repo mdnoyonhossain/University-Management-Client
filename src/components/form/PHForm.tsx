@@ -1,19 +1,20 @@
+import { Form } from "antd";
 import { ReactNode } from "react";
 import { FieldValues, FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
-type PHFormProps = {
+type TPHFormProps = {
     children: ReactNode;
     onSubmit: SubmitHandler<FieldValues>;
 }
 
-const PHForm = ({ children, onSubmit }: PHFormProps) => {
+const PHForm = ({ children, onSubmit }: TPHFormProps) => {
     const methods = useForm();
 
     return (
         <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <Form onFinish={methods.handleSubmit(onSubmit)}>
                 {children}
-            </form>
+            </Form>
         </FormProvider>
     );
 };
