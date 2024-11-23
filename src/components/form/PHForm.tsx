@@ -22,7 +22,7 @@ const PHForm = ({ children, onSubmit, resolver }: TPHFormProps) => {
 
     return (
         <FormProvider {...methods}>
-            <Form onFinish={methods.handleSubmit(onSubmit)}>
+            <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>
                 {children}
             </Form>
         </FormProvider>

@@ -13,9 +13,9 @@ import { useCreateAcademicSemesterMutation } from '../../../redux/features/admin
 import { toast } from 'sonner';
 
 const currentYear = new Date().getFullYear();
-const yearOptions = [0, 1, 2, 3, 4].map(number => ({
-    value: String(currentYear + number),
-    label: String(currentYear + number)
+const yearOptions = Array.from({ length: 5 }, (_, index) => ({
+    value: String(currentYear + index),
+    label: String(currentYear + index),
 }));
 
 const CreateAcademicSemester = () => {
@@ -67,7 +67,7 @@ const CreateAcademicSemester = () => {
                     padding: '30px',
                     borderRadius: '8px',
                     boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-                    maxWidth: '1000px',
+                    maxWidth: '800px',
                     width: '100%',
                 }}
             >
