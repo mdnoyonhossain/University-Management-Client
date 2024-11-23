@@ -50,9 +50,9 @@ const CreateAcademicSemester = () => {
     return (
         <div
             style={{
-                minHeight: '100vh',
+                minHeight: '80vh',
                 backgroundImage: `url(${banner})`,
-                backgroundSize: 'cover',
+                backgroundSize: 'contain',
                 backgroundPosition: 'center',
                 display: 'flex',
                 justifyContent: 'center',
@@ -90,12 +90,15 @@ const CreateAcademicSemester = () => {
                     <h2
                         style={{
                             textAlign: 'center',
-                            fontSize: '24px',
-                            marginBottom: '20px',
-                            fontFamily: 'revert',
+                            fontSize: '22px',
+                            fontWeight: 'bold',
+                            color: '#fff',
+                            textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
+                            marginBottom: '30px',
+                            fontFamily: 'Arial, sans-serif',
                         }}
                     >
-                        PH University Log In
+                        Register Academic Semester
                     </h2>
                     <PHForm onSubmit={onSubmit} resolver={zodResolver(academicSemesterSchema)}>
                         <div style={{ marginBottom: '15px' }}>
