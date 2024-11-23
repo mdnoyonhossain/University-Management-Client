@@ -61,7 +61,19 @@ const Login = () => {
                 </Col>
 
                 <Col xs={24} sm={12} md={12} lg={12} xl={12}>
-                    <h2 style={{ textAlign: 'center', fontSize: '24px', marginBottom: '20px', fontFamily: "revert" }}>PH University LogIn</h2>
+                    <h2
+                        style={{
+                            textAlign: 'center',
+                            fontSize: '24px',
+                            fontWeight: 'bold',
+                            color: '#fff',
+                            textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
+                            marginBottom: '18px',
+                            fontFamily: 'Arial, sans-serif',
+                        }}
+                    >
+                        PH University Login
+                    </h2>
                     <PHForm onSubmit={onSubmit} resolver={zodResolver(loginSchema)}>
                         <div style={{ marginBottom: '15px' }}>
                             <PHInput
