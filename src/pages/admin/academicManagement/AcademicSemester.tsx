@@ -25,30 +25,35 @@ const AcademicSemester = () => {
             dataIndex: "name",
             showSorterTooltip: { target: "full-header" },
             filters: getUniqueValues("name"),
+            ellipsis: true,
         },
         {
             title: "Semester Code",
             key: "code",
             dataIndex: "code",
             filters: getUniqueValues("code"),
+            ellipsis: true,
         },
         {
             title: "Semester Year",
             key: "year",
             dataIndex: "year",
             filters: getUniqueValues("year"),
+            ellipsis: true,
         },
         {
             title: "Start Month",
             key: "startMonth",
             dataIndex: "startMonth",
             filters: getUniqueValues("startMonth"),
+            ellipsis: true,
         },
         {
             title: "End Month",
             key: "endMonth",
             dataIndex: "endMonth",
             filters: getUniqueValues("endMonth"),
+            ellipsis: true,
         },
     ];
 
@@ -62,7 +67,7 @@ const AcademicSemester = () => {
     }));
 
     if (isLoading) {
-        return <Loading />
+        return <Loading />;
     }
 
     const onChange: TableProps<TTableData>["onChange"] = (_pagination, filters, _sorter, extra) => {
@@ -86,6 +91,8 @@ const AcademicSemester = () => {
             dataSource={semesterTableData}
             onChange={onChange}
             showSorterTooltip={{ target: "sorter-icon" }}
+            scroll={{ x: "max-content" }}
+            pagination={{ responsive: true }}
         />
     );
 };
