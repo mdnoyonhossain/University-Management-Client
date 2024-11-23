@@ -14,7 +14,7 @@ const PHInput = ({ type, name, placeholder, style, label }: TPHInputProps) => {
     return (
         <Controller
             name={name}
-            render={({ field }) => {
+            render={({ field, fieldState: { error } }) => {
                 if (type === "password") {
                     return (
                         <Form.Item label={label}>
@@ -23,6 +23,7 @@ const PHInput = ({ type, name, placeholder, style, label }: TPHInputProps) => {
                                 placeholder={placeholder}
                                 style={style}
                             />
+                            {error && <span style={{ color: 'red', fontSize: '12px' }}>{error.message}</span>}
                         </Form.Item>
                     );
                 }
@@ -34,6 +35,7 @@ const PHInput = ({ type, name, placeholder, style, label }: TPHInputProps) => {
                             placeholder={placeholder}
                             style={style}
                         />
+                        {error && <span style={{ color: 'red', fontSize: '12px' }}>{error.message}</span>}
                     </Form.Item>
                 )
             }}

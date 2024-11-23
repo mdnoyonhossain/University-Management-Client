@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import PHForm from '../components/form/PHForm';
 import PHInput from '../components/form/PHInput';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { loginSchema } from '../schemas/authManagement.schema';
 
 const { Link } = Typography;
 
@@ -60,15 +62,14 @@ const Login = () => {
 
                 <Col xs={24} sm={12} md={12} lg={12} xl={12}>
                     <h2 style={{ textAlign: 'center', fontSize: '24px', marginBottom: '20px', fontFamily: "revert" }}>PH University LogIn</h2>
-                    <PHForm onSubmit={onSubmit}>
+                    <PHForm onSubmit={onSubmit} resolver={zodResolver(loginSchema)}>
                         <div style={{ marginBottom: '15px' }}>
                             <PHInput
                                 type="text"
                                 name="id"
-                                style={{ borderRadius: '8px'}}
+                                style={{ borderRadius: '8px' }}
                                 placeholder="User ID"
                             />
-                            {/* {errors.id && <span style={{ color: 'red', fontSize: '12px' }}>{errors.id.message as string}</span>} */}
                         </div>
 
                         <div style={{ marginBottom: '15px' }}>
@@ -78,7 +79,6 @@ const Login = () => {
                                 style={{ borderRadius: '8px' }}
                                 placeholder="Password"
                             />
-                            {/* {errors.password && <span style={{ color: 'red', fontSize: '12px' }}>{errors.password.message as string}</span>} */}
                         </div>
 
                         <Row gutter={16} style={{ marginBottom: '20px' }}>

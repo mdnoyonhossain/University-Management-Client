@@ -34,7 +34,7 @@ const MainLayout = () => {
     );
 
     return (
-        <Layout style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
+        <Layout style={{ minHeight: '100%', backgroundColor: '#f0f2f5' }}>
             <Sidebar />
             <Layout>
                 <Header

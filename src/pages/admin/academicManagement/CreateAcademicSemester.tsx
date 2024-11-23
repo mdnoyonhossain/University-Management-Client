@@ -3,20 +3,31 @@ import 'antd/dist/reset.css';
 import banner from "../../../assets/images/banner.avif";
 import createSemester from "../../../assets/images/create-semester.jpg";
 import PHForm from '../../../components/form/PHForm';
-import PHInput from '../../../components/form/PHInput';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 import PHSelect from '../../../components/form/PHSelect';
+import { semesterOptions } from '../../../constants/semester';
+import { monthOptions } from '../../../constants/global';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { academicSemesterSchema } from '../../../schemas/academicManagement.schema';
+
+const currentYear = new Date().getFullYear();
+const yearOptions = [0, 1, 2, 3, 4].map(number => ({
+    value: String(currentYear + number),
+    label: String(currentYear + number)
+}));
 
 const CreateAcademicSemester = () => {
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        console.log(data);
+        const name = semesterOptions[Number(data.name) - 1]?.label;
+        const semesterData = {
+            name,
+            code: data.name,
+            year: data.year,
+            startMonth: data.startMonth,
+            endMonth: data.endMonth
+        }
+        console.log(semesterData);
     };
-
-    const semesterNameOptions = [
-        { value: "Autumn", label: "Autumn" },
-        { value: "Summer", label: "Summer" },
-        { value: "Fall", label: "Fall" },
-    ];
 
     return (
         <div
@@ -38,7 +49,7 @@ const CreateAcademicSemester = () => {
                     padding: '30px',
                     borderRadius: '8px',
                     boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-                    maxWidth: '900px',
+                    maxWidth: '1000px',
                     width: '100%',
                 }}
             >
@@ -68,26 +79,18 @@ const CreateAcademicSemester = () => {
                     >
                         PH University Log In
                     </h2>
-                    <PHForm onSubmit={onSubmit}>
+                    <PHForm onSubmit={onSubmit} resolver={zodResolver(academicSemesterSchema)}>
                         <div style={{ marginBottom: '15px' }}>
-                            <PHInput
-                                type="text"
-                                name="id"
-                                style={{ borderRadius: '8px', marginBottom: '8px' }}
-                                placeholder="User ID"
-                            />
-                        </div>
-
-                        <div style={{ marginBottom: '15px' }}>
-                            <PHInput
-                                type="password"
-                                name="password"
-                                style={{ borderRadius: '8px' }}
-                                placeholder="Password"
-                            />
+                            <PHSelect name="name" options={semesterOptions} style={{ width: '100%' }} placeholder="Select Semester Name" />
                         </div>
                         <div style={{ marginBottom: '15px' }}>
-                            <PHSelect name="name" options={semesterNameOptions} style={{ width: '100%' }} placeholder="Select Semester Name" />
+                            <PHSelect name="year" options={yearOptions} style={{ width: '100%' }} placeholder="Select Semester Year" />
+                        </div>
+                        <div style={{ marginBottom: '15px' }}>
+                            <PHSelect name="startMonth" options={monthOptions} style={{ width: '100%' }} placeholder="Select Semester Start Month" />
+                        </div>
+                        <div style={{ marginBottom: '15px' }}>
+                            <PHSelect name="endMonth" options={monthOptions} style={{ width: '100%' }} placeholder="Select Semester End Month" />
                         </div>
                         <div>
                             <Button

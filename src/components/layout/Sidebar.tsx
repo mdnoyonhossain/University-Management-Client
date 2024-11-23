@@ -42,6 +42,10 @@ const Sidebar = () => {
             style={{
                 backgroundImage: 'linear-gradient(45deg, #001529, #004d99)',
                 color: 'red',
+                height: "100vh",
+                position: "sticky",
+                top: "0",
+                left: "0"
             }}
         >
             <div>
