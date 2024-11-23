@@ -22,7 +22,9 @@ const CreateAcademicSemester = () => {
     const [addAcademicSemester] = useCreateAcademicSemesterMutation();
 
     const onSubmit = async (data: FieldValues) => {
+        const toastId = toast.loading("Register Semester...");
         const name = semesterOptions[Number(data.name) - 1]?.label;
+
         const semesterData = {
             name,
             code: data.name,
@@ -32,11 +34,16 @@ const CreateAcademicSemester = () => {
         }
 
         try {
-            console.log(semesterData);
             const res = await addAcademicSemester(semesterData);
-            console.log(res);
+
+            if ('error' in res) {
+                const errorMessage = (res.error as any)?.data?.message;
+                toast.error(errorMessage, { id: toastId });
+            } else if ('data' in res) {
+                toast.success(res.data.message, { id: toastId });
+            }
         } catch (err: any) {
-            toast.error(err.message);
+            toast.error(err.message, { id: toastId });
         }
     }
 

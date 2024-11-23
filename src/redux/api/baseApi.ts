@@ -20,7 +20,8 @@ const baseQueryWithRefreshToken: BaseQueryFn<FetchArgs, BaseQueryApi, Definition
     let result = await baseQuery(args, api, extraOptions);
 
     if (result?.error?.status === 404) {
-        toast.error("User Not Found!");
+        const message = (result.error.data as { message?: string })?.message;
+        toast.error(message);
     }
 
     if (result?.error?.status === 401) {
