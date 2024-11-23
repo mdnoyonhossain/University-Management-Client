@@ -38,7 +38,7 @@ const Sidebar = () => {
         <Sider
             breakpoint="lg"
             collapsedWidth="0"
-            onBreakpoint={(broken) => console.log(broken)}
+            // onBreakpoint={(broken) => console.log(broken)}
             style={{
                 backgroundImage: 'linear-gradient(45deg, #001529, #004d99)',
                 color: 'red',
