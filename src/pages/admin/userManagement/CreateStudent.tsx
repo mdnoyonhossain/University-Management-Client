@@ -13,7 +13,7 @@ const { Step } = Steps;
 
 const CreateStudent = () => {
     const [currentStep, setCurrentStep] = useState(0);
-    const [formData, setFormData] = useState({}); // Store form data here
+    const [inputFieldData, setInputFieldData] = useState({}); // Store form data here
 
     const onNext = () => {
         if (currentStep < steps.length - 1) {
@@ -28,11 +28,15 @@ const CreateStudent = () => {
     };
 
     const onSubmit = async (data: FieldValues) => {
-        const updatedData = { ...formData, ...data };
-        setFormData(updatedData);
+        const updatedStudentData = { ...inputFieldData, ...data };
+        setInputFieldData(updatedStudentData);
+
+        const formData = new FormData();
+        formData.append("data", JSON.stringify(updatedStudentData));
 
         if (currentStep === steps.length - 1) {
-            console.log('Final data:', updatedData);
+            console.log('Final data:', updatedStudentData);
+            console.log(Object.fromEntries(formData));
         } else {
             onNext();
         }
@@ -68,7 +72,7 @@ const CreateStudent = () => {
         {
             title: 'Additional Info',
             content: (
-                <PHForm onSubmit={onSubmit} resolver={zodResolver(academicFacultySchema)}>
+                <PHForm onSubmit={onSubmit} /**resolver={zodResolver(academicFacultySchema)} */>
                     <div style={{ marginBottom: '15px' }}>
                         <PHInput
                             type="email"
