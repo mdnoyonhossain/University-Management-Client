@@ -86,7 +86,7 @@ const CreateAcademicSemester = () => {
                     />
                 </Col>
 
-                <Col xs={24} sm={24} md={12} lg={12}>
+                <Col xs={24} sm={24} md={12} lg={12} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                     <h2
                         style={{
                             textAlign: 'center',
