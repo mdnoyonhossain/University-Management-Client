@@ -17,7 +17,7 @@ const CreateAcademicFaculty = () => {
         const toastId = toast.loading("Create Faculty...");
 
         const academicFacultyData = {
-            name: data.name,
+            name: data.name
         }
 
         try {
