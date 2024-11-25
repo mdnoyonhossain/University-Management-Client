@@ -8,9 +8,10 @@ type TPHSelectProps = {
     placeholder?: string;
     style?: CSSProperties;
     options: { value: string, label: string }[];
+    disabled?: any;
 }
 
-const PHSelect = ({ name, label, placeholder, style, options }: TPHSelectProps) => {
+const PHSelect = ({ name, label, placeholder, style, options, disabled }: TPHSelectProps) => {
     return (
         <Controller
             name={name}
@@ -21,6 +22,7 @@ const PHSelect = ({ name, label, placeholder, style, options }: TPHSelectProps) 
                         placeholder={placeholder}
                         style={style}
                         options={options}
+                        disabled={disabled}
                     />
                     {error && <span style={{ color: 'red', fontSize: '12px' }}>{error.message}</span>}
                 </Form.Item>
