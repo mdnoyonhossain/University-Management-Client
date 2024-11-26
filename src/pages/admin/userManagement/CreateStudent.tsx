@@ -8,12 +8,28 @@ import { academicFacultySchema } from '../../../schemas/academicManagement.schem
 import { FieldValues } from 'react-hook-form';
 import PHInput from '../../../components/form/PHInput';
 import { useState } from 'react';
+import PHSelect from '../../../components/form/PHSelect';
+import { bloodGroupOptions, genderOptions } from '../../../constants/global';
+import PHDatePicker from '../../../components/form/PHDatePicker';
+import { useGetAllAcademicDepartmentsQuery, useGetAllSemestersQuery } from '../../../redux/features/admin/academicManagementApi';
 
 const { Step } = Steps;
 
 const CreateStudent = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [inputFieldData, setInputFieldData] = useState({}); // Store form data here
+    const { data: admissionSemesterData, isLoading: asisLoading, error: aserror } = useGetAllSemestersQuery(undefined);
+    const { data: academicDepartmentData, isLoading: adisLoading, error: aderror } = useGetAllAcademicDepartmentsQuery(undefined);
+
+    const admissionSemesterOptions = admissionSemesterData?.data?.map((admissionSemester: any) => ({
+        value: admissionSemester._id,
+        label: `${admissionSemester.name} (${admissionSemester.year}) - (${admissionSemester.startMonth} - ${admissionSemester.endMonth})`,
+    })) || [];
+
+    const academicDepartmentOptions = academicDepartmentData?.data?.map((academicDepartment: any) => ({
+        value: academicDepartment._id,
+        label: `${academicDepartment.name}`,
+    })) || [];
 
     const onNext = () => {
         if (currentStep < steps.length - 1) {
@@ -72,27 +88,26 @@ const CreateStudent = () => {
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
-                        <PHInput
-                            type="text"
+                        <PHSelect
                             name="gender"
-                            style={{ borderRadius: '8px' }}
-                            placeholder="Enter Gender (Male/Female/Other)"
+                            options={genderOptions}
+                            style={{ width: '100%' }}
+                            placeholder="Select Gender (Male/Female/Other)"
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
-                        <PHInput
-                            type="text"
+                        <PHDatePicker
                             name="dateOfBirth"
-                            style={{ borderRadius: '8px' }}
-                            placeholder="Select Date of Birth"
+                            style={{ borderRadius: '8px', width: "100%" }}
+                            placeholder="Select Date of Birth (YYYY-MM-DD)"
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
-                        <PHInput
-                            type="text"
+                        <PHSelect
                             name="BloodGroup"
-                            style={{ borderRadius: '8px' }}
-                            placeholder="Enter Blood Group (Optional)"
+                            options={bloodGroupOptions}
+                            style={{ width: '100%' }}
+                            placeholder="Select Blood Group (Optional)"
                         />
                     </div>
                     <Button
@@ -115,7 +130,7 @@ const CreateStudent = () => {
                 <PHForm onSubmit={onSubmit} >
                     <div style={{ marginBottom: '15px' }}>
                         <PHInput
-                            type="text"
+                            type="email"
                             name="email"
                             style={{ borderRadius: '8px' }}
                             placeholder="Enter your email address"
@@ -195,7 +210,7 @@ const CreateStudent = () => {
                             type="text"
                             name="guardian.fatherName"
                             style={{ borderRadius: '8px' }}
-                            placeholder="Enter your email address"
+                            placeholder="Enter father's full name"
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
@@ -203,7 +218,7 @@ const CreateStudent = () => {
                             type="text"
                             name="guardian.fatherOccupation"
                             style={{ borderRadius: '8px' }}
-                            placeholder="Enter your contact number"
+                            placeholder="Enter father's occupation"
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
@@ -211,7 +226,7 @@ const CreateStudent = () => {
                             type="text"
                             name="guardian.fatherContactNo"
                             style={{ borderRadius: '8px' }}
-                            placeholder="Enter emergency contact number"
+                            placeholder="Enter father's contact number"
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
@@ -219,7 +234,7 @@ const CreateStudent = () => {
                             type="text"
                             name="guardian.motherName"
                             style={{ borderRadius: '8px' }}
-                            placeholder="Enter your present address"
+                            placeholder="Enter mother's full name"
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
@@ -227,7 +242,7 @@ const CreateStudent = () => {
                             type="text"
                             name="guardian.motherOccupation"
                             style={{ borderRadius: '8px' }}
-                            placeholder="Enter your permanent address"
+                            placeholder="Enter mother's occupation"
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
@@ -235,7 +250,7 @@ const CreateStudent = () => {
                             type="text"
                             name="guardian.motherContactNo"
                             style={{ borderRadius: '8px' }}
-                            placeholder="Enter your permanent address"
+                            placeholder="Enter mother's contact number"
                         />
                     </div>
                     <Row justify="start" gutter={10}>
@@ -280,7 +295,7 @@ const CreateStudent = () => {
                             type="text"
                             name="localGuardian.name"
                             style={{ borderRadius: '8px' }}
-                            placeholder="Enter your email address"
+                            placeholder="Enter full name of local guardian"
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
@@ -288,7 +303,7 @@ const CreateStudent = () => {
                             type="text"
                             name="localGuardian.occupation"
                             style={{ borderRadius: '8px' }}
-                            placeholder="Enter your contact number"
+                            placeholder="Enter occupation of local guardian"
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
@@ -296,7 +311,7 @@ const CreateStudent = () => {
                             type="text"
                             name="localGuardian.contactNo"
                             style={{ borderRadius: '8px' }}
-                            placeholder="Enter emergency contact number"
+                            placeholder="Enter local guardian's contact number"
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
@@ -304,7 +319,7 @@ const CreateStudent = () => {
                             type="text"
                             name="localGuardian.address"
                             style={{ borderRadius: '8px' }}
-                            placeholder="Enter your present address"
+                            placeholder="Enter local guardian's address"
                         />
                     </div>
                     <Row justify="start" gutter={10}>
@@ -345,19 +360,21 @@ const CreateStudent = () => {
             content: (
                 <PHForm onSubmit={onSubmit} /**resolver={zodResolver(academicFacultySchema)} */>
                     <div style={{ marginBottom: '15px' }}>
-                        <PHInput
-                            type="text"
+                        <PHSelect
                             name="admissionSemester"
-                            style={{ borderRadius: '8px' }}
-                            placeholder="Enter your admission semester"
+                            options={admissionSemesterOptions}
+                            style={{ width: '100%' }}
+                            placeholder="Select your admission semester"
+                            disabled={asisLoading || !!aserror}
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
-                        <PHInput
-                            type="text"
+                        <PHSelect
                             name="academicDepartment"
-                            style={{ borderRadius: '8px' }}
-                            placeholder="Enter your academic department"
+                            options={academicDepartmentOptions}
+                            style={{ width: '100%' }}
+                            placeholder="Select your academic department"
+                            disabled={adisLoading || !!aderror}
                         />
                     </div>
                     <Row justify="start" gutter={10}>
