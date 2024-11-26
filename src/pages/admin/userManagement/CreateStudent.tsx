@@ -430,8 +430,7 @@ const CreateStudent = () => {
                     sm={24}
                     md={12}
                     lg={12}
-                    style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                >
+                    style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <img
                         src={registerStudentImg}
                         alt="Logo"
