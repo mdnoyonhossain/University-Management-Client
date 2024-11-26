@@ -1,11 +1,11 @@
-import { Button, Row, Col, Steps } from 'antd';
+import { Button, Row, Col, Steps, Form, Upload } from 'antd';
 import 'antd/dist/reset.css';
 import banner from "../../../assets/images/banner.avif";
 import registerStudentImg from "../../../assets/images/create-student.jpg";
 import PHForm from '../../../components/form/PHForm';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { academicFacultySchema } from '../../../schemas/academicManagement.schema';
-import { FieldValues } from 'react-hook-form';
+import { Controller, FieldValues } from 'react-hook-form';
 import PHInput from '../../../components/form/PHInput';
 import { useState } from 'react';
 import PHSelect from '../../../components/form/PHSelect';
@@ -13,6 +13,7 @@ import { bloodGroupOptions, genderOptions } from '../../../constants/global';
 import PHDatePicker from '../../../components/form/PHDatePicker';
 import { useGetAllAcademicDepartmentsQuery, useGetAllSemestersQuery } from '../../../redux/features/admin/academicManagementApi';
 import { useCreateStudentMutation } from '../../../redux/features/admin/userManagementApi';
+import { UploadOutlined } from "@ant-design/icons";
 import { toast } from 'sonner';
 
 const { Step } = Steps;
@@ -57,6 +58,7 @@ const CreateStudent = () => {
 
         const formData = new FormData();
         formData.append("data", JSON.stringify(studentData));
+        formData.append("file", updatedStudentData.profileImg);
 
         if (currentStep === steps.length - 1) {
             const toastId = toast.loading("Register Student...");
@@ -128,6 +130,29 @@ const CreateStudent = () => {
                             options={bloodGroupOptions}
                             style={{ width: '100%' }}
                             placeholder="Select Blood Group (Optional)"
+                        />
+                    </div>
+                    <div style={{ marginBottom: '15px' }}>
+                        <Controller
+                            name="profileImg"
+                            render={({ field: { onChange, value, ...field } }) => (
+                                <Form.Item>
+                                    <Upload.Dragger
+                                        {...field}
+                                        beforeUpload={(file) => {
+                                            onChange(file);
+                                            return false;
+                                        }}
+                                        fileList={value ? [value] : []}
+                                        onRemove={() => onChange(null)}
+                                    >
+                                        <p className="ant-upload-drag-icon">
+                                            <UploadOutlined />
+                                        </p>
+                                        <p className="ant-upload-text">Click or Drag Upload Profile Image</p>
+                                    </Upload.Dragger>
+                                </Form.Item>
+                            )}
                         />
                     </div>
                     <Button
