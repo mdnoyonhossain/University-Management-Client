@@ -9,9 +9,10 @@ type TPHDatePickerProps = {
     style?: CSSProperties;
     disabled?: boolean;
     format?: string;
+    required?: boolean;
 };
 
-const PHDatePicker = ({ name, label, placeholder, style, disabled, format }: TPHDatePickerProps) => {
+const PHDatePicker = ({ name, label, placeholder, style, disabled, format, required, }: TPHDatePickerProps) => {
     return (
         <Controller
             name={name}
@@ -23,6 +24,7 @@ const PHDatePicker = ({ name, label, placeholder, style, disabled, format }: TPH
                         style={style}
                         disabled={disabled}
                         format={format || "YYYY-MM-DD"}
+                        required={required}
                     />
                     {error && <span style={{ color: 'red', fontSize: '12px' }}>{error.message}</span>}
                 </Form.Item>
