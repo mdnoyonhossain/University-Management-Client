@@ -12,14 +12,17 @@ import PHSelect from '../../../components/form/PHSelect';
 import { bloodGroupOptions, genderOptions } from '../../../constants/global';
 import PHDatePicker from '../../../components/form/PHDatePicker';
 import { useGetAllAcademicDepartmentsQuery, useGetAllSemestersQuery } from '../../../redux/features/admin/academicManagementApi';
+import { useCreateStudentMutation } from '../../../redux/features/admin/userManagementApi';
+import { toast } from 'sonner';
 
 const { Step } = Steps;
 
 const CreateStudent = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [inputFieldData, setInputFieldData] = useState({}); // Store form data here
-    const { data: admissionSemesterData, isLoading: asisLoading, error: aserror } = useGetAllSemestersQuery(undefined);
-    const { data: academicDepartmentData, isLoading: adisLoading, error: aderror } = useGetAllAcademicDepartmentsQuery(undefined);
+    const [addStudent] = useCreateStudentMutation();
+    const { data: admissionSemesterData, isLoading: asIsLoading, error: asError } = useGetAllSemestersQuery(undefined);
+    const { data: academicDepartmentData, isLoading: adIsLoading, error: adError } = useGetAllAcademicDepartmentsQuery(undefined);
 
     const admissionSemesterOptions = admissionSemesterData?.data?.map((admissionSemester: any) => ({
         value: admissionSemester._id,
@@ -47,12 +50,29 @@ const CreateStudent = () => {
         const updatedStudentData = { ...inputFieldData, ...data };
         setInputFieldData(updatedStudentData);
 
+        const studentData = {
+            password: "student123",
+            student: updatedStudentData
+        }
+
         const formData = new FormData();
-        formData.append("data", JSON.stringify(updatedStudentData));
+        formData.append("data", JSON.stringify(studentData));
 
         if (currentStep === steps.length - 1) {
-            console.log('Final data:', updatedStudentData);
-            console.log(Object.fromEntries(formData));
+            const toastId = toast.loading("Register Student...");
+
+            try {
+                const res = await addStudent(formData);
+
+                if ('error' in res) {
+                    const errorMessage = (res.error as any)?.data?.message;
+                    toast.error(errorMessage, { id: toastId });
+                } else if ('data' in res) {
+                    toast.success(res.data.message, { id: toastId });
+                }
+            } catch (err: any) {
+                toast.error(err.message, { id: toastId });
+            }
         } else {
             onNext();
         }
@@ -365,7 +385,7 @@ const CreateStudent = () => {
                             options={admissionSemesterOptions}
                             style={{ width: '100%' }}
                             placeholder="Select your admission semester"
-                            disabled={asisLoading || !!aserror}
+                            disabled={asIsLoading || !!asError}
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
@@ -374,7 +394,7 @@ const CreateStudent = () => {
                             options={academicDepartmentOptions}
                             style={{ width: '100%' }}
                             placeholder="Select your academic department"
-                            disabled={adisLoading || !!aderror}
+                            disabled={adIsLoading || !!adError}
                         />
                     </div>
                     <Row justify="start" gutter={10}>
