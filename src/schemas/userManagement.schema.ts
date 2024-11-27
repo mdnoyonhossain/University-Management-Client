@@ -76,3 +76,27 @@ export const facultyAcademicInfoSchema = z.object({
     academicDepartment: z.string({ required_error: "Academic department is required." }),
     designation: z.string({ required_error: "Faculty Designation is required." }),
 });
+
+// Admin Validation
+export const adminInfoAdminSchema = z.object({
+    name: z.object({
+        firstName: z.string({ required_error: "First name is required" }).min(1),
+        middleName: z.string().optional(),
+        lastName: z.string({ required_error: "Last name is required" }).min(1),
+    }),
+    designation: z.string({ required_error: "Admin Designation is required." }).min(1),
+    profileImg: imageFileValidation.optional(),
+});
+
+export const adminContactInfoSchema = z.object({
+    email: z.string({ required_error: "Please enter a valid email address." }).email(),
+    contactNo: z.string({ required_error: "Contact number must be at least 10 characters." }).min(10).regex(/^\d+$/),
+    emergencyContactNo: z.string({ required_error: "Emergency contact number must be at least 10 characters." }).min(10).regex(/^\d+$/),
+    presentAddress: z.string({ required_error: "Present address is required." }).min(1),
+    permanentAddress: z.string({ required_error: "Permanent address is required." }).min(1),
+});
+
+export const personalInfoAdminSchema = z.object({
+    bloodGroup: z.string({ required_error: "Blood Group is required" }),
+    gender: z.string({ required_error: "Gender is required" }).min(1),
+});
