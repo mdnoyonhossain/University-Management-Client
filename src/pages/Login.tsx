@@ -64,16 +64,16 @@ const Login = () => {
                     <h2
                         style={{
                             textAlign: 'center',
-                            fontSize: '24px',
+                            fontSize: '22px',
                             fontWeight: 'bold',
                             color: '#fff',
                             textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
-                            marginBottom: '18px',
+                            marginBottom: '20px',
                             fontFamily: 'Arial, sans-serif',
-                        }}
-                    >
+                        }}>
                         PH University Login
                     </h2>
+
                     <PHForm onSubmit={onSubmit} resolver={zodResolver(loginSchema)}>
                         <div style={{ marginBottom: '15px' }}>
                             <PHInput
@@ -108,7 +108,7 @@ const Login = () => {
 
                         <div>
                             <Button type="primary" htmlType="submit" block style={{ borderRadius: '8px', fontSize: "16px", fontWeight: "bold" }}>
-                                Log in
+                                Login
                             </Button>
                         </div>
                     </PHForm>

@@ -15,6 +15,7 @@ import { useCreateStudentMutation } from '../../../redux/features/admin/userMana
 import { UploadOutlined } from "@ant-design/icons";
 import { toast } from 'sonner';
 import { personalInfoStudentSchema, studentAcademicInfoSchema, studentContactInfoSchema, studentGuardianInfoSchema, studentLocalGuardianInfoSchema } from '../../../schemas/userManagement.schema';
+import Loading from '../../Loading';
 
 const { Step } = Steps;
 
@@ -46,6 +47,10 @@ const CreateStudent = () => {
             setCurrentStep(currentStep - 1);
         }
     };
+
+    if (asIsLoading || adIsLoading) {
+        return <Loading />
+    }
 
     const onSubmit = async (data: FieldValues) => {
         const updatedStudentData = { ...inputFieldData, ...data, ...data.profileImg };
