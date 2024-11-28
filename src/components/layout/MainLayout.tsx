@@ -85,6 +85,7 @@ const MainLayout = () => {
                         color: '#fff',
                         padding: '16px 50px',
                         fontSize: '14px',
+                        marginTop: "30px",
                     }}
                 >
                     PH University Management System ©{new Date().getFullYear()} Developed by Noyon Hossain
