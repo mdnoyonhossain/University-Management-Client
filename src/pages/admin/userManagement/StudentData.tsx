@@ -102,7 +102,7 @@ const StudentData = () => {
         }
     ];
 
-    const studentTableData = studentData?.data?.map((student) => ({
+    const studentTableData = studentData?.data?.map((student: TStudent) => ({
         key: student._id,
         fullName: student.fullName,
         id: student.id,
