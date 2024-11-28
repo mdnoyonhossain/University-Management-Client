@@ -5,9 +5,12 @@ import CreateAcademicDepartment from "../pages/admin/academicManagement/CreateAc
 import CreateAcademicFaculty from "../pages/admin/academicManagement/CreateAcademicFaculty";
 import CreateAcademicSemester from "../pages/admin/academicManagement/CreateAcademicSemester";
 import AdminDashboard from "../pages/admin/AdminDashboard";
+import AdminData from "../pages/admin/userManagement/AdminData";
 import CreateAdmin from "../pages/admin/userManagement/CreateAdmin";
 import CreateFaculty from "../pages/admin/userManagement/CreateFaculty";
 import CreateStudent from "../pages/admin/userManagement/CreateStudent";
+import FacultyData from "../pages/admin/userManagement/FacultyData";
+import StudentData from "../pages/admin/userManagement/StudentData";
 
 export const adminPaths = [
     {
@@ -54,9 +57,14 @@ export const adminPaths = [
         name: 'User Management',
         children: [
             {
-                name: 'Create Admin',
-                path: 'create-admin',
-                element: <CreateAdmin />,
+                name: 'Create Student',
+                path: 'create-student',
+                element: <CreateStudent />,
+            },
+            {
+                name: 'Student Data',
+                path: 'student-data',
+                element: <StudentData />,
             },
             {
                 name: 'Create Faculty',
@@ -64,10 +72,20 @@ export const adminPaths = [
                 element: <CreateFaculty />,
             },
             {
-                name: 'Create Student',
-                path: 'create-student',
-                element: <CreateStudent />,
+                name: 'Faculty Data',
+                path: 'faculty-data',
+                element: <FacultyData />,
+            },
+            {
+                name: 'Create Admin',
+                path: 'create-admin',
+                element: <CreateAdmin />,
+            },
+            {
+                name: 'Admin Data',
+                path: 'admin-data',
+                element: <AdminData />,
             }
-        ],
+        ]
     },
 ];
