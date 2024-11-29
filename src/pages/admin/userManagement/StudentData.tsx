@@ -6,7 +6,7 @@ import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManage
 import { EditOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, ReloadOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 
 
-type TTableData = Pick<TStudent, "fullName" | "_id" | "id" | "gender" | "contactNo">;
+type TTableData = Pick<TStudent, "fullName" | "_id" | "id" | "gender" | "contactNo" | "email">;
 
 const StudentData = () => {
     const [params, setParams] = useState<TQueryParam[]>([]);
@@ -14,7 +14,6 @@ const StudentData = () => {
     const [page, setPage] = useState(1);
 
     const { data: studentData, isLoading, isFetching } = useGetAllStudentsQuery([
-        { name: "limit", value: 5 },
         { name: "page", value: page },
         { name: "sort", value: "id" },
         ...params
@@ -70,6 +69,13 @@ const StudentData = () => {
             ellipsis: true,
         },
         {
+            title: "Email",
+            key: "email",
+            dataIndex: "email",
+            filters: getUniqueValues("email"),
+            ellipsis: true,
+        },
+        {
             title: 'Actions',
             key: 'actions',
             render: () => {
@@ -78,6 +84,7 @@ const StudentData = () => {
                         <Button
                             icon={<EditOutlined />}
                             type="default"
+                            size="small"
                             style={{ backgroundColor: "#1890ff", color: "#fff", borderColor: "#1890ff" }}
                         >
                             Update
@@ -90,6 +97,7 @@ const StudentData = () => {
                         >
                             <Button
                                 icon={<DeleteOutlined />}
+                                size="small"
                                 style={{ backgroundColor: "#ff4d4f", color: "#fff", borderColor: "#ff4d4f" }}
                             >
                                 Delete
@@ -99,6 +107,7 @@ const StudentData = () => {
                         <Button
                             icon={<InfoCircleOutlined />}
                             type="default"
+                            size="small"
                             style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
                         >
                             Details
@@ -116,11 +125,12 @@ const StudentData = () => {
         id: student.id,
         _id: student._id,
         gender: student.gender,
-        contactNo: student.contactNo
+        contactNo: student.contactNo,
+        email: student.email
     }));
 
     const studentMetaData = studentData?.meta;
-    console.log(studentMetaData);
+    
     if (isLoading) {
         return <Loading />;
     }
