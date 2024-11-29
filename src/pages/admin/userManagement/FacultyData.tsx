@@ -14,6 +14,7 @@ const FacultyData = () => {
     const [page, setPage] = useState(1);
 
     const { data: facultyData, isLoading, isFetching } = useGetAllFacultiesQuery([
+        { name: "limit", value: 6 },
         { name: "page", value: page },
         { name: "sort", value: "id" },
         ...params

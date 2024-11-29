@@ -14,6 +14,7 @@ const StudentData = () => {
     const [page, setPage] = useState(1);
 
     const { data: studentData, isLoading, isFetching } = useGetAllStudentsQuery([
+        { name: "limit", value: 6 },
         { name: "page", value: page },
         { name: "sort", value: "id" },
         ...params
