@@ -1,7 +1,7 @@
 import { Button, Row, Col, Steps, Form, Upload } from 'antd';
 import 'antd/dist/reset.css';
-import banner from "../../../assets/images/banner.avif";
-import registerFacultyImg from "../../../assets/images/academic-faculty.jpg";
+import banner from "../../../../assets/images/banner.avif";
+import registerFacultyImg from "../../../../assets/images/academic-faculty.jpg";
 import PHForm from '../../../../components/form/PHForm';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, FieldValues } from 'react-hook-form';

@@ -1,7 +1,7 @@
 import { Button, Row, Col } from 'antd';
 import 'antd/dist/reset.css';
-import banner from "../../../assets/images/banner.avif";
-import createSemester from "../../../assets/images/create-semester.jpg";
+import banner from "../../../../assets/images/banner.avif";
+import createSemester from "../../../../assets/images/create-semester.jpg";
 import PHForm from '../../../../components/form/PHForm';
 import PHSelect from '../../../../components/form/PHSelect';
 import { semesterOptions } from '../../../../constants/semester';
