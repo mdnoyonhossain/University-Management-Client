@@ -2,14 +2,14 @@ import { Button, Row, Col } from 'antd';
 import 'antd/dist/reset.css';
 import banner from "../../../assets/images/banner.avif";
 import academicDepartment from "../../../assets/images/academic-department.avif";
-import PHForm from '../../../components/form/PHForm';
+import PHForm from '../../../../components/form/PHForm';
 import { zodResolver } from "@hookform/resolvers/zod";
-import { academicDepartmentSchema } from '../../../schemas/academicManagement.schema';
+import { academicDepartmentSchema } from '../../../../schemas/academicManagement.schema';
 import { FieldValues } from 'react-hook-form';
-import { useCreateAcademicDepartmentMutation, useGetAllAcademicFacultiesQuery } from '../../../redux/features/admin/academicManagementApi';
+import { useCreateAcademicDepartmentMutation, useGetAllAcademicFacultiesQuery } from '../../../../redux/features/admin/academicManagementApi';
 import { toast } from 'sonner';
-import PHInput from '../../../components/form/PHInput';
-import PHSelect from '../../../components/form/PHSelect';
+import PHInput from '../../../../components/form/PHInput';
+import PHSelect from '../../../../components/form/PHSelect';
 
 const CreateAcademicDepartment = () => {
     const [addAcademicDepartment] = useCreateAcademicDepartmentMutation();

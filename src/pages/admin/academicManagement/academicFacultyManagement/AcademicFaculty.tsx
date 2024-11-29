@@ -1,17 +1,17 @@
 import { Button, Pagination, Popconfirm, Space, Table, TableColumnsType, TableProps } from "antd";
-import { useGetAllAcademicDepartmentsQuery } from "../../../redux/features/admin/academicManagementApi";
-import { TAcademicDepartment, TQueryParam } from "../../../types";
+import { useGetAllAcademicFacultiesQuery } from "../../../../redux/features/admin/academicManagementApi";
+import { TAcademicFaculty, TQueryParam } from "../../../../types";
 import { useState } from "react";
-import Loading from "../../Loading";
+import Loading from "../../../Loading";
 import { EditOutlined, DeleteOutlined, InfoCircleOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 
-type TTableData = Pick<TAcademicDepartment, "name" | "academicFaculty">
+type TTableData = Pick<TAcademicFaculty, "name">
 
-const AcademicDepartment = () => {
+const AcademicFaculty = () => {
     const [params, setParams] = useState<TQueryParam[]>([]);
     const [page, setPage] = useState(1);
 
-    const { data: academicDepartmentData, isLoading, isFetching } = useGetAllAcademicDepartmentsQuery([
+    const { data: academicFacultyData, isLoading, isFetching } = useGetAllAcademicFacultiesQuery([
         { name: "limit", value: 6 },
         { name: "page", value: page },
         { name: "sort", value: "id" },
@@ -19,15 +19,7 @@ const AcademicDepartment = () => {
     ]);
 
     const getUniqueValues = (key: keyof TTableData) => {
-        if (key === "academicFaculty") {
-            const values = academicDepartmentData?.data?.map((item) => item.academicFaculty.name) || [];
-            return Array.from(new Set(values)).map((value) => ({
-                text: value,
-                value,
-            }));
-        }
-
-        const values = academicDepartmentData?.data?.map((item) => item[key]) || [];
+        const values = academicFacultyData?.data?.map((item) => item[key]) || [];
         return Array.from(new Set(values)).map((value) => ({
             text: value,
             value,
@@ -36,21 +28,13 @@ const AcademicDepartment = () => {
 
     const columns: TableColumnsType<TTableData> = [
         {
-            title: "Academic Department",
+            title: "Academic Faculty Name",
             key: "name",
             dataIndex: "name",
             showSorterTooltip: { target: "full-header" },
             filters: getUniqueValues("name"),
             ellipsis: true,
             render: (text) => <span style={{ fontWeight: 'bold', color: '#1890ff' }}>{text}</span>,
-        },
-        {
-            title: "Academic Faculty",
-            key: "academicFaculty",
-            dataIndex: "academicFaculty",
-            filters: getUniqueValues("academicFaculty"),
-            ellipsis: true,
-            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>,
         },
         {
             title: 'Actions',
@@ -96,13 +80,12 @@ const AcademicDepartment = () => {
         }
     ];
 
-    const academicDepartmentTableData = academicDepartmentData?.data?.map((academicDepartment) => ({
-        key: academicDepartment._id,
-        name: academicDepartment.name,
-        academicFaculty: academicDepartment.academicFaculty.name
+    const academicFacultyTableData = academicFacultyData?.data?.map((academicFaculty) => ({
+        key: academicFaculty._id,
+        name: academicFaculty.name
     }));
 
-    const academicDepartmentMetaData = academicDepartmentData?.meta;
+    const academicFacultyMetaData = academicFacultyData?.meta;
 
     if (isLoading) {
         return <Loading />;
@@ -114,12 +97,7 @@ const AcademicDepartment = () => {
 
             Object.keys(filters).forEach((key) => {
                 if (filters[key]) {
-                    filters[key]?.forEach((value) => {
-                        queryParams.push({
-                            name: key,
-                            value: key === "academicFaculty" ? academicDepartmentData?.data?.find(faculty => faculty.academicFaculty.name === value)?.academicFaculty._id : value,
-                        });
-                    });
+                    filters[key]?.forEach((value) => queryParams.push({ name: key, value }));
                 }
             });
 
@@ -132,7 +110,7 @@ const AcademicDepartment = () => {
             <Table<TTableData>
                 loading={isFetching}
                 columns={columns}
-                dataSource={academicDepartmentTableData}
+                dataSource={academicFacultyTableData}
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
                 scroll={{ x: "max-content" }}
@@ -143,8 +121,8 @@ const AcademicDepartment = () => {
             <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
                 <Pagination
                     current={page}
-                    pageSize={academicDepartmentMetaData?.limit}
-                    total={academicDepartmentMetaData?.total}
+                    pageSize={academicFacultyMetaData?.limit}
+                    total={academicFacultyMetaData?.total}
                     onChange={(value, pageSize) => {
                         setPage(value);
                         setParams((prevParams) =>
@@ -199,4 +177,4 @@ const AcademicDepartment = () => {
     );
 };
 
-export default AcademicDepartment;
+export default AcademicFaculty;

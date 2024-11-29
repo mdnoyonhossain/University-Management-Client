@@ -1,18 +1,17 @@
-import { Button, Popconfirm, Space, Table, TableColumnsType, TableProps, Input, Pagination } from "antd";
-import { TQueryParam, TStudent } from "../../../types";
+import { Button, Pagination, Popconfirm, Space, Table, TableColumnsType, TableProps } from "antd";
+import { useGetAllSemestersQuery } from "../../../../redux/features/admin/academicManagementApi";
+import { TAcademicSemester, TQueryParam } from "../../../../types";
 import { useState } from "react";
-import Loading from "../../Loading";
-import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManagementApi";
-import { EditOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, ReloadOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import Loading from "../../../Loading";
+import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
-type TTableData = Pick<TStudent, "fullName" | "_id" | "id" | "gender" | "contactNo" | "email">;
+type TTableData = Pick<TAcademicSemester, "name" | "code" | "year" | "startMonth" | "endMonth">;
 
-const StudentData = () => {
+const AcademicSemester = () => {
     const [params, setParams] = useState<TQueryParam[]>([]);
-    const [rollNoSearch, setRollNoSearch] = useState<string>("");  // State for roll number search
     const [page, setPage] = useState(1);
 
-    const { data: studentData, isLoading, isFetching } = useGetAllStudentsQuery([
+    const { data: semesterData, isLoading, isFetching } = useGetAllSemestersQuery([
         { name: "limit", value: 6 },
         { name: "page", value: page },
         { name: "sort", value: "id" },
@@ -20,65 +19,54 @@ const StudentData = () => {
     ]);
 
     const getUniqueValues = (key: keyof TTableData) => {
-        const values = studentData?.data?.map((item) => item[key]) || [];
+        const values = semesterData?.data?.map((item) => item[key]) || [];
         return Array.from(new Set(values)).map((value) => ({
             text: value,
             value,
         }));
     };
 
-    const handleRollNoSearch = () => {
-        const queryParams: TQueryParam[] = [];
-        if (rollNoSearch) {
-            queryParams.push({ name: "id", value: rollNoSearch });
-        }
-        setParams(queryParams);
-    };
-
-    const handleReset = () => {
-        setParams([]);
-        setPage(1);
-        setRollNoSearch("");
-    };
-
     const columns: TableColumnsType<TTableData> = [
         {
-            title: "Student Name",
-            key: "fullName",
-            dataIndex: "fullName",
+            title: "Semester Name",
+            key: "name",
+            dataIndex: "name",
             showSorterTooltip: { target: "full-header" },
+            filters: getUniqueValues("name"),
             ellipsis: true,
-            render: (text) => <span style={{ fontWeight: 'bold', color: '#1890ff' }}>{text}</span>, // Style for Admin Name
+            render: (text) => <span style={{ fontWeight: 'bold', color: '#1890ff' }}>{text}</span>,
         },
         {
-            title: "Roll No.",
-            key: "id",
-            dataIndex: "id",
+            title: "Semester Code",
+            key: "code",
+            dataIndex: "code",
+            filters: getUniqueValues("code"),
             ellipsis: true,
-            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>, // Style for Roll No.
+            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>,
         },
         {
-            title: "Gender",
-            key: "gender",
-            dataIndex: "gender",
-            filters: getUniqueValues("gender"),
+            title: "Semester Year",
+            key: "year",
+            dataIndex: "year",
+            filters: getUniqueValues("year"),
             ellipsis: true,
-            render: (text) => <span style={{ color: '#f58b00' }}>{text}</span>, // Style for Roll No.
+            render: (text) => <span style={{ color: '#f58b00' }}>{text}</span>,
         },
         {
-            title: "Contact No.",
-            key: "contactNo",
-            dataIndex: "contactNo",
+            title: "Start Month",
+            key: "startMonth",
+            dataIndex: "startMonth",
+            filters: getUniqueValues("startMonth"),
             ellipsis: true,
-            render: (text) => <span style={{ color: '#FF4D4F' }}>{text}</span>, // Style for Contact No.
+            render: (text) => <span style={{ color: '#FF4D4F' }}>{text}</span>,
         },
         {
-            title: "Email",
-            key: "email",
-            dataIndex: "email",
-            filters: getUniqueValues("email"),
+            title: "End Month",
+            key: "endMonth",
+            dataIndex: "endMonth",
+            filters: getUniqueValues("endMonth"),
             ellipsis: true,
-            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>, // Style for Email
+            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>,
         },
         {
             title: 'Actions',
@@ -124,17 +112,16 @@ const StudentData = () => {
         }
     ];
 
-    const studentTableData = studentData?.data?.map((student: TStudent) => ({
-        key: student._id,
-        fullName: student.fullName,
-        id: student.id,
-        _id: student._id,
-        gender: student.gender,
-        contactNo: student.contactNo,
-        email: student.email
+    const semesterTableData = semesterData?.data?.map((semester) => ({
+        key: semester._id,
+        name: semester.name,
+        code: semester.code,
+        year: semester.year,
+        startMonth: semester.startMonth,
+        endMonth: semester.endMonth,
     }));
 
-    const studentMetaData = studentData?.meta;
+    const academicSemesterMetaData = semesterData?.meta;
 
     if (isLoading) {
         return <Loading />;
@@ -156,40 +143,10 @@ const StudentData = () => {
 
     return (
         <>
-            {/* Search Input for Roll No. */}
-            <Input
-                value={rollNoSearch}
-                onChange={(e) => setRollNoSearch(e.target.value)}  // Update state as user types
-                style={{ marginBottom: 20, width: 200 }}
-                placeholder="Search by Roll No."
-            />
-            {/* Search Button */}
-            <Button
-                onClick={handleRollNoSearch}
-                type="primary"
-                disabled={isLoading}
-                style={{ marginBottom: 20, marginLeft: 10 }}
-                icon={<SearchOutlined />}
-            >
-                Search
-            </Button>
-
-            {/* Reset Button */}
-            <Button
-                onClick={handleReset}
-                type="default"
-                loading={isLoading}
-                style={{ marginBottom: 20, marginLeft: 10 }}
-                icon={<ReloadOutlined />}
-            >
-                Reset
-            </Button>
-
-            {/* Table */}
             <Table<TTableData>
                 loading={isFetching}
                 columns={columns}
-                dataSource={studentTableData}
+                dataSource={semesterTableData}
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
                 scroll={{ x: "max-content" }}
@@ -200,8 +157,8 @@ const StudentData = () => {
             <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
                 <Pagination
                     current={page}
-                    pageSize={studentMetaData?.limit}
-                    total={studentMetaData?.total}
+                    pageSize={academicSemesterMetaData?.limit}
+                    total={academicSemesterMetaData?.total}
                     onChange={(value, pageSize) => {
                         setPage(value);
                         setParams((prevParams) =>
@@ -256,4 +213,4 @@ const StudentData = () => {
     );
 };
 
-export default StudentData;
+export default AcademicSemester;

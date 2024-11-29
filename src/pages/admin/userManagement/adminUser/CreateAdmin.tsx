@@ -1,34 +1,26 @@
 import { Button, Row, Col, Steps, Form, Upload } from 'antd';
 import 'antd/dist/reset.css';
 import banner from "../../../assets/images/banner.avif";
-import registerFacultyImg from "../../../assets/images/academic-faculty.jpg";
-import PHForm from '../../../components/form/PHForm';
+import registerAdminImg from "../../../assets/images/admin.jpg";
+import PHForm from '../../../../components/form/PHForm';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, FieldValues } from 'react-hook-form';
-import PHInput from '../../../components/form/PHInput';
+import PHInput from '../../../../components/form/PHInput';
 import { useState } from 'react';
-import PHSelect from '../../../components/form/PHSelect';
-import { bloodGroupOptions, genderOptions } from '../../../constants/global';
-import PHDatePicker from '../../../components/form/PHDatePicker';
-import { useGetAllAcademicDepartmentsQuery } from '../../../redux/features/admin/academicManagementApi';
-import { useCreateFacultyMutation } from '../../../redux/features/admin/userManagementApi';
+import PHSelect from '../../../../components/form/PHSelect';
+import { bloodGroupOptions, genderOptions } from '../../../../constants/global';
+import PHDatePicker from '../../../../components/form/PHDatePicker';
+import { useCreateAdminMutation } from '../../../../redux/features/admin/userManagementApi';
 import { UploadOutlined } from "@ant-design/icons";
 import { toast } from 'sonner';
-import { facultyAcademicInfoSchema, facultyContactInfoSchema, personalInfoFacultySchema } from '../../../schemas/userManagement.schema';
-import Loading from '../../Loading';
+import { adminContactInfoSchema, adminInfoAdminSchema, personalInfoAdminSchema } from '../../../../schemas/userManagement.schema';
 
 const { Step } = Steps;
 
-const CreateFaculty = () => {
+const CreateAdmin = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [inputFieldData, setInputFieldData] = useState({}); // Store form data here
-    const [addFaculty] = useCreateFacultyMutation();
-    const { data: academicDepartmentData, isLoading: adIsLoading, error: adError } = useGetAllAcademicDepartmentsQuery(undefined);
-
-    const academicDepartmentOptions = academicDepartmentData?.data?.map((academicDepartment: any) => ({
-        value: academicDepartment._id,
-        label: `${academicDepartment.name}`,
-    })) || [];
+    const [addAdmin] = useCreateAdminMutation();
 
     const onNext = () => {
         if (currentStep < steps.length - 1) {
@@ -42,28 +34,24 @@ const CreateFaculty = () => {
         }
     };
 
-    if (adIsLoading) {
-        return <Loading />
-    }
-
     const onSubmit = async (data: FieldValues) => {
-        const updatedFacultyData = { ...inputFieldData, ...data, ...data.profileImg };
-        setInputFieldData(updatedFacultyData);
+        const updatedAdminData = { ...inputFieldData, ...data, ...data.profileImg };
+        setInputFieldData(updatedAdminData);
 
-        const facultyData = {
-            password: "faculty123",
-            faculty: updatedFacultyData
+        const adminData = {
+            password: "admin123",
+            admin: updatedAdminData
         }
 
         const formData = new FormData();
-        formData.append("data", JSON.stringify(facultyData));
-        formData.append("file", updatedFacultyData.profileImg);
+        formData.append("data", JSON.stringify(adminData));
+        formData.append("file", updatedAdminData.profileImg);
 
         if (currentStep === steps.length - 1) {
-            const toastId = toast.loading("Register Faculty...");
+            const toastId = toast.loading("Register Admin...");
 
             try {
-                const res = await addFaculty(formData);
+                const res = await addAdmin(formData);
 
                 if ('error' in res) {
                     const errorMessage = (res.error as any)?.data?.message;
@@ -81,9 +69,9 @@ const CreateFaculty = () => {
 
     const steps = [
         {
-            title: 'Personal Info',
+            title: 'Admin Info',
             content: (
-                <PHForm onSubmit={onSubmit} resolver={zodResolver(personalInfoFacultySchema)}>
+                <PHForm onSubmit={onSubmit} resolver={zodResolver(adminInfoAdminSchema)}>
                     <div style={{ marginBottom: '15px' }}>
                         <PHInput
                             type="text"
@@ -109,27 +97,11 @@ const CreateFaculty = () => {
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
-                        <PHSelect
-                            name="gender"
-                            options={genderOptions}
-                            style={{ width: '100%' }}
-                            placeholder="Select Gender (Male/Female/Other)"
-                        />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                        <PHSelect
-                            name="bloogGroup"
-                            options={bloodGroupOptions}
-                            style={{ width: '100%' }}
-                            placeholder="Select Blood Group (Optional)"
-                        />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                        <PHDatePicker
-                            name="dateOfBirth"
-                            required
-                            style={{ borderRadius: '8px', width: "100%" }}
-                            placeholder="Select Date of Birth (YYYY-MM-DD)"
+                        <PHInput
+                            type="text"
+                            name="designation"
+                            style={{ borderRadius: '8px' }}
+                            placeholder="Enter Admin Designation"
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
@@ -172,7 +144,7 @@ const CreateFaculty = () => {
         {
             title: 'Contact Info',
             content: (
-                <PHForm onSubmit={onSubmit} resolver={zodResolver(facultyContactInfoSchema)}>
+                <PHForm onSubmit={onSubmit} resolver={zodResolver(adminContactInfoSchema)}>
                     <div style={{ marginBottom: '15px' }}>
                         <PHInput
                             type="email"
@@ -247,24 +219,31 @@ const CreateFaculty = () => {
             ),
         },
         {
-            title: 'Academic Info',
+            title: 'Personal Info',
             content: (
-                <PHForm onSubmit={onSubmit} resolver={zodResolver(facultyAcademicInfoSchema)}>
+                <PHForm onSubmit={onSubmit} resolver={zodResolver(personalInfoAdminSchema)}>
                     <div style={{ marginBottom: '15px' }}>
-                        <PHSelect
-                            name="academicDepartment"
-                            options={academicDepartmentOptions}
-                            style={{ width: '100%' }}
-                            placeholder="Select your Academic Department"
-                            disabled={adIsLoading || !!adError}
+                        <PHDatePicker
+                            name="dateOfBirth"
+                            required
+                            style={{ borderRadius: '8px', width: "100%" }}
+                            placeholder="Select Date of Birth (YYYY-MM-DD)"
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
-                        <PHInput
-                            type="text"
-                            name="designation"
-                            style={{ borderRadius: '8px' }}
-                            placeholder="Enter Faculty Designation"
+                        <PHSelect
+                            name="gender"
+                            options={genderOptions}
+                            style={{ width: '100%' }}
+                            placeholder="Select Gender (Male/Female/Other)"
+                        />
+                    </div>
+                    <div style={{ marginBottom: '15px' }}>
+                        <PHSelect
+                            name="bloodGroup"
+                            options={bloodGroupOptions}
+                            style={{ width: '100%' }}
+                            placeholder="Select Blood Group (Optional)"
                         />
                     </div>
                     <Row justify="start" gutter={10}>
@@ -295,7 +274,7 @@ const CreateFaculty = () => {
                                     backgroundColor: "green"
                                 }}
                             >
-                                Create Faculty
+                                Create Admin
                             </Button>
                         </Col>
                     </Row>
@@ -339,7 +318,7 @@ const CreateFaculty = () => {
                     lg={12}
                     style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <img
-                        src={registerFacultyImg}
+                        src={registerAdminImg}
                         alt="Logo"
                         style={{ maxWidth: '100%', borderRadius: '8px', objectFit: 'cover' }}
                     />
@@ -356,7 +335,7 @@ const CreateFaculty = () => {
                             marginBottom: '30px',
                             fontFamily: 'Arial, sans-serif',
                         }}>
-                        Register PH Faculty
+                        Register PH Admin
                     </h2>
 
                     {steps[currentStep].content}
@@ -366,4 +345,4 @@ const CreateFaculty = () => {
     );
 };
 
-export default CreateFaculty;
+export default CreateAdmin;

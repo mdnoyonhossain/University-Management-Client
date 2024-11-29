@@ -1,18 +1,18 @@
 import { Button, Popconfirm, Space, Table, TableColumnsType, TableProps, Input, Pagination } from "antd";
-import { TAdmin, TQueryParam } from "../../../types";
+import { TQueryParam, TStudent } from "../../../../types";
 import { useState } from "react";
-import Loading from "../../Loading";
-import { useGetAllAdminsQuery } from "../../../redux/features/admin/userManagementApi";
+import Loading from "../../../Loading";
+import { useGetAllStudentsQuery } from "../../../../redux/features/admin/userManagementApi";
 import { EditOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, ReloadOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 
-type TTableData = Pick<TAdmin, "fullName" | "_id" | "id" | "gender" | "contactNo" | "email">;
+type TTableData = Pick<TStudent, "fullName" | "_id" | "id" | "gender" | "contactNo" | "email">;
 
-const AdminData = () => {
+const StudentData = () => {
     const [params, setParams] = useState<TQueryParam[]>([]);
     const [rollNoSearch, setRollNoSearch] = useState<string>("");  // State for roll number search
     const [page, setPage] = useState(1);
 
-    const { data: adminData, isLoading, isFetching } = useGetAllAdminsQuery([
+    const { data: studentData, isLoading, isFetching } = useGetAllStudentsQuery([
         { name: "limit", value: 6 },
         { name: "page", value: page },
         { name: "sort", value: "id" },
@@ -20,7 +20,7 @@ const AdminData = () => {
     ]);
 
     const getUniqueValues = (key: keyof TTableData) => {
-        const values = adminData?.data?.map((item) => item[key]) || [];
+        const values = studentData?.data?.map((item) => item[key]) || [];
         return Array.from(new Set(values)).map((value) => ({
             text: value,
             value,
@@ -43,7 +43,7 @@ const AdminData = () => {
 
     const columns: TableColumnsType<TTableData> = [
         {
-            title: "Admin Name",
+            title: "Student Name",
             key: "fullName",
             dataIndex: "fullName",
             showSorterTooltip: { target: "full-header" },
@@ -96,7 +96,7 @@ const AdminData = () => {
                         </Button>
 
                         <Popconfirm
-                            title="Are you sure you want to delete this admin?"
+                            title="Are you sure you want to delete this student?"
                             okText="Yes"
                             cancelText="No"
                         >
@@ -124,17 +124,17 @@ const AdminData = () => {
         }
     ];
 
-    const adminTableData = adminData?.data?.map((admin: TAdmin) => ({
-        key: admin._id,
-        fullName: admin.fullName,
-        id: admin.id,
-        _id: admin._id,
-        gender: admin.gender,
-        contactNo: admin.contactNo,
-        email: admin.email
+    const studentTableData = studentData?.data?.map((student: TStudent) => ({
+        key: student._id,
+        fullName: student.fullName,
+        id: student.id,
+        _id: student._id,
+        gender: student.gender,
+        contactNo: student.contactNo,
+        email: student.email
     }));
 
-    const adminMetaData = adminData?.meta;
+    const studentMetaData = studentData?.meta;
 
     if (isLoading) {
         return <Loading />;
@@ -160,7 +160,7 @@ const AdminData = () => {
             <Input
                 value={rollNoSearch}
                 onChange={(e) => setRollNoSearch(e.target.value)}  // Update state as user types
-                style={{ marginBottom: 20, width: 200, borderRadius: '8px' }}
+                style={{ marginBottom: 20, width: 200 }}
                 placeholder="Search by Roll No."
             />
             {/* Search Button */}
@@ -168,7 +168,7 @@ const AdminData = () => {
                 onClick={handleRollNoSearch}
                 type="primary"
                 disabled={isLoading}
-                style={{ marginBottom: 20, marginLeft: 10, borderRadius: '8px' }}
+                style={{ marginBottom: 20, marginLeft: 10 }}
                 icon={<SearchOutlined />}
             >
                 Search
@@ -179,7 +179,7 @@ const AdminData = () => {
                 onClick={handleReset}
                 type="default"
                 loading={isLoading}
-                style={{ marginBottom: 20, marginLeft: 10, borderRadius: '8px' }}
+                style={{ marginBottom: 20, marginLeft: 10 }}
                 icon={<ReloadOutlined />}
             >
                 Reset
@@ -189,20 +189,19 @@ const AdminData = () => {
             <Table<TTableData>
                 loading={isFetching}
                 columns={columns}
-                dataSource={adminTableData}
+                dataSource={studentTableData}
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
                 scroll={{ x: "max-content" }}
                 pagination={false}
-                rowClassName="custom-table-row" // Custom row class for table
             />
 
             {/* Custom Pagination */}
             <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
                 <Pagination
                     current={page}
-                    pageSize={adminMetaData?.limit}
-                    total={adminMetaData?.total}
+                    pageSize={studentMetaData?.limit}
+                    total={studentMetaData?.total}
                     onChange={(value, pageSize) => {
                         setPage(value);
                         setParams((prevParams) =>
@@ -257,4 +256,4 @@ const AdminData = () => {
     );
 };
 
-export default AdminData;
+export default StudentData;

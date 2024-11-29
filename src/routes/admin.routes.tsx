@@ -1,16 +1,16 @@
-import AcademicDepartment from "../pages/admin/academicManagement/AcademicDepartment";
-import AcademicFaculty from "../pages/admin/academicManagement/AcademicFaculty";
-import AcademicSemester from "../pages/admin/academicManagement/AcademicSemester";
-import CreateAcademicDepartment from "../pages/admin/academicManagement/CreateAcademicDepartment";
-import CreateAcademicFaculty from "../pages/admin/academicManagement/CreateAcademicFaculty";
-import CreateAcademicSemester from "../pages/admin/academicManagement/CreateAcademicSemester";
+import AcademicDepartment from "../pages/admin/academicManagement/academicDepartmentManagement/AcademicDepartment";
+import AcademicFaculty from "../pages/admin/academicManagement/academicFacultyManagement/AcademicFaculty";
+import AcademicSemester from "../pages/admin/academicManagement/academicSemesterManagement/AcademicSemester";
+import CreateAcademicDepartment from "../pages/admin/academicManagement/academicDepartmentManagement/CreateAcademicDepartment";
+import CreateAcademicFaculty from "../pages/admin/academicManagement/academicFacultyManagement/CreateAcademicFaculty";
+import CreateAcademicSemester from "../pages/admin/academicManagement/academicSemesterManagement/CreateAcademicSemester";
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import AdminData from "../pages/admin/userManagement/AdminData";
-import CreateAdmin from "../pages/admin/userManagement/CreateAdmin";
-import CreateFaculty from "../pages/admin/userManagement/CreateFaculty";
-import CreateStudent from "../pages/admin/userManagement/CreateStudent";
-import FacultyData from "../pages/admin/userManagement/FacultyData";
-import StudentData from "../pages/admin/userManagement/StudentData";
+import AdminData from "../pages/admin/userManagement/adminUser/AdminData";
+import CreateAdmin from "../pages/admin/userManagement/adminUser/CreateAdmin";
+import CreateFaculty from "../pages/admin/userManagement/facultyUser/CreateFaculty";
+import CreateStudent from "../pages/admin/userManagement/studentUser/CreateStudent";
+import FacultyData from "../pages/admin/userManagement/facultyUser/FacultyData";
+import StudentData from "../pages/admin/userManagement/studentUser/StudentData";
 
 export const adminPaths = [
     {

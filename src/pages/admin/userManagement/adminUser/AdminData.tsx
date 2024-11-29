@@ -1,18 +1,18 @@
 import { Button, Popconfirm, Space, Table, TableColumnsType, TableProps, Input, Pagination } from "antd";
-import { TFaculty, TQueryParam } from "../../../types";
+import { TAdmin, TQueryParam } from "../../../../types";
 import { useState } from "react";
-import Loading from "../../Loading";
-import { useGetAllFacultiesQuery } from "../../../redux/features/admin/userManagementApi";
+import Loading from "../../../Loading";
+import { useGetAllAdminsQuery } from "../../../../redux/features/admin/userManagementApi";
 import { EditOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, ReloadOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 
-type TTableData = Pick<TFaculty, "fullName" | "_id" | "id" | "gender" | "contactNo" | "email">;
+type TTableData = Pick<TAdmin, "fullName" | "_id" | "id" | "gender" | "contactNo" | "email">;
 
-const FacultyData = () => {
+const AdminData = () => {
     const [params, setParams] = useState<TQueryParam[]>([]);
     const [rollNoSearch, setRollNoSearch] = useState<string>("");  // State for roll number search
     const [page, setPage] = useState(1);
 
-    const { data: facultyData, isLoading, isFetching } = useGetAllFacultiesQuery([
+    const { data: adminData, isLoading, isFetching } = useGetAllAdminsQuery([
         { name: "limit", value: 6 },
         { name: "page", value: page },
         { name: "sort", value: "id" },
@@ -20,7 +20,7 @@ const FacultyData = () => {
     ]);
 
     const getUniqueValues = (key: keyof TTableData) => {
-        const values = facultyData?.data?.map((item) => item[key]) || [];
+        const values = adminData?.data?.map((item) => item[key]) || [];
         return Array.from(new Set(values)).map((value) => ({
             text: value,
             value,
@@ -43,19 +43,19 @@ const FacultyData = () => {
 
     const columns: TableColumnsType<TTableData> = [
         {
-            title: "Faculty Name",
+            title: "Admin Name",
             key: "fullName",
             dataIndex: "fullName",
             showSorterTooltip: { target: "full-header" },
             ellipsis: true,
-            render: (text) => <span style={{ fontWeight: 'bold', color: '#1890ff' }}>{text}</span>,
+            render: (text) => <span style={{ fontWeight: 'bold', color: '#1890ff' }}>{text}</span>, // Style for Admin Name
         },
         {
             title: "Roll No.",
             key: "id",
             dataIndex: "id",
             ellipsis: true,
-            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>,
+            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>, // Style for Roll No.
         },
         {
             title: "Gender",
@@ -63,14 +63,14 @@ const FacultyData = () => {
             dataIndex: "gender",
             filters: getUniqueValues("gender"),
             ellipsis: true,
-            render: (text) => <span style={{ color: '#f58b00' }}>{text}</span>,
+            render: (text) => <span style={{ color: '#f58b00' }}>{text}</span>, // Style for Roll No.
         },
         {
             title: "Contact No.",
             key: "contactNo",
             dataIndex: "contactNo",
             ellipsis: true,
-            render: (text) => <span style={{ color: '#FF4D4F' }}>{text}</span>,
+            render: (text) => <span style={{ color: '#FF4D4F' }}>{text}</span>, // Style for Contact No.
         },
         {
             title: "Email",
@@ -78,7 +78,7 @@ const FacultyData = () => {
             dataIndex: "email",
             filters: getUniqueValues("email"),
             ellipsis: true,
-            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>,
+            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>, // Style for Email
         },
         {
             title: 'Actions',
@@ -96,7 +96,7 @@ const FacultyData = () => {
                         </Button>
 
                         <Popconfirm
-                            title="Are you sure you want to delete this faculty?"
+                            title="Are you sure you want to delete this admin?"
                             okText="Yes"
                             cancelText="No"
                         >
@@ -124,17 +124,17 @@ const FacultyData = () => {
         }
     ];
 
-    const facultyTableData = facultyData?.data?.map((faculty: TFaculty) => ({
-        key: faculty._id,
-        fullName: faculty.fullName,
-        id: faculty.id,
-        _id: faculty._id,
-        gender: faculty.gender,
-        contactNo: faculty.contactNo,
-        email: faculty.email
+    const adminTableData = adminData?.data?.map((admin: TAdmin) => ({
+        key: admin._id,
+        fullName: admin.fullName,
+        id: admin.id,
+        _id: admin._id,
+        gender: admin.gender,
+        contactNo: admin.contactNo,
+        email: admin.email
     }));
 
-    const facultyMetaData = facultyData?.meta;
+    const adminMetaData = adminData?.meta;
 
     if (isLoading) {
         return <Loading />;
@@ -160,7 +160,7 @@ const FacultyData = () => {
             <Input
                 value={rollNoSearch}
                 onChange={(e) => setRollNoSearch(e.target.value)}  // Update state as user types
-                style={{ marginBottom: 20, width: 200 }}
+                style={{ marginBottom: 20, width: 200, borderRadius: '8px' }}
                 placeholder="Search by Roll No."
             />
             {/* Search Button */}
@@ -168,7 +168,7 @@ const FacultyData = () => {
                 onClick={handleRollNoSearch}
                 type="primary"
                 disabled={isLoading}
-                style={{ marginBottom: 20, marginLeft: 10 }}
+                style={{ marginBottom: 20, marginLeft: 10, borderRadius: '8px' }}
                 icon={<SearchOutlined />}
             >
                 Search
@@ -179,7 +179,7 @@ const FacultyData = () => {
                 onClick={handleReset}
                 type="default"
                 loading={isLoading}
-                style={{ marginBottom: 20, marginLeft: 10 }}
+                style={{ marginBottom: 20, marginLeft: 10, borderRadius: '8px' }}
                 icon={<ReloadOutlined />}
             >
                 Reset
@@ -189,19 +189,20 @@ const FacultyData = () => {
             <Table<TTableData>
                 loading={isFetching}
                 columns={columns}
-                dataSource={facultyTableData}
+                dataSource={adminTableData}
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
                 scroll={{ x: "max-content" }}
                 pagination={false}
+                rowClassName="custom-table-row" // Custom row class for table
             />
 
             {/* Custom Pagination */}
             <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
                 <Pagination
                     current={page}
-                    pageSize={facultyMetaData?.limit}
-                    total={facultyMetaData?.total}
+                    pageSize={adminMetaData?.limit}
+                    total={adminMetaData?.total}
                     onChange={(value, pageSize) => {
                         setPage(value);
                         setParams((prevParams) =>
@@ -256,4 +257,4 @@ const FacultyData = () => {
     );
 };
 
-export default FacultyData;
+export default AdminData;

@@ -2,13 +2,13 @@ import { Button, Row, Col } from 'antd';
 import 'antd/dist/reset.css';
 import banner from "../../../assets/images/banner.avif";
 import academicFaculty from "../../../assets/images/academic-faculty.jpg";
-import PHForm from '../../../components/form/PHForm';
+import PHForm from '../../../../components/form/PHForm';
 import { zodResolver } from "@hookform/resolvers/zod";
-import { academicFacultySchema } from '../../../schemas/academicManagement.schema';
+import { academicFacultySchema } from '../../../../schemas/academicManagement.schema';
 import { FieldValues } from 'react-hook-form';
-import { useCreateAcademicFacultyMutation } from '../../../redux/features/admin/academicManagementApi';
+import { useCreateAcademicFacultyMutation } from '../../../../redux/features/admin/academicManagementApi';
 import { toast } from 'sonner';
-import PHInput from '../../../components/form/PHInput';
+import PHInput from '../../../../components/form/PHInput';
 
 const CreateAcademicFaculty = () => {
     const [addAcademicFaculty] = useCreateAcademicFacultyMutation();
