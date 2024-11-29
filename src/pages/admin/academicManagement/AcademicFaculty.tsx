@@ -34,6 +34,7 @@ const AcademicFaculty = () => {
             showSorterTooltip: { target: "full-header" },
             filters: getUniqueValues("name"),
             ellipsis: true,
+            render: (text) => <span style={{ fontWeight: 'bold', color: '#1890ff' }}>{text}</span>,
         },
         {
             title: 'Actions',

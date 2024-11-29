@@ -5,7 +5,6 @@ import Loading from "../../Loading";
 import { useGetAllFacultiesQuery } from "../../../redux/features/admin/userManagementApi";
 import { EditOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, ReloadOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 
-
 type TTableData = Pick<TFaculty, "fullName" | "_id" | "id" | "gender" | "contactNo" | "email">;
 
 const FacultyData = () => {
@@ -49,12 +48,14 @@ const FacultyData = () => {
             dataIndex: "fullName",
             showSorterTooltip: { target: "full-header" },
             ellipsis: true,
+            render: (text) => <span style={{ fontWeight: 'bold', color: '#1890ff' }}>{text}</span>,
         },
         {
             title: "Roll No.",
             key: "id",
             dataIndex: "id",
             ellipsis: true,
+            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>,
         },
         {
             title: "Gender",
@@ -62,12 +63,14 @@ const FacultyData = () => {
             dataIndex: "gender",
             filters: getUniqueValues("gender"),
             ellipsis: true,
+            render: (text) => <span style={{ color: '#f58b00' }}>{text}</span>,
         },
         {
             title: "Contact No.",
             key: "contactNo",
             dataIndex: "contactNo",
             ellipsis: true,
+            render: (text) => <span style={{ color: '#FF4D4F' }}>{text}</span>,
         },
         {
             title: "Email",
@@ -75,6 +78,7 @@ const FacultyData = () => {
             dataIndex: "email",
             filters: getUniqueValues("email"),
             ellipsis: true,
+            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>,
         },
         {
             title: 'Actions',
@@ -92,7 +96,7 @@ const FacultyData = () => {
                         </Button>
 
                         <Popconfirm
-                            title="Are you sure you want to delete this student?"
+                            title="Are you sure you want to delete this faculty?"
                             okText="Yes"
                             cancelText="No"
                         >

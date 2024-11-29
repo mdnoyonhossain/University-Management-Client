@@ -42,6 +42,7 @@ const AcademicDepartment = () => {
             showSorterTooltip: { target: "full-header" },
             filters: getUniqueValues("name"),
             ellipsis: true,
+            render: (text) => <span style={{ fontWeight: 'bold', color: '#1890ff' }}>{text}</span>,
         },
         {
             title: "Academic Faculty",
@@ -49,6 +50,7 @@ const AcademicDepartment = () => {
             dataIndex: "academicFaculty",
             filters: getUniqueValues("academicFaculty"),
             ellipsis: true,
+            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>,
         },
         {
             title: 'Actions',

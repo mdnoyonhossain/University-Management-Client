@@ -5,7 +5,6 @@ import Loading from "../../Loading";
 import { useGetAllAdminsQuery } from "../../../redux/features/admin/userManagementApi";
 import { EditOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, ReloadOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 
-
 type TTableData = Pick<TAdmin, "fullName" | "_id" | "id" | "gender" | "contactNo" | "email">;
 
 const AdminData = () => {
@@ -49,12 +48,14 @@ const AdminData = () => {
             dataIndex: "fullName",
             showSorterTooltip: { target: "full-header" },
             ellipsis: true,
+            render: (text) => <span style={{ fontWeight: 'bold', color: '#1890ff' }}>{text}</span>, // Style for Admin Name
         },
         {
             title: "Roll No.",
             key: "id",
             dataIndex: "id",
             ellipsis: true,
+            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>, // Style for Roll No.
         },
         {
             title: "Gender",
@@ -62,12 +63,14 @@ const AdminData = () => {
             dataIndex: "gender",
             filters: getUniqueValues("gender"),
             ellipsis: true,
+            render: (text) => <span style={{ color: '#f58b00' }}>{text}</span>, // Style for Roll No.
         },
         {
             title: "Contact No.",
             key: "contactNo",
             dataIndex: "contactNo",
             ellipsis: true,
+            render: (text) => <span style={{ color: '#FF4D4F' }}>{text}</span>, // Style for Contact No.
         },
         {
             title: "Email",
@@ -75,6 +78,7 @@ const AdminData = () => {
             dataIndex: "email",
             filters: getUniqueValues("email"),
             ellipsis: true,
+            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>, // Style for Email
         },
         {
             title: 'Actions',
@@ -92,7 +96,7 @@ const AdminData = () => {
                         </Button>
 
                         <Popconfirm
-                            title="Are you sure you want to delete this student?"
+                            title="Are you sure you want to delete this admin?"
                             okText="Yes"
                             cancelText="No"
                         >
@@ -156,7 +160,7 @@ const AdminData = () => {
             <Input
                 value={rollNoSearch}
                 onChange={(e) => setRollNoSearch(e.target.value)}  // Update state as user types
-                style={{ marginBottom: 20, width: 200 }}
+                style={{ marginBottom: 20, width: 200, borderRadius: '8px' }}
                 placeholder="Search by Roll No."
             />
             {/* Search Button */}
@@ -164,7 +168,7 @@ const AdminData = () => {
                 onClick={handleRollNoSearch}
                 type="primary"
                 disabled={isLoading}
-                style={{ marginBottom: 20, marginLeft: 10 }}
+                style={{ marginBottom: 20, marginLeft: 10, borderRadius: '8px' }}
                 icon={<SearchOutlined />}
             >
                 Search
@@ -175,7 +179,7 @@ const AdminData = () => {
                 onClick={handleReset}
                 type="default"
                 loading={isLoading}
-                style={{ marginBottom: 20, marginLeft: 10 }}
+                style={{ marginBottom: 20, marginLeft: 10, borderRadius: '8px' }}
                 icon={<ReloadOutlined />}
             >
                 Reset
@@ -190,6 +194,7 @@ const AdminData = () => {
                 showSorterTooltip={{ target: "sorter-icon" }}
                 scroll={{ x: "max-content" }}
                 pagination={false}
+                rowClassName="custom-table-row" // Custom row class for table
             />
 
             {/* Custom Pagination */}
