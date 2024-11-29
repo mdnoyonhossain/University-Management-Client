@@ -1,14 +1,22 @@
-import { Table, TableColumnsType, TableProps } from "antd";
+import { Button, Pagination, Popconfirm, Space, Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagementApi";
 import { TAcademicSemester, TQueryParam } from "../../../types";
 import { useState } from "react";
 import Loading from "../../Loading";
+import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
 type TTableData = Pick<TAcademicSemester, "name" | "code" | "year" | "startMonth" | "endMonth">;
 
 const AcademicSemester = () => {
-    const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
-    const { data: semesterData, isLoading, isFetching } = useGetAllSemestersQuery(params);
+    const [params, setParams] = useState<TQueryParam[]>([]);
+    const [page, setPage] = useState(1);
+
+    const { data: semesterData, isLoading, isFetching } = useGetAllSemestersQuery([
+        { name: "limit", value: 6 },
+        { name: "page", value: page },
+        { name: "sort", value: "id" },
+        ...params
+    ]);
 
     const getUniqueValues = (key: keyof TTableData) => {
         const values = semesterData?.data?.map((item) => item[key]) || [];
@@ -55,6 +63,48 @@ const AcademicSemester = () => {
             filters: getUniqueValues("endMonth"),
             ellipsis: true,
         },
+        {
+            title: 'Actions',
+            key: 'actions',
+            render: () => {
+                return (
+                    <Space size="small">
+                        <Button
+                            icon={<EditOutlined />}
+                            type="default"
+                            size="small"
+                            style={{ backgroundColor: "#1890ff", color: "#fff", borderColor: "#1890ff" }}
+                        >
+                            Update
+                        </Button>
+
+                        <Popconfirm
+                            title="Are you sure you want to delete this student?"
+                            okText="Yes"
+                            cancelText="No"
+                        >
+                            <Button
+                                icon={<DeleteOutlined />}
+                                size="small"
+                                style={{ backgroundColor: "#ff4d4f", color: "#fff", borderColor: "#ff4d4f" }}
+                            >
+                                Delete
+                            </Button>
+                        </Popconfirm>
+
+                        <Button
+                            icon={<InfoCircleOutlined />}
+                            type="default"
+                            size="small"
+                            style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
+                        >
+                            Details
+                        </Button>
+                    </Space>
+                );
+            },
+            width: "1%",
+        }
     ];
 
     const semesterTableData = semesterData?.data?.map((semester) => ({
@@ -65,6 +115,8 @@ const AcademicSemester = () => {
         startMonth: semester.startMonth,
         endMonth: semester.endMonth,
     }));
+
+    const academicSemesterMetaData = semesterData?.meta;
 
     if (isLoading) {
         return <Loading />;
@@ -85,15 +137,74 @@ const AcademicSemester = () => {
     };
 
     return (
-        <Table<TTableData>
-            loading={isFetching}
-            columns={columns}
-            dataSource={semesterTableData}
-            onChange={onChange}
-            showSorterTooltip={{ target: "sorter-icon" }}
-            scroll={{ x: "max-content" }}
-            pagination={{ responsive: true }}
-        />
+        <>
+            <Table<TTableData>
+                loading={isFetching}
+                columns={columns}
+                dataSource={semesterTableData}
+                onChange={onChange}
+                showSorterTooltip={{ target: "sorter-icon" }}
+                scroll={{ x: "max-content" }}
+                pagination={false}
+            />
+
+            {/* Custom Pagination */}
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
+                <Pagination
+                    current={page}
+                    pageSize={academicSemesterMetaData?.limit}
+                    total={academicSemesterMetaData?.total}
+                    onChange={(value, pageSize) => {
+                        setPage(value);
+                        setParams((prevParams) =>
+                            prevParams.map((param) =>
+                                param.name === "limit" ? { ...param, value: pageSize } : param
+                            )
+                        );
+                    }}
+                    style={{
+                        backgroundColor: "#ffffff",
+                        padding: "10px 20px",
+                        borderRadius: "8px",
+                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                        border: "1px solid #d9d9d9",
+                    }}
+                    itemRender={(_current, type, originalElement) => {
+                        if (type === "prev") {
+                            return (
+                                <Button
+                                    type="primary"
+                                    style={{
+                                        backgroundColor: "#FF4D4F",
+                                        color: "#fff",
+                                        borderRadius: "4px",
+                                        padding: "0 8px",
+                                    }}
+                                >
+                                    <ArrowLeftOutlined /> Previous
+                                </Button>
+                            );
+                        }
+                        if (type === "next") {
+                            return (
+                                <Button
+                                    type="primary"
+                                    style={{
+                                        backgroundColor: "#1677ff",
+                                        color: "#fff",
+                                        borderRadius: "4px",
+                                        padding: "0 8px",
+                                    }}
+                                >
+                                    Next <ArrowRightOutlined />
+                                </Button>
+                            );
+                        }
+                        return originalElement;
+                    }}
+                />
+            </div>
+        </>
     );
 };
 
