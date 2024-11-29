@@ -1,4 +1,4 @@
-import { Button, Popconfirm, Space, Table, TableColumnsType, TableProps, Input, Pagination, Row, Col } from "antd";
+import { Button, Popconfirm, Space, Table, TableColumnsType, TableProps, Input, Pagination } from "antd";
 import { TQueryParam, TStudent } from "../../../types";
 import { useState } from "react";
 import Loading from "../../Loading";
