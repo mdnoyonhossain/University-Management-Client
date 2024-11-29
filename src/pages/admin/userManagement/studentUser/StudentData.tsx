@@ -4,6 +4,7 @@ import { useState } from "react";
 import Loading from "../../../Loading";
 import { useGetAllStudentsQuery } from "../../../../redux/features/admin/userManagementApi";
 import { EditOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, ReloadOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { Link } from "react-router-dom";
 
 type TTableData = Pick<TStudent, "fullName" | "_id" | "id" | "gender" | "contactNo" | "email">;
 
@@ -83,7 +84,7 @@ const StudentData = () => {
         {
             title: 'Actions',
             key: 'actions',
-            render: () => {
+            render: (item) => {
                 return (
                     <Space size="small">
                         <Button
@@ -109,14 +110,15 @@ const StudentData = () => {
                             </Button>
                         </Popconfirm>
 
-                        <Button
-                            icon={<InfoCircleOutlined />}
-                            type="default"
-                            size="small"
-                            style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
-                        >
-                            Details
-                        </Button>
+                        <Link to={`/admin/student-data/${item.key}`}>
+                            <Button
+                                icon={<InfoCircleOutlined />}
+                                type="default"
+                                size="small"
+                                style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
+                            >
+                                Details
+                            </Button></Link>
                     </Space>
                 );
             },
