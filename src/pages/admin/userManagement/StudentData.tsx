@@ -1,17 +1,24 @@
-import { Button, Popconfirm, Space, Table, TableColumnsType, TableProps, Input } from "antd";
+import { Button, Popconfirm, Space, Table, TableColumnsType, TableProps, Input, Pagination, Row, Col } from "antd";
 import { TQueryParam, TStudent } from "../../../types";
 import { useState } from "react";
 import Loading from "../../Loading";
 import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManagementApi";
-import { EditOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, ReloadOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, ReloadOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 
 
 type TTableData = Pick<TStudent, "fullName" | "_id" | "id" | "gender" | "contactNo">;
 
 const StudentData = () => {
-    const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
+    const [params, setParams] = useState<TQueryParam[]>([]);
     const [rollNoSearch, setRollNoSearch] = useState<string>("");  // State for roll number search
-    const { data: studentData, isLoading, isFetching } = useGetAllStudentsQuery(params);
+    const [page, setPage] = useState(1);
+
+    const { data: studentData, isLoading, isFetching } = useGetAllStudentsQuery([
+        { name: "limit", value: 5 },
+        { name: "page", value: page },
+        { name: "sort", value: "id" },
+        ...params
+    ]);
 
     const getUniqueValues = (key: keyof TTableData) => {
         const values = studentData?.data?.map((item) => item[key]) || [];
@@ -30,7 +37,8 @@ const StudentData = () => {
     };
 
     const handleReset = () => {
-        setParams(undefined);
+        setParams([]);
+        setPage(1);
         setRollNoSearch("");
     };
 
@@ -111,6 +119,8 @@ const StudentData = () => {
         contactNo: student.contactNo
     }));
 
+    const studentMetaData = studentData?.meta;
+    console.log(studentMetaData);
     if (isLoading) {
         return <Loading />;
     }
@@ -168,8 +178,65 @@ const StudentData = () => {
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
                 scroll={{ x: "max-content" }}
-                pagination={{ responsive: true }}
+                pagination={false}
             />
+
+            {/* Custom Pagination */}
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
+                <Pagination
+                    current={page}
+                    pageSize={studentMetaData?.limit}
+                    total={studentMetaData?.total}
+                    onChange={(value, pageSize) => {
+                        setPage(value);
+                        setParams((prevParams) =>
+                            prevParams.map((param) =>
+                                param.name === "limit" ? { ...param, value: pageSize } : param
+                            )
+                        );
+                    }}
+                    style={{
+                        backgroundColor: "#ffffff",
+                        padding: "10px 20px",
+                        borderRadius: "8px",
+                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                        border: "1px solid #d9d9d9",
+                    }}
+                    itemRender={(_current, type, originalElement) => {
+                        if (type === "prev") {
+                            return (
+                                <Button
+                                    type="primary"
+                                    style={{
+                                        backgroundColor: "#FF4D4F",
+                                        color: "#fff",
+                                        borderRadius: "4px",
+                                        padding: "0 8px",
+                                    }}
+                                >
+                                    <ArrowLeftOutlined /> Previous
+                                </Button>
+                            );
+                        }
+                        if (type === "next") {
+                            return (
+                                <Button
+                                    type="primary"
+                                    style={{
+                                        backgroundColor: "#1677ff",
+                                        color: "#fff",
+                                        borderRadius: "4px",
+                                        padding: "0 8px",
+                                    }}
+                                >
+                                    Next <ArrowRightOutlined />
+                                </Button>
+                            );
+                        }
+                        return originalElement;
+                    }}
+                />
+            </div>
         </>
     );
 };
