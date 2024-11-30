@@ -48,14 +48,13 @@ const FacultyData = () => {
             dataIndex: "fullName",
             showSorterTooltip: { target: "full-header" },
             ellipsis: true,
-            render: (text) => <span style={{ fontWeight: 'bold', color: '#1890ff' }}>{text}</span>,
+            render: (text) => <span style={{ fontWeight: 'bold'}}>{text}</span>,
         },
         {
             title: "Roll No.",
             key: "id",
             dataIndex: "id",
             ellipsis: true,
-            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>,
         },
         {
             title: "Gender",
@@ -63,14 +62,12 @@ const FacultyData = () => {
             dataIndex: "gender",
             filters: getUniqueValues("gender"),
             ellipsis: true,
-            render: (text) => <span style={{ color: '#f58b00' }}>{text}</span>,
         },
         {
             title: "Contact No.",
             key: "contactNo",
             dataIndex: "contactNo",
             ellipsis: true,
-            render: (text) => <span style={{ color: '#FF4D4F' }}>{text}</span>,
         },
         {
             title: "Email",
@@ -78,7 +75,6 @@ const FacultyData = () => {
             dataIndex: "email",
             filters: getUniqueValues("email"),
             ellipsis: true,
-            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>,
         },
         {
             title: 'Actions',

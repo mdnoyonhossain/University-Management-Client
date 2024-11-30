@@ -48,14 +48,13 @@ const AdminData = () => {
             dataIndex: "fullName",
             showSorterTooltip: { target: "full-header" },
             ellipsis: true,
-            render: (text) => <span style={{ fontWeight: 'bold', color: '#1890ff' }}>{text}</span>, // Style for Admin Name
+            render: (text) => <span style={{ fontWeight: 'bold'}}>{text}</span>, // Style for Admin Name
         },
         {
             title: "Roll No.",
             key: "id",
             dataIndex: "id",
             ellipsis: true,
-            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>, // Style for Roll No.
         },
         {
             title: "Gender",
@@ -63,14 +62,12 @@ const AdminData = () => {
             dataIndex: "gender",
             filters: getUniqueValues("gender"),
             ellipsis: true,
-            render: (text) => <span style={{ color: '#f58b00' }}>{text}</span>, // Style for Roll No.
         },
         {
             title: "Contact No.",
             key: "contactNo",
             dataIndex: "contactNo",
             ellipsis: true,
-            render: (text) => <span style={{ color: '#FF4D4F' }}>{text}</span>, // Style for Contact No.
         },
         {
             title: "Email",
@@ -78,7 +75,6 @@ const AdminData = () => {
             dataIndex: "email",
             filters: getUniqueValues("email"),
             ellipsis: true,
-            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>, // Style for Email
         },
         {
             title: 'Actions',
