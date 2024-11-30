@@ -126,6 +126,13 @@ const userManagementApi = baseApi.injectEndpoints({
                 };
             },
         }),
+        updateStudent: builder.mutation({
+            query: ({ id, data }: { id: string; data: Partial<TStudent> }) => ({
+                url: `/students/${id}`,
+                method: "PATCH",
+                body: data,
+            })
+        }),
     })
 });
 
@@ -138,5 +145,6 @@ export const {
     useGetSingleFacultyQuery,
     useCreateStudentMutation,
     useGetAllStudentsQuery,
-    useGetSingleStudentQuery
+    useGetSingleStudentQuery,
+    useUpdateStudentMutation
 } = userManagementApi;

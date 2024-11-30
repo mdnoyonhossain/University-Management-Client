@@ -1,7 +1,7 @@
 const StudentUpdate = () => {
     return (
         <div>
-            <h1>This is student update component</h1>
+            <h1>this is Sttudent Updated page</h1>
         </div>
     );
 };
