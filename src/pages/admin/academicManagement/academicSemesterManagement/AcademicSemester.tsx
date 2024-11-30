@@ -34,7 +34,7 @@ const AcademicSemester = () => {
             showSorterTooltip: { target: "full-header" },
             filters: getUniqueValues("name"),
             ellipsis: true,
-            render: (text) => <span style={{ fontWeight: 'bold', color: '#1890ff' }}>{text}</span>,
+            render: (text) => <span style={{ fontWeight: 'bold' }}>{text}</span>,
         },
         {
             title: "Semester Code",
@@ -42,7 +42,6 @@ const AcademicSemester = () => {
             dataIndex: "code",
             filters: getUniqueValues("code"),
             ellipsis: true,
-            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>,
         },
         {
             title: "Semester Year",
@@ -50,7 +49,6 @@ const AcademicSemester = () => {
             dataIndex: "year",
             filters: getUniqueValues("year"),
             ellipsis: true,
-            render: (text) => <span style={{ color: '#f58b00' }}>{text}</span>,
         },
         {
             title: "Start Month",
@@ -58,7 +56,6 @@ const AcademicSemester = () => {
             dataIndex: "startMonth",
             filters: getUniqueValues("startMonth"),
             ellipsis: true,
-            render: (text) => <span style={{ color: '#FF4D4F' }}>{text}</span>,
         },
         {
             title: "End Month",
@@ -66,7 +63,6 @@ const AcademicSemester = () => {
             dataIndex: "endMonth",
             filters: getUniqueValues("endMonth"),
             ellipsis: true,
-            render: (text) => <span style={{ color: '#52c41a' }}>{text}</span>,
         },
         {
             title: 'Actions',
