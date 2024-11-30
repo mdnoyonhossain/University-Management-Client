@@ -4,6 +4,7 @@ import { useState } from "react";
 import Loading from "../../../Loading";
 import { useGetAllFacultiesQuery } from "../../../../redux/features/admin/userManagementApi";
 import { EditOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, ReloadOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { Link } from "react-router-dom";
 
 type TTableData = Pick<TFaculty, "fullName" | "_id" | "id" | "gender" | "contactNo" | "email">;
 
@@ -48,7 +49,7 @@ const FacultyData = () => {
             dataIndex: "fullName",
             showSorterTooltip: { target: "full-header" },
             ellipsis: true,
-            render: (text) => <span style={{ fontWeight: 'bold'}}>{text}</span>,
+            render: (text) => <span style={{ fontWeight: 'bold' }}>{text}</span>,
         },
         {
             title: "Roll No.",
@@ -79,7 +80,7 @@ const FacultyData = () => {
         {
             title: 'Actions',
             key: 'actions',
-            render: () => {
+            render: (item) => {
                 return (
                     <Space size="small">
                         <Button
@@ -105,14 +106,16 @@ const FacultyData = () => {
                             </Button>
                         </Popconfirm>
 
-                        <Button
-                            icon={<InfoCircleOutlined />}
-                            type="default"
-                            size="small"
-                            style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
-                        >
-                            Details
-                        </Button>
+                        <Link to={`/admin/faculty-data/${item.key}`}>
+                            <Button
+                                icon={<InfoCircleOutlined />}
+                                type="default"
+                                size="small"
+                                style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
+                            >
+                                Details
+                            </Button>
+                        </Link>
                     </Space>
                 );
             },

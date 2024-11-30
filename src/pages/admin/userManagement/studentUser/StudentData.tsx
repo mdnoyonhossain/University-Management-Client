@@ -114,7 +114,8 @@ const StudentData = () => {
                                 style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
                             >
                                 Details
-                            </Button></Link>
+                            </Button>
+                        </Link>
                     </Space>
                 );
             },
