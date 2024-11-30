@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useGetSingleStudentQuery } from "../../../../redux/features/admin/userManagementApi";
 import { Card, Avatar, Row, Col, Typography, List, Divider, Tabs, Result, Button } from "antd";
 import Loading from "../../../Loading";
-import { EnvironmentOutlined, FileProtectOutlined, IdcardOutlined, ReloadOutlined, TeamOutlined } from "@ant-design/icons";
+import { FileProtectOutlined, IdcardOutlined, MailOutlined, ReloadOutlined, TeamOutlined } from "@ant-design/icons";
 
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
@@ -62,8 +62,8 @@ const StudentDetails = () => {
                             </Text>
                             <Divider />
                             <Text style={{ display: "block" }}>
-                                <EnvironmentOutlined style={{ marginRight: "8px" }} />
-                                <strong>Address:</strong> {student.presentAddress}
+                                <MailOutlined style={{ marginRight: "5px" }} />
+                                <strong>Email:</strong> {student.email}
                             </Text>
                             <Row justify="space-between" align="middle" gutter={[16, 16]} style={{ marginTop: "10px" }}>
                                 <Col>

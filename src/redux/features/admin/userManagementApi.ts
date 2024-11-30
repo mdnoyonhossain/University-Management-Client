@@ -33,6 +33,17 @@ const userManagementApi = baseApi.injectEndpoints({
                 };
             },
         }),
+        getSingleAdmin: builder.query({
+            query: (id: string) => ({
+                url: `/admins/${id}`,
+                method: "GET",
+            }),
+            transformResponse: (response: TResponseRedux<TAdmin>) => {
+                return {
+                    data: response.data
+                };
+            },
+        }),
         createFaculty: builder.mutation({
             query: (data) => ({
                 url: "/users/create-faculty",
@@ -121,6 +132,7 @@ const userManagementApi = baseApi.injectEndpoints({
 export const {
     useCreateAdminMutation,
     useGetAllAdminsQuery,
+    useGetSingleAdminQuery,
     useCreateFacultyMutation,
     useGetAllFacultiesQuery,
     useGetSingleFacultyQuery,
