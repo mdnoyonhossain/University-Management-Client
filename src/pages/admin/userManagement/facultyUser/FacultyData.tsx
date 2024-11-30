@@ -106,7 +106,7 @@ const FacultyData = () => {
                             </Button>
                         </Popconfirm>
 
-                        <Link to={`/admin/faculty-data/${item.key}`}>
+                        <Link to={`/admin/faculty-details-data/${item.key}`}>
                             <Button
                                 icon={<InfoCircleOutlined />}
                                 type="default"
