@@ -1,5 +1,5 @@
 import { Button, Pagination, Popconfirm, Space, Table, TableColumnsType, TableProps } from "antd";
-import { useGetAllSemestersQuery } from "../../../../redux/features/admin/academicManagementApi";
+import { useGetAllAcademicSemestersQuery } from "../../../../redux/features/admin/academicManagementApi";
 import { TAcademicSemester, TQueryParam } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
@@ -11,7 +11,7 @@ const AcademicSemester = () => {
     const [params, setParams] = useState<TQueryParam[]>([]);
     const [page, setPage] = useState(1);
 
-    const { data: semesterData, isLoading, isFetching } = useGetAllSemestersQuery([
+    const { data: semesterData, isLoading, isFetching } = useGetAllAcademicSemestersQuery([
         { name: "limit", value: 6 },
         { name: "page", value: page },
         { name: "sort", value: "id" },

@@ -8,9 +8,10 @@ type TPHInputProps = {
     label?: string;
     placeholder?: string;
     style?: CSSProperties;
+    required?: any;
 }
 
-const PHInput = ({ type, name, placeholder, style, label }: TPHInputProps) => {
+const PHInput = ({ type, name, placeholder, style, label, required }: TPHInputProps) => {
     return (
         <Controller
             name={name}
@@ -20,6 +21,7 @@ const PHInput = ({ type, name, placeholder, style, label }: TPHInputProps) => {
                         <Form.Item label={label}>
                             <Input.Password
                                 {...field}
+                                required={required}
                                 placeholder={placeholder}
                                 style={style}
                             />
@@ -32,6 +34,7 @@ const PHInput = ({ type, name, placeholder, style, label }: TPHInputProps) => {
                         <Input
                             {...field}
                             type={type}
+                            required={required}
                             placeholder={placeholder}
                             style={style}
                         />

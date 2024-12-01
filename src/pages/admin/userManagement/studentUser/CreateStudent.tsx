@@ -10,7 +10,7 @@ import { useState } from 'react';
 import PHSelect from '../../../../components/form/PHSelect';
 import { bloodGroupOptions, genderOptions } from '../../../../constants/global';
 import PHDatePicker from '../../../../components/form/PHDatePicker';
-import { useGetAllAcademicDepartmentsQuery, useGetAllSemestersQuery } from '../../../../redux/features/admin/academicManagementApi';
+import { useGetAllAcademicDepartmentsQuery, useGetAllAcademicSemestersQuery } from '../../../../redux/features/admin/academicManagementApi';
 import { useCreateStudentMutation } from '../../../../redux/features/admin/userManagementApi';
 import { UploadOutlined } from "@ant-design/icons";
 import { toast } from 'sonner';
@@ -23,7 +23,7 @@ const CreateStudent = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [inputFieldData, setInputFieldData] = useState({}); // Store form data here
     const [addStudent] = useCreateStudentMutation();
-    const { data: admissionSemesterData, isLoading: asIsLoading, error: asError } = useGetAllSemestersQuery(undefined);
+    const { data: admissionSemesterData, isLoading: asIsLoading, error: asError } = useGetAllAcademicSemestersQuery(undefined);
     const { data: academicDepartmentData, isLoading: adIsLoading, error: adError } = useGetAllAcademicDepartmentsQuery(undefined);
 
     const admissionSemesterOptions = admissionSemesterData?.data?.map((admissionSemester: any) => ({
