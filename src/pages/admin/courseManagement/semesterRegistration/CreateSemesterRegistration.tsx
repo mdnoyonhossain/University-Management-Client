@@ -1,7 +1,7 @@
 import { Button, Row, Col, Result } from 'antd';
 import 'antd/dist/reset.css';
 import banner from "../../../../assets/images/banner.avif";
-import createSemester from "../../../../assets/images/create-semester.jpg";
+import createSemester from "../../../../assets/images/semeser-registration.jpg";
 import PHForm from '../../../../components/form/PHForm';
 import PHSelect from '../../../../components/form/PHSelect';
 import { FieldValues } from 'react-hook-form';
@@ -118,7 +118,7 @@ const CreateSemesterRegistration = () => {
                             fontFamily: 'Arial, sans-serif',
                         }}
                     >
-                        Registration Semester
+                        Semester Registration
                     </h2>
                     <PHForm onSubmit={onSubmit}>
                         <div style={{ marginBottom: '15px' }}>
@@ -171,7 +171,7 @@ const CreateSemesterRegistration = () => {
                                     fontSize: '16px',
                                 }}
                             >
-                                Registration Semester
+                                Semester Registration
                             </Button>
                         </div>
                     </PHForm>
