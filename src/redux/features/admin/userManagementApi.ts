@@ -8,7 +8,8 @@ const userManagementApi = baseApi.injectEndpoints({
                 url: "/users/create-admin",
                 method: "POST",
                 body: data
-            })
+            }),
+            invalidatesTags: ["user"]
         }),
         getAllAdmins: builder.query({
             query: (args) => {
@@ -26,6 +27,7 @@ const userManagementApi = baseApi.injectEndpoints({
                     params: params,
                 };
             },
+            providesTags: ["user"],
             transformResponse: (response: TResponseRedux<TAdmin[]>) => {
                 return {
                     data: response.data,
@@ -38,6 +40,7 @@ const userManagementApi = baseApi.injectEndpoints({
                 url: `/admins/${id}`,
                 method: "GET",
             }),
+            providesTags: ["user"],
             transformResponse: (response: TResponseRedux<TAdmin>) => {
                 return {
                     data: response.data
@@ -49,7 +52,8 @@ const userManagementApi = baseApi.injectEndpoints({
                 url: "/users/create-faculty",
                 method: "POST",
                 body: data
-            })
+            }),
+            invalidatesTags: ["user"]
         }),
         getAllFaculties: builder.query({
             query: (args) => {
@@ -67,6 +71,7 @@ const userManagementApi = baseApi.injectEndpoints({
                     params: params,
                 };
             },
+            providesTags: ["user"],
             transformResponse: (response: TResponseRedux<TFaculty[]>) => {
                 return {
                     data: response.data,
@@ -79,6 +84,7 @@ const userManagementApi = baseApi.injectEndpoints({
                 url: `/faculties/${id}`,
                 method: "GET",
             }),
+            providesTags: ["user"],
             transformResponse: (response: TResponseRedux<TFaculty>) => {
                 return {
                     data: response.data
@@ -90,7 +96,8 @@ const userManagementApi = baseApi.injectEndpoints({
                 url: "/users/create-student",
                 method: "POST",
                 body: data
-            })
+            }),
+            invalidatesTags: ["user"]
         }),
         getAllStudents: builder.query({
             query: (args) => {
@@ -108,6 +115,7 @@ const userManagementApi = baseApi.injectEndpoints({
                     params: params,
                 };
             },
+            providesTags: ["user"],
             transformResponse: (response: TResponseRedux<TStudent[]>) => {
                 return {
                     data: response.data,
@@ -120,6 +128,7 @@ const userManagementApi = baseApi.injectEndpoints({
                 url: `/students/${id}`,
                 method: "GET",
             }),
+            providesTags: ["user"],
             transformResponse: (response: TResponseRedux<TStudent>) => {
                 return {
                     data: response.data
@@ -127,11 +136,12 @@ const userManagementApi = baseApi.injectEndpoints({
             },
         }),
         updateStudent: builder.mutation({
-            query: ({ id, data }: { id: string; data: Partial<TStudent> }) => ({
-                url: `/students/${id}`,
+            query: (args) => ({
+                url: `/students/${args.id}`,
                 method: "PATCH",
-                body: data,
-            })
+                body: args.data,
+            }),
+            invalidatesTags: ["user"]
         }),
     })
 });

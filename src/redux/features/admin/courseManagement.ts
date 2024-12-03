@@ -8,7 +8,8 @@ const courseManagement = baseApi.injectEndpoints({
                 url: "/semester-registrations/create-semester-registration",
                 method: "POST",
                 body: data
-            })
+            }),
+            invalidatesTags: ["semester"]
         }),
         getAllRegistrationSemester: builder.query({
             query: (args) => {
@@ -26,6 +27,7 @@ const courseManagement = baseApi.injectEndpoints({
                     params: params,
                 };
             },
+            providesTags: ["semester"],
             transformResponse: (response: TResponseRedux<TSemesterRegistration[]>) => {
                 return {
                     data: response.data,
@@ -38,7 +40,8 @@ const courseManagement = baseApi.injectEndpoints({
                 url: `/semester-registrations/${args.id}`,
                 method: "PATCH",
                 body: args.data,
-            })
+            }),
+            invalidatesTags: ["semester"]
         }),
     })
 });
