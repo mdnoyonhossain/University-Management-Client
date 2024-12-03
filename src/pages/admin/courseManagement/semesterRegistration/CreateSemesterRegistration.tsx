@@ -41,7 +41,7 @@ const CreateSemesterRegistration = () => {
     }
 
     const onSubmit = async (data: FieldValues) => {
-        const toastId = toast.loading("Registration Semester...");
+        const toastId = toast.loading("Semester Registration...");
 
         const registrationSemesterData = {
             academicSemester: data.academicSemester,
@@ -51,8 +51,7 @@ const CreateSemesterRegistration = () => {
             minCredit: Number(data.minCredit),
             maxCredit: Number(data.maxCredit)
         }
-        console.log(registrationSemesterData);
-
+        
         try {
             const res = await createRegistrationSemester(registrationSemesterData);
 

@@ -3,8 +3,9 @@ import { TQueryParam, TSemesterRegistration } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
 import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined, CheckCircleOutlined, HourglassOutlined, CloseCircleOutlined, DownOutlined } from '@ant-design/icons';
-import { useGetAllRegistrationSemesterQuery } from "../../../../redux/features/admin/courseManagement";
+import { useGetAllRegistrationSemesterQuery, useUpdateRegistrationSemesterMutation } from "../../../../redux/features/admin/courseManagement";
 import moment from "moment";
+import { toast } from "sonner";
 
 type TTableData = Pick<TSemesterRegistration, "academicSemester" | "status" | "startDate" | "endDate" | "minCredit" | "maxCredit">;
 
@@ -30,7 +31,9 @@ const items = [
 const SemesterRegistration = () => {
     const [params, setParams] = useState<TQueryParam[]>([]);
     const [page, setPage] = useState(1);
+    const [semesterRegistrationId, setSemesterRegistrationId] = useState("");
 
+    const [updateSemesterRegistrationStatus] = useUpdateRegistrationSemesterMutation();
     const { data: semesterRegistrationData, isLoading, isFetching } = useGetAllRegistrationSemesterQuery([
         { name: "limit", value: 6 },
         { name: "page", value: page },
@@ -46,13 +49,33 @@ const SemesterRegistration = () => {
         }));
     };
 
-    const handleStatusDropdown = (data) => {
-        console.log(data);
+    const handleStatusUpdate = async (data: any) => {
+        const toastId = toast.loading("Semester Registration Status...");
+
+        const semesterRegistrationStatusData = {
+            id: semesterRegistrationId,
+            data: {
+                status: data.key
+            }
+        }
+
+        try {
+            const res = await updateSemesterRegistrationStatus(semesterRegistrationStatusData);
+
+            if ('error' in res) {
+                const errorMessage = (res.error as any)?.data?.message;
+                toast.error(errorMessage, { id: toastId });
+            } else if ('data' in res) {
+                toast.success(res.data.message, { id: toastId });
+            }
+        } catch (err: any) {
+            toast.error(err.message, { id: toastId });
+        }
     }
 
     const menuProps = {
         items,
-        onClick: handleStatusDropdown,
+        onClick: handleStatusUpdate,
     };
 
     const columns: TableColumnsType<TTableData> = [
@@ -113,7 +136,7 @@ const SemesterRegistration = () => {
         {
             title: 'Actions',
             key: 'actions',
-            render: () => {
+            render: (item) => {
                 return (
                     <Space size="small">
                         <Button
@@ -127,7 +150,7 @@ const SemesterRegistration = () => {
 
                         <Dropdown menu={menuProps} trigger={['click']}>
                             <Button
-                                onClick={handleStatusDropdown}
+                                onClick={() => setSemesterRegistrationId(item.key)}
                                 icon={<DownOutlined />}
                                 type="default"
                                 size="small"
