@@ -23,7 +23,7 @@ const CreateOfferedCourses = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [inputFieldData, setInputFieldData] = useState({}); // Store form data here
     const [courseDependentQueryId, setCourseDependentQueryId] = useState("");
-    
+
     const [createOfferedCourse] = useCreateOfferedCourseMutation();
     const { data: semesterRegistrationData, isLoading: smrisLoading, error: smrError } = useGetAllRegistrationSemesterQuery(undefined);
     const { data: academicFacultyData, isLoading: acfisLoading, error: acferror } = useGetAllAcademicFacultiesQuery(undefined);
@@ -85,7 +85,7 @@ const CreateOfferedCourses = () => {
 
         if (currentStep === steps.length - 1) {
             const toastId = toast.loading("Creating Offered Course...");
-
+            
             try {
                 const res = await createOfferedCourse(offeredCoursesData);
 
@@ -199,18 +199,18 @@ const CreateOfferedCourses = () => {
                     </div>
                     <div style={{ marginBottom: '15px' }}>
                         <PHInput
-                            type="text"
+                            type='Time'
                             name="startTime"
-                            style={{ borderRadius: '8px' }}
-                            placeholder="Enter Offered Course Start Time"
+                            style={{ borderRadius: '8px', width: "100%" }}
+                            placeholder="Select Start Time (HH:MM)"
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
                         <PHInput
-                            type="text"
+                            type='Time'
                             name="endTime"
-                            style={{ borderRadius: '8px' }}
-                            placeholder="Enter Offered Course End Time"
+                            style={{ borderRadius: '8px', width: "100%" }}
+                            placeholder="Select End Time (HH:MM)"
                         />
                     </div>
                     <Row justify="start" gutter={10}>
