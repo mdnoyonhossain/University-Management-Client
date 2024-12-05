@@ -1,7 +1,7 @@
 import { Button, Row, Col, Result } from 'antd';
 import 'antd/dist/reset.css';
 import banner from "../../../../assets/images/banner.avif";
-import createSemesterImg from "../../../../assets/images/create-course.jpg";
+import createSemesterImg from "../../../../assets/images/course-create.jpg";
 import PHForm from '../../../../components/form/PHForm';
 import PHSelect from '../../../../components/form/PHSelect';
 import { zodResolver } from "@hookform/resolvers/zod";

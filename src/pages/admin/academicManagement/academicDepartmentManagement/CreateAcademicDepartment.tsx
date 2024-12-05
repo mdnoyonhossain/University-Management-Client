@@ -10,6 +10,7 @@ import { useCreateAcademicDepartmentMutation, useGetAllAcademicFacultiesQuery } 
 import { toast } from 'sonner';
 import PHInput from '../../../../components/form/PHInput';
 import PHSelect from '../../../../components/form/PHSelect';
+import Loading from '../../../Loading';
 
 const CreateAcademicDepartment = () => {
     const [addAcademicDepartment] = useCreateAcademicDepartmentMutation();
@@ -19,6 +20,10 @@ const CreateAcademicDepartment = () => {
         value: faculty._id,
         label: faculty.name,
     })) || [];
+
+    if (isLoading) {
+        return <Loading />
+    }
 
     const onSubmit = async (data: FieldValues) => {
         const toastId = toast.loading("Create Department...");
