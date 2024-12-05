@@ -9,9 +9,10 @@ type TPHSelectProps = {
     style?: CSSProperties;
     options: { value: string, label: string }[];
     disabled?: any;
+    mode?: "multiple" | undefined;
 }
 
-const PHSelect = ({ name, label, placeholder, style, options, disabled }: TPHSelectProps) => {
+const PHSelect = ({ name, label, placeholder, style, options, disabled, mode }: TPHSelectProps) => {
     return (
         <Controller
             name={name}
@@ -19,6 +20,7 @@ const PHSelect = ({ name, label, placeholder, style, options, disabled }: TPHSel
                 <Form.Item label={label}>
                     <Select
                         {...field}
+                        mode={mode}
                         placeholder={placeholder}
                         style={style}
                         options={options}
