@@ -23,7 +23,7 @@ const { Step } = Steps;
 const CreateOfferedCourses = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [inputFieldData, setInputFieldData] = useState({}); // Store form data here
-    // const [offeredCourseWatchId, setOfferedCourseWatchId] = useState("");
+    const [offeredCourseWatchId, setOfferedCourseWatchId] = useState("");
 
     const { data: semesterRegistrationData, isLoading: smrisLoading, error: smrError } = useGetAllRegistrationSemesterQuery(undefined);
     const { data: academicFacultyData, isLoading: acfisLoading, error: acferror } = useGetAllAcademicFacultiesQuery(undefined);
