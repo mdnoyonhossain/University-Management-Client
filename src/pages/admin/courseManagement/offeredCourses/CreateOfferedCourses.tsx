@@ -9,11 +9,10 @@ import PHInput from '../../../../components/form/PHInput';
 import { useState } from 'react';
 import PHSelect from '../../../../components/form/PHSelect';
 import { daysOptions } from '../../../../constants/global';
-import { useGetAllFacultiesQuery } from '../../../../redux/features/admin/userManagementApi';
 import { toast } from 'sonner';
 import { GiftOutlined } from '@ant-design/icons';
 import Loading from '../../../Loading';
-import { useGetAllCoursesQuery, useGetAllRegistrationSemesterQuery } from '../../../../redux/features/admin/courseManagement';
+import { useCreateOfferedCourseMutation, useGetAllCoursesQuery, useGetAllRegistrationSemesterQuery, useGetFacultiesWithCourseQuery } from '../../../../redux/features/admin/courseManagement';
 import { useGetAllAcademicDepartmentsQuery, useGetAllAcademicFacultiesQuery } from '../../../../redux/features/admin/academicManagementApi';
 import { offeredCourseAcademicCourseSchema, offeredCourseSectionDateTimeSchema } from '../../../../schemas/courseManagement';
 import PHSelectWithWatch from '../../../../components/form/PHSelectWithWatch';
@@ -23,13 +22,14 @@ const { Step } = Steps;
 const CreateOfferedCourses = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [inputFieldData, setInputFieldData] = useState({}); // Store form data here
-    const [offeredCourseWatchId, setOfferedCourseWatchId] = useState("");
-
+    const [courseDependentQueryId, setCourseDependentQueryId] = useState("");
+    
+    const [createOfferedCourse] = useCreateOfferedCourseMutation();
     const { data: semesterRegistrationData, isLoading: smrisLoading, error: smrError } = useGetAllRegistrationSemesterQuery(undefined);
     const { data: academicFacultyData, isLoading: acfisLoading, error: acferror } = useGetAllAcademicFacultiesQuery(undefined);
     const { data: academicDepartmentData, isLoading: acdisLoading, error: acderror } = useGetAllAcademicDepartmentsQuery(undefined);
     const { data: courseData, isLoading: courseisLoading, error: courseerror } = useGetAllCoursesQuery(undefined);
-    const { data: facultyData, isLoading: facultyisLoading, error: facultyerror } = useGetAllFacultiesQuery(undefined);
+    const { data: courseDependentFacultyData, isFetching: facultyFetching } = useGetFacultiesWithCourseQuery(courseDependentQueryId, { skip: !courseDependentQueryId });
 
     const semesterRegistrationOptions = semesterRegistrationData?.data?.map((semesterRegistrationItem: any) => ({
         value: semesterRegistrationItem._id,
@@ -51,12 +51,12 @@ const CreateOfferedCourses = () => {
         label: `${courseItem.title} (Code-${courseItem.code})`
     })) || [];
 
-    const facultyOptions = facultyData?.data?.map((facultyItem: any) => ({
+    const courseDependentFacultyOptions = courseDependentFacultyData?.data?.faculties?.map((facultyItem: any) => ({
         value: facultyItem._id,
         label: facultyItem.fullName
     })) || [];
 
-    if (smrisLoading || acfisLoading || acdisLoading || courseisLoading || facultyisLoading) {
+    if (smrisLoading || acfisLoading || acdisLoading || courseisLoading) {
         return <Loading />
     }
 
@@ -85,19 +85,19 @@ const CreateOfferedCourses = () => {
 
         if (currentStep === steps.length - 1) {
             const toastId = toast.loading("Creating Offered Course...");
-            console.log(offeredCoursesData);
-            // try {
-            //     const res = await addAdmin(offeredCoursesData);
 
-            //     if ('error' in res) {
-            //         const errorMessage = (res.error as any)?.data?.message;
-            //         toast.error(errorMessage, { id: toastId });
-            //     } else if ('data' in res) {
-            //         toast.success(res.data.message, { id: toastId });
-            //     }
-            // } catch (err: any) {
-            //     toast.error(err.message, { id: toastId });
-            // }
+            try {
+                const res = await createOfferedCourse(offeredCoursesData);
+
+                if ('error' in res) {
+                    const errorMessage = (res.error as any)?.data?.message;
+                    toast.error(errorMessage, { id: toastId });
+                } else if ('data' in res) {
+                    toast.success(res.data.message, { id: toastId });
+                }
+            } catch (err: any) {
+                toast.error(err.message, { id: toastId });
+            }
         } else {
             onNext();
         }
@@ -109,12 +109,11 @@ const CreateOfferedCourses = () => {
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(offeredCourseAcademicCourseSchema)}>
                     <div style={{ marginBottom: '15px' }}>
-                        <PHSelectWithWatch
+                        <PHSelect
                             name="semesterRegistration"
                             options={semesterRegistrationOptions}
                             style={{ width: '100%' }}
                             placeholder="Select Semester Registration"
-                            onValueChange={setOfferedCourseWatchId}
                             disabled={smrisLoading || !!smrError}
                         />
                     </div>
@@ -124,7 +123,7 @@ const CreateOfferedCourses = () => {
                             options={academicFacultyOptions}
                             style={{ width: '100%' }}
                             placeholder="Select Academic Faculty"
-                            disabled={acfisLoading || !!acferror || !offeredCourseWatchId}
+                            disabled={acfisLoading || !!acferror}
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
@@ -137,21 +136,22 @@ const CreateOfferedCourses = () => {
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
-                        <PHSelect
+                        <PHSelectWithWatch
                             name="course"
                             options={courseOptions}
                             style={{ width: '100%' }}
                             placeholder="Select Course"
+                            onValueChange={setCourseDependentQueryId}
                             disabled={courseisLoading || !!courseerror}
                         />
                     </div>
                     <div style={{ marginBottom: '15px' }}>
                         <PHSelect
                             name="faculty"
-                            options={facultyOptions}
+                            options={courseDependentFacultyOptions}
                             style={{ width: '100%' }}
                             placeholder="Select Faculty"
-                            disabled={facultyisLoading || !!facultyerror}
+                            disabled={!courseDependentQueryId || facultyFetching}
                         />
                     </div>
                     <Button
