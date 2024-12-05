@@ -1,8 +1,8 @@
-import { Button, Col, Modal, Pagination, Popconfirm, Result, Row, Space, Table, TableColumnsType, TableProps } from "antd";
+import { Button, Col, Modal, Pagination, Popconfirm, Row, Space, Table, TableColumnsType, TableProps } from "antd";
 import { TCourse, TFaculty, TQueryParam } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
-import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined, UserAddOutlined, ReloadOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined, UserAddOutlined } from '@ant-design/icons';
 import { useGetAllCoursesQuery, useUpdateAddAssignFacultiesMutation } from "../../../../redux/features/admin/courseManagement";
 import PHForm from "../../../../components/form/PHForm";
 import PHSelect from "../../../../components/form/PHSelect";
@@ -212,7 +212,7 @@ const Courses = () => {
 
 const AssignFaculties = ({ facultyData }: any) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { data: faculteisData, isLoading, isError, isFetching } = useGetAllFacultiesQuery(undefined);
+    const { data: faculteisData, isLoading, isFetching } = useGetAllFacultiesQuery(undefined);
     const [updateAddAssignFaculties] = useUpdateAddAssignFacultiesMutation();
 
     const facultiesOptions = faculteisData?.data?.map((faculty: TFaculty) => ({
@@ -227,23 +227,6 @@ const AssignFaculties = ({ facultyData }: any) => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-
-    if (isLoading) {
-        return <Loading />
-    }
-
-    if (isError || !faculteisData?.data) {
-        return <Result
-            status="error"
-            title="Failed to Load Courses"
-            subTitle="Sorry, we are unable to load the All Faculties details at the moment. Please try again later."
-            extra={
-                <Button type="primary" onClick={() => window.location.reload()} icon={<ReloadOutlined />}>
-                    Retry
-                </Button>
-            }
-        />
-    }
 
     const onSubmit = async (data: FieldValues) => {
         const toastId = toast.loading("Add Assign Faculties...");
