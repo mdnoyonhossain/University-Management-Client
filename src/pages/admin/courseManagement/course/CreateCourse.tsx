@@ -1,7 +1,7 @@
 import { Button, Row, Col, Result } from 'antd';
 import 'antd/dist/reset.css';
 import banner from "../../../../assets/images/banner.avif";
-import createSemester from "../../../../assets/images/create-semester.jpg";
+import createSemesterImg from "../../../../assets/images/create-course.jpg";
 import PHForm from '../../../../components/form/PHForm';
 import PHSelect from '../../../../components/form/PHSelect';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -102,7 +102,7 @@ const CreateCourse = () => {
                     style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                 >
                     <img
-                        src={createSemester}
+                        src={createSemesterImg}
                         alt="Logo"
                         style={{ maxWidth: '100%', borderRadius: '8px', objectFit: 'cover' }}
                     />
