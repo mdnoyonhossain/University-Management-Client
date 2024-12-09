@@ -169,7 +169,7 @@ const CreateOfferedCourses = () => {
             ),
         },
         {
-            title: 'Section & Date Time Info',
+            title: 'Section & Time Info',
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(offeredCourseSectionDateTimeSchema)}>
                     <div style={{ marginBottom: '15px' }}>

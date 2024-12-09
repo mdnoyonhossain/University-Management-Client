@@ -10,6 +10,7 @@ import StudentDashboard from "../pages/student/StudentDashboard";
 import { studentPaths } from "./student.routes";
 import { routeGenerator } from "../utils/routeGenerator";
 import { adminPaths } from "./admin.routes";
+import ProtectedRoutes from "../components/layout/ProtectedRoutes";
 
 const router = createBrowserRouter([
     {
@@ -25,7 +26,9 @@ const router = createBrowserRouter([
     },
     {
         path: "/admin",
-        element: <App />,
+        element: <ProtectedRoutes role="admin">
+            <App />
+        </ProtectedRoutes>,
         errorElement: <NotFound />,
         children: [
             {
@@ -37,7 +40,9 @@ const router = createBrowserRouter([
     },
     {
         path: "/faculty",
-        element: <App />,
+        element: <ProtectedRoutes role="faculty">
+            <App />
+        </ProtectedRoutes>,
         errorElement: <NotFound />,
         children: [
             {
@@ -49,7 +54,9 @@ const router = createBrowserRouter([
     },
     {
         path: "/student",
-        element: <App />,
+        element: <ProtectedRoutes role="student">
+            <App />
+        </ProtectedRoutes>,
         errorElement: <NotFound />,
         children: [
             {
