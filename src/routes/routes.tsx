@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Login from "../pages/Login";
-import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import { facultyPaths } from "./faculty.routes";
@@ -11,6 +10,7 @@ import { studentPaths } from "./student.routes";
 import { routeGenerator } from "../utils/routeGenerator";
 import { adminPaths } from "./admin.routes";
 import ProtectedRoutes from "../components/layout/ProtectedRoutes";
+import ChangePassword from "../pages/ChangePassword";
 
 const router = createBrowserRouter([
     {
@@ -71,8 +71,8 @@ const router = createBrowserRouter([
         element: <Login />
     },
     {
-        path: "/register",
-        element: <Register />
+        path: "/change-password",
+        element: <ChangePassword />
     },
 ]);
 

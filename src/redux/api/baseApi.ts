@@ -24,6 +24,11 @@ const baseQueryWithRefreshToken: BaseQueryFn<FetchArgs, BaseQueryApi, Definition
         toast.error(message);
     }
 
+    if (result?.error?.status === 403) {
+        const message = (result.error.data as { message?: string })?.message;
+        toast.error(message);
+    }
+
     if (result?.error?.status === 401) {
         const res = await fetch('http://localhost:5000/api/v1/auth/refresh-token', {
             method: 'POST',

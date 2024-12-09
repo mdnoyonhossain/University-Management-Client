@@ -29,7 +29,12 @@ const Login = () => {
             const user = verifyToken(res.data.accessToken) as TUser;
             dispatch(setUser({ user: user, token: res.data.accessToken }));
             toast.success(res.message, { id: toastId, duration: 2000 });
-            navigate(`/${user.role}/dashboard`);
+
+            if (res?.data?.needsPasswordChange) {
+                navigate('/change-password');
+            } else {
+                navigate(`/${user.role}/dashboard`);
+            }
         } catch (err: any) {
             toast.error(err.data.message, { id: toastId, duration: 2000 });
         }
