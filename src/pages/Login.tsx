@@ -22,16 +22,16 @@ const Login = () => {
     const navigate = useNavigate();
 
     const onSubmit = async (data: FieldValues) => {
-        const toastId = toast.loading('Loading..');
+        const toastId = toast.loading('Login...');
 
         try {
             const res = await login(data).unwrap();
             const user = verifyToken(res.data.accessToken) as TUser;
             dispatch(setUser({ user: user, token: res.data.accessToken }));
-            toast.success("Successfully logged in.", { id: toastId, duration: 2000 });
+            toast.success(res.message, { id: toastId, duration: 2000 });
             navigate(`/${user.role}/dashboard`);
-        } catch (err) {
-            toast.error("Login Failed", { id: toastId, duration: 2000 });
+        } catch (err: any) {
+            toast.error(err.data.message, { id: toastId, duration: 2000 });
         }
     }
 
