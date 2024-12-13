@@ -27,8 +27,6 @@ const ChangePassword = () => {
                 toast.success(res.message, { id: toastId, duration: 2000 });
                 dispatch(logOut());
                 return navigate('/login');
-            } else {
-                toast.error(res.message, { id: toastId, duration: 2000 });
             }
         } catch (err: any) {
             toast.error(err.data.message, { id: toastId, duration: 2000 });
