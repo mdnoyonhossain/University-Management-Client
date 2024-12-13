@@ -19,6 +19,7 @@ const studentCourseApi = baseApi.injectEndpoints({
                     params: params,
                 };
             },
+            providesTags: ["offeredCourse"],
             transformResponse: (response: TResponseRedux<TStudentOfferedCourse[]>) => {
                 return {
                     data: response.data,
@@ -26,7 +27,15 @@ const studentCourseApi = baseApi.injectEndpoints({
                 };
             },
         }),
+        enrolledCourse: builder.mutation({
+            query: (data) => ({
+                url: "/enrolled-courses/create-enrolled-course",
+                method: "POST",
+                body: data
+            }),
+            invalidatesTags: ["offeredCourse"]
+        }),
     })
 });
 
-export const { useGetMyOfferedCoursesQuery } = studentCourseApi;
+export const { useGetMyOfferedCoursesQuery, useEnrolledCourseMutation } = studentCourseApi;

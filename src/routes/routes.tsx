@@ -39,6 +39,20 @@ const router = createBrowserRouter([
         ]
     },
     {
+        path: "/superAdmin",
+        element: <ProtectedRoutes role="superAdmin">
+            <App />
+        </ProtectedRoutes>,
+        errorElement: <NotFound />,
+        children: [
+            {
+                index: true,
+                element: <AdminDashboard />
+            },
+            ...routeGenerator(adminPaths)
+        ]
+    },
+    {
         path: "/faculty",
         element: <ProtectedRoutes role="faculty">
             <App />

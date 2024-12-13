@@ -12,6 +12,7 @@ const { Sider } = Layout;
 
 const userRole = {
     ADMIN: "admin",
+    SUPERADMIN: "superAdmin",
     FACULTY: "faculty",
     STUDENT: "student"
 }
@@ -27,6 +28,9 @@ const Sidebar = () => {
     let sidebarItems;
 
     switch ((user as TUser)!.role) {
+        case userRole.SUPERADMIN:
+            sidebarItems = sidebarItemsGenerator(adminPaths, userRole.SUPERADMIN)
+            break;
         case userRole.ADMIN:
             sidebarItems = sidebarItemsGenerator(adminPaths, userRole.ADMIN)
             break;
