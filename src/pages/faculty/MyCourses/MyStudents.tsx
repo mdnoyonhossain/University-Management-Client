@@ -1,11 +1,15 @@
-import { Button, Popconfirm, Space, Table, TableProps, Pagination } from "antd";
+import { Button, Popconfirm, Space, Table, TableProps, Pagination, Modal, Row, Col, Tag } from "antd";
 import { useState } from "react";
-
-import { EditOutlined, DeleteOutlined, InfoCircleOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, InfoCircleOutlined, ArrowRightOutlined, ArrowLeftOutlined, UserAddOutlined } from '@ant-design/icons';
 import { Link, useParams } from "react-router-dom";
-import { useGetAllFacultyCoursesQuery } from "../../../redux/features/faculty/facultyCourseManagementApi";
+import { useEnrollCourseUpdateStudentMarkMutation, useGetAllFacultyCoursesQuery } from "../../../redux/features/faculty/facultyCourseManagementApi";
 import Loading from "../../Loading";
 import { TQueryParam } from "../../../types";
+import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
+import PHForm from "../../../components/form/PHForm";
+import assignFacultiesImg from "../../../assets/images/academic-department.avif";
+import PHInput from "../../../components/form/PHInput";
 
 const MyStudents = () => {
     const [params, setParams] = useState<TQueryParam[]>([]);
@@ -20,8 +24,7 @@ const MyStudents = () => {
         { name: "sort", value: "id" },
         ...params
     ]);
-    console.log(facultyCoursesData);
-
+    
     const columns: any = [
         {
             title: "Student Name",
@@ -56,11 +59,34 @@ const MyStudents = () => {
             ellipsis: true,
         },
         {
+            title: "Grade",
+            key: "grade",
+            dataIndex: "grade",
+            ellipsis: true,
+            render: (text: any) => <Tag color="green">{text}</Tag>
+        },
+        {
+            title: "Grade Points",
+            key: "gradePoints",
+            dataIndex: "gradePoints",
+            ellipsis: true,
+            render: (text: any) => <Tag color="blue">{text}</Tag>
+        },
+        {
+            title: "Course Status",
+            key: "isCompleted",
+            dataIndex: "isCompleted",
+            ellipsis: true,
+            render: (text: any) => text ? <Tag color="green">COMPLETED</Tag> : <Tag color="red">INCOMPLETE</Tag>
+        },
+        {
             title: 'Actions',
             key: 'actions',
             render: (item: any) => {
                 return (
                     <Space size="small">
+                        <AddMarksUpdate studentData={item} />
+
                         <Link to={`/admin/student-update-data/${item.key}`}>
                             <Button
                                 icon={<EditOutlined />}
@@ -110,7 +136,13 @@ const MyStudents = () => {
         _id: course.student._id,
         gender: course.student.gender,
         contactNo: course.student.contactNo,
-        email: course.student.email
+        email: course.student.email,
+        semesterRegistration: course.semesterRegistration._id,
+        student: course.student._id,
+        offeredCourse: course.offeredCourse._id,
+        grade: course.grade,
+        gradePoints: course.gradePoints,
+        isCompleted: course.isCompleted,
     }));
 
     const studentMetaData = facultyCoursesData?.meta;
@@ -202,6 +234,154 @@ const MyStudents = () => {
                     }}
                 />
             </div>
+        </>
+    );
+};
+
+const AddMarksUpdate = ({ studentData }: any) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [updateStudentMarks] = useEnrollCourseUpdateStudentMarkMutation();
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleSubmit = async (data: FieldValues) => {
+        const toastId = toast.loading("Student Updated Marks...");
+
+        const studentMarksData = {
+            semesterRegistration: studentData.semesterRegistration,
+            offeredCourse: studentData.offeredCourse,
+            student: studentData.student,
+            courseMarks: {
+                classTest1: Number(data.classTest1),
+                midTerm: Number(data.midTerm),
+                classTest2: Number(data.classTest2),
+                finalTerm: Number(data.finalTerm),
+            },
+        };
+
+        try {
+            const res = await updateStudentMarks(studentMarksData);
+            console.log(res);
+            if ('error' in res) {
+                const errorMessage = (res.error as any)?.data?.message;
+                toast.error(errorMessage, { id: toastId });
+            } else if ('data' in res) {
+                toast.success(res.data.message, { id: toastId });
+            }
+        } catch (err: any) {
+            toast.error(err.message, { id: toastId });
+        }
+    }
+
+    return (
+        <>
+            <Button
+                onClick={showModal}
+                icon={<UserAddOutlined />}
+                type="default"
+                size="small"
+                style={{ backgroundColor: "green", color: "#fff" }}
+            >
+                Student Mark
+            </Button>
+            <Modal open={isModalOpen} onCancel={handleCancel} footer={false}>
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: '20px',
+                    }}
+                >
+                    <Row
+                        gutter={[16, 16]}>
+                        <Col
+                            xs={24}
+                            sm={24}
+                            md={12}
+                            lg={12}
+                            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                        >
+                            <img
+                                src={assignFacultiesImg}
+                                alt="Logo"
+                                style={{ maxWidth: '100%', borderRadius: '8px', objectFit: 'cover' }}
+                            />
+                        </Col>
+
+                        <Col xs={24} sm={24} md={12} lg={12} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                            <h2
+                                style={{
+                                    textAlign: 'center',
+                                    fontSize: '20px',
+                                    fontWeight: 'bold',
+                                    color: '#fff',
+                                    textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
+                                    marginBottom: '15px',
+                                    fontFamily: 'Arial, sans-serif',
+                                }}
+                            >
+                                Enrolled Course Mark
+                            </h2>
+                            <PHForm onSubmit={handleSubmit} /**resolver={zodResolver(enrollCourseUpdateStudentMarksSchema)} */>
+                                <div style={{ marginBottom: '15px' }}>
+                                    <PHInput
+                                        type="number"
+                                        name="classTest1"
+                                        style={{ borderRadius: '8px' }}
+                                        placeholder="Class Test One"
+                                    />
+                                </div>
+                                <div style={{ marginBottom: '15px' }}>
+                                    <PHInput
+                                        type="number"
+                                        name="midTerm"
+                                        style={{ borderRadius: '8px' }}
+                                        placeholder="Mid Term"
+                                    />
+                                </div>
+                                <div style={{ marginBottom: '15px' }}>
+                                    <PHInput
+                                        type="number"
+                                        name="classTest2"
+                                        style={{ borderRadius: '8px' }}
+                                        placeholder="Class Test Two"
+                                    />
+                                </div>
+                                <div style={{ marginBottom: '15px' }}>
+                                    <PHInput
+                                        type="number"
+                                        name="finalTerm"
+                                        style={{ borderRadius: '8px' }}
+                                        placeholder="Final Term"
+                                    />
+                                </div>
+                                <div>
+                                    <Button
+                                        type="primary"
+                                        htmlType="submit"
+                                        block
+                                        icon={<UserAddOutlined />}
+                                        style={{
+                                            borderRadius: '8px',
+                                            fontSize: '16px',
+                                            background: "green"
+                                        }}
+                                    >
+                                        Assign Mark
+                                    </Button>
+                                </div>
+                            </PHForm>
+                        </Col>
+                    </Row>
+                </div>
+            </Modal>
         </>
     );
 };
