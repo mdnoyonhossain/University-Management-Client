@@ -6,10 +6,11 @@ import PHSelect from "../../../components/form/PHSelect";
 import { SearchOutlined } from "@ant-design/icons";
 import enrolledCourseImg from "../../../assets/images/filter-enrolled-course.avif";
 import Loading from "../../Loading";
+import { useNavigate } from "react-router-dom";
 
 const MyCourses = () => {
     const { data: facultyCoursesData, isLoading } = useGetAllFacultyCoursesQuery(undefined);
-    console.log(facultyCoursesData);
+    const navigate = useNavigate();
 
     const semesterOptions = facultyCoursesData?.data?.map((item: any) => ({
         value: item.semesterRegistration._id,
@@ -26,7 +27,7 @@ const MyCourses = () => {
     }
 
     const onSubmit = (data: FieldValues) => {
-        console.log(data);
+        return navigate(`/faculty/my-courses/${data.semesterRegistration}/${data.course}`)
     }
 
     return (
@@ -70,11 +71,11 @@ const MyCourses = () => {
                             fontWeight: 'bold',
                             color: '#fff',
                             textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
-                            marginBottom: '30px',
+                            marginBottom: '20px',
                             fontFamily: 'Arial, sans-serif',
                         }}
                     >
-                        Register Academic Faculty
+                        Searching / Filtering Enrolled Course
                     </h2>
                     <PHForm onSubmit={onSubmit}>
                         <div style={{ marginBottom: '15px' }}>
