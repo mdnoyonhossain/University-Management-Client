@@ -86,7 +86,7 @@ const ChangePassword = () => {
                     <PHForm onSubmit={onSubmit} resolver={zodResolver(changePasswordSchema)}>
                         <div style={{ marginBottom: '15px' }}>
                             <PHInput
-                                type="text"
+                                type="password"
                                 name="oldPassword"
                                 style={{ borderRadius: '8px' }}
                                 placeholder="Enter Old Password"

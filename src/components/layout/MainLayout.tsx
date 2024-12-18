@@ -1,7 +1,7 @@
 import { Layout, Menu, Button, Input, Dropdown } from 'antd';
-import { UserOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons';
+import { UserOutlined, LogoutOutlined, LockOutlined } from '@ant-design/icons';
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { useAppDispatch } from '../../redux/hooks';
 import { logOut } from '../../redux/features/auth/authSlice';
@@ -16,7 +16,7 @@ const MainLayout = () => {
     const handleLogout = () => {
         dispatch(logOut());
     }
-    
+
     console.log(search);
 
     const profileMenu = (
@@ -24,8 +24,8 @@ const MainLayout = () => {
             <Menu.Item key="1" icon={<UserOutlined />}>
                 Profile
             </Menu.Item>
-            <Menu.Item key="2" icon={<SettingOutlined />}>
-                Settings
+            <Menu.Item key="2" icon={<LockOutlined />}>
+                <Link to="/change-password">Security</Link>
             </Menu.Item>
             <Menu.Item key="3" icon={<LogoutOutlined />} onClick={handleLogout}>
                 Logout
