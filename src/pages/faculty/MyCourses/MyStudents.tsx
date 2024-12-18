@@ -8,7 +8,7 @@ import { TQueryParam } from "../../../types";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import PHForm from "../../../components/form/PHForm";
-import assignFacultiesImg from "../../../assets/images/academic-department.avif";
+import enrollcourseMarkImg from "../../../assets/images/enrollcourseMark.jpg";
 import PHInput from "../../../components/form/PHInput";
 
 const MyStudents = () => {
@@ -288,7 +288,7 @@ const AddMarksUpdate = ({ studentData }: any) => {
                 size="small"
                 style={{ backgroundColor: "green", color: "#fff" }}
             >
-                Student Mark
+                Course Mark
             </Button>
             <Modal open={isModalOpen} onCancel={handleCancel} footer={false}>
                 <div
@@ -309,7 +309,7 @@ const AddMarksUpdate = ({ studentData }: any) => {
                             style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                         >
                             <img
-                                src={assignFacultiesImg}
+                                src={enrollcourseMarkImg}
                                 alt="Logo"
                                 style={{ maxWidth: '100%', borderRadius: '8px', objectFit: 'cover' }}
                             />
@@ -374,7 +374,7 @@ const AddMarksUpdate = ({ studentData }: any) => {
                                             background: "green"
                                         }}
                                     >
-                                        Assign Mark
+                                        Student Mark
                                     </Button>
                                 </div>
                             </PHForm>
