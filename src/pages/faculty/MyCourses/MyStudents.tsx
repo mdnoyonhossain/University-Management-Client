@@ -267,7 +267,6 @@ const AddMarksUpdate = ({ studentData }: any) => {
 
         try {
             const res = await updateStudentMarks(studentMarksData);
-            console.log(res);
             if ('error' in res) {
                 const errorMessage = (res.error as any)?.data?.message;
                 toast.error(errorMessage, { id: toastId });

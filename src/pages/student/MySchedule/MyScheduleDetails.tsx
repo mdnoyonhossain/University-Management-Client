@@ -30,7 +30,6 @@ const MyScheduleDetails = () => {
     }
 
     const enrolledCourse = enrolledData?.data;
-    console.log(enrolledCourse);
 
     return (
         <div style={{ padding: "40px 20px", background: "#f9f9f9" }}>
