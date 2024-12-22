@@ -4,6 +4,7 @@ import { ArrowLeftOutlined, ArrowRightOutlined, InfoCircleOutlined } from "@ant-
 import Loading from "../../Loading";
 import { useState } from "react";
 import { TQueryParam } from "../../../types";
+import { Link } from "react-router-dom";
 
 const MySchedule = () => {
     const [params, setParams] = useState<TQueryParam[]>([]);
@@ -15,7 +16,7 @@ const MySchedule = () => {
         { name: "limit", value: 6 },
         ...params
     ]);
-    console.log(myEnrolledCourse);
+
     const columns = [
         {
             title: "Course Name",
@@ -64,20 +65,22 @@ const MySchedule = () => {
         {
             title: "Actions",
             key: "actions",
-            render: () => (
+            render: (item: any) => (
                 <Space size="small" wrap>
-                    <Button
-                        icon={<InfoCircleOutlined />}
-                        type="default"
-                        size="small"
-                        style={{
-                            backgroundColor: "#52c41a",
-                            color: "#fff",
-                            borderColor: "#52c41a",
-                        }}
-                    >
-                        Details
-                    </Button>
+                    <Link to={`/student/my-schedule-details-data/${item.key}`}>
+                        <Button
+                            icon={<InfoCircleOutlined />}
+                            type="default"
+                            size="small"
+                            style={{
+                                backgroundColor: "#52c41a",
+                                color: "#fff",
+                                borderColor: "#52c41a",
+                            }}
+                        >
+                            Details
+                        </Button>
+                    </Link>
                 </Space>
             ),
         },
@@ -110,13 +113,13 @@ const MySchedule = () => {
                     bordered
                     rowKey="key"
                     scroll={{ x: true }}
-                    style={{width: "100%" }}
+                    style={{ width: "100%" }}
                 />
                 <Divider />
             </Col>
-            
+
             {/* Custom Pagination */}
-            <div style={{ display: "flex", justifyContent: "center"}}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
                 <Pagination
                     current={page}
                     pageSize={enrolledCourseMetaData?.limit}

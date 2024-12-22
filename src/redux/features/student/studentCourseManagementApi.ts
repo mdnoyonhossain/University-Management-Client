@@ -59,7 +59,24 @@ const studentCourseApi = baseApi.injectEndpoints({
                 };
             },
         }),
+        getMySingleEnrolledCourse: builder.query({
+            query: (id: string) => ({
+                url: `/enrolled-courses/my-enrolled-courses/${id}`,
+                method: "GET",
+            }),
+            providesTags: ["offeredCourse"],
+            transformResponse: (response: TResponseRedux<any>) => {
+                return {
+                    data: response.data
+                };
+            },
+        }),
     })
 });
 
-export const { useGetMyOfferedCoursesQuery, useEnrolledCourseMutation, useGetMyEnrolledCourseQuery } = studentCourseApi;
+export const {
+    useGetMyOfferedCoursesQuery,
+    useEnrolledCourseMutation,
+    useGetMyEnrolledCourseQuery,
+    useGetMySingleEnrolledCourseQuery
+} = studentCourseApi;
