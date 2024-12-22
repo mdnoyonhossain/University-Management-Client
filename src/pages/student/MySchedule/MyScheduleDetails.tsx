@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
-import { Card, Avatar, Row, Col, Typography, List, Divider, Tabs, Result, Button } from "antd";
-import { FileProtectOutlined, IdcardOutlined, MailOutlined, ReloadOutlined, TeamOutlined } from "@ant-design/icons";
+import { Card, Avatar, Row, Col, Typography, List, Divider, Tabs, Result, Button, Tag } from "antd";
+import { ClockCircleOutlined, FileProtectOutlined, IdcardOutlined, MailOutlined, ReloadOutlined, TeamOutlined } from "@ant-design/icons";
 import Loading from "../../Loading";
 import { useGetMySingleEnrolledCourseQuery } from "../../../redux/features/student/studentCourseManagementApi";
+import moment from "moment";
 
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
@@ -29,7 +30,8 @@ const MyScheduleDetails = () => {
     }
 
     const enrolledCourse = enrolledData?.data;
-    
+    console.log(enrolledCourse);
+
     return (
         <div style={{ padding: "40px 20px", background: "#f9f9f9" }}>
             <Row gutter={32} justify="space-between">
@@ -85,8 +87,77 @@ const MyScheduleDetails = () => {
 
                 <Col xs={24} md={16}>
                     <Tabs defaultActiveKey="1">
-
-                        <TabPane tab="Course Info" key="1">
+                        <TabPane tab="Academic Info" key="1">
+                            <Card
+                                bordered={false}
+                                hoverable
+                                style={{
+                                    borderRadius: "12px",
+                                    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+                                    marginBottom: "24px",
+                                }}
+                            >
+                                <List
+                                    itemLayout="horizontal"
+                                    dataSource={[
+                                        { label: "Academic Department Name", value: enrolledCourse.academicDepartment?.name },
+                                        { label: "Academic Faculty Name", value: enrolledCourse.academicFaculty?.name },
+                                        { label: "Academic Semester", value: `${enrolledCourse.academicSemester?.name} ${enrolledCourse.academicSemester?.year} (${enrolledCourse.academicSemester?.startMonth} - ${enrolledCourse.academicSemester?.endMonth}) - (Code-${enrolledCourse.academicSemester?.code})` },
+                                    ]}
+                                    renderItem={(item) => (
+                                        <List.Item>
+                                            <List.Item.Meta
+                                                title={<Text strong>{item.label}</Text>}
+                                                description={item.value}
+                                            />
+                                        </List.Item>
+                                    )}
+                                />
+                            </Card>
+                        </TabPane>
+                        <TabPane tab="Class Schedule" key="2">
+                            <Row gutter={[16, 16]}>
+                                <Col span={24}>
+                                    <Card>
+                                        <div
+                                            style={{
+                                                display: "grid",
+                                                gridTemplateColumns: "repeat(7, 1fr)",
+                                                gap: "10px",
+                                            }}
+                                        >
+                                            {enrolledCourse?.offeredCourse.days?.map((day: any) => {
+                                                const isActive = enrolledCourse?.offeredCourse.days.includes(day);
+                                                return (
+                                                    <div
+                                                        key={day}
+                                                        style={{
+                                                            textAlign: "center",
+                                                            padding: "10px",
+                                                            border: "1px solid #d9d9d9",
+                                                            borderRadius: "5px",
+                                                            backgroundColor: isActive ? "#e6f7ff" : "#fafafa",
+                                                            cursor: isActive ? "pointer" : "default",
+                                                        }}
+                                                    >
+                                                        <Text strong style={{ color: isActive ? "#1890ff" : "#bfbfbf" }}>
+                                                            {day}
+                                                        </Text>
+                                                        {isActive && (
+                                                            <Tag color="green" style={{ marginTop: "10px" }}>
+                                                                <ClockCircleOutlined />{" "}
+                                                                {`${moment(enrolledCourse?.offeredCourse?.startTime, "HH:mm").format("h:mm A")} - ${moment(enrolledCourse?.offeredCourse?.endTime, "HH:mm").format("h:mm A")}`}
+                                                            </Tag>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </TabPane>
+                        <TabPane tab="Course Info" key="3">
                             <Card
                                 bordered={false}
                                 hoverable
@@ -117,7 +188,7 @@ const MyScheduleDetails = () => {
                                 />
                             </Card>
                         </TabPane>
-                        <TabPane tab="Course Marks" key="2">
+                        <TabPane tab="Course Marks" key="4">
                             <Card
                                 bordered={false}
                                 hoverable
@@ -148,35 +219,7 @@ const MyScheduleDetails = () => {
                                 />
                             </Card>
                         </TabPane>
-                        <TabPane tab="Academic Info" key="3">
-                            <Card
-                                bordered={false}
-                                hoverable
-                                style={{
-                                    borderRadius: "12px",
-                                    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-                                    marginBottom: "24px",
-                                }}
-                            >
-                                <List
-                                    itemLayout="horizontal"
-                                    dataSource={[
-                                        { label: "Academic Department Name", value: enrolledCourse.academicDepartment?.name },
-                                        { label: "Academic Faculty Name", value: enrolledCourse.academicFaculty?.name },
-                                        { label: "Academic Semester", value: `${enrolledCourse.academicSemester?.name} ${enrolledCourse.academicSemester?.year} (${enrolledCourse.academicSemester?.startMonth} - ${enrolledCourse.academicSemester?.endMonth}) - (Code-${enrolledCourse.academicSemester?.code})` },
-                                    ]}
-                                    renderItem={(item) => (
-                                        <List.Item>
-                                            <List.Item.Meta
-                                                title={<Text strong>{item.label}</Text>}
-                                                description={item.value}
-                                            />
-                                        </List.Item>
-                                    )}
-                                />
-                            </Card>
-                        </TabPane>
-                        <TabPane tab="Faculty Info" key="4">
+                        <TabPane tab="Faculty Info" key="5">
                             <Card
                                 bordered={false}
                                 hoverable
@@ -209,7 +252,6 @@ const MyScheduleDetails = () => {
                                 />
                             </Card>
                         </TabPane>
-
                     </Tabs>
                 </Col>
             </Row>

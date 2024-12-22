@@ -6,6 +6,7 @@ import Loading from '../../Loading';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { TQueryParam } from '../../../types';
+import { Link } from 'react-router-dom';
 
 const { Text } = Typography;
 
@@ -27,10 +28,10 @@ const StudentOfferedCourse = () => {
 
   const singleObject = myOfferedCourse?.data?.reduce((acc: TCourse, item) => {
     const key = `${item.course.title}`;
-    acc[key] = acc[key] || { courseTitle: key, sections: [] };
+    acc[key] = acc[key] || { courseTitle: key, _id: item._id, sections: [] };
     acc[key].sections.push({
       section: item.section,
-      _id: item._id,
+      _id: item?._id,
       days: item.days,
       startTime: item.startTime,
       endTime: item.endTime,
@@ -154,17 +155,19 @@ const StudentOfferedCourse = () => {
                     </Col>
                   </Row>
                   <Space direction="horizontal" size="small" style={{ marginTop: '25px' }}>
-                    <Button
-                      icon={<InfoCircleOutlined />}
-                      type="default"
-                      style={{
-                        backgroundColor: "#17A2B8",
-                        color: "#fff",
-                        borderRadius: '5px',
-                      }}
-                    >
-                      Details
-                    </Button>
+                    <Link to={`/student/offered-course-details-data/${item._id}`}>
+                      <Button
+                        icon={<InfoCircleOutlined />}
+                        type="default"
+                        style={{
+                          backgroundColor: "#17A2B8",
+                          color: "#fff",
+                          borderRadius: '5px',
+                        }}
+                      >
+                        Details
+                      </Button>
+                    </Link>
                     <Button
                       onClick={() => handleEnrollCourse(section._id)}
                       icon={<BookOutlined />}
