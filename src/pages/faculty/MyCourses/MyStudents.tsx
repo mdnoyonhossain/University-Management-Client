@@ -77,7 +77,7 @@ const MyStudents = () => {
             key: "isCompleted",
             dataIndex: "isCompleted",
             ellipsis: true,
-            render: (text: any) => text ? <Tag color="green">COMPLETED</Tag> : <Tag color="red">INCOMPLETE</Tag>
+            render: (text: any) => text ? <Tag color="green">COMPLETED</Tag> : <Tag color="red">INCOMPLETED</Tag>
         },
         {
             title: 'Actions',
