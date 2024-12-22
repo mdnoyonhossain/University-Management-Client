@@ -1,14 +1,12 @@
-import { Button, Space, Typography, Tag, Row, Col, Card, Pagination } from 'antd';
+import { Button, Space, Typography, Tag, Row, Col, Card, Pagination, Result } from 'antd';
 import { useEnrolledCourseMutation, useGetMyOfferedCoursesQuery } from '../../../redux/features/student/studentCourseManagementApi';
-import { BookOutlined, InfoCircleOutlined, CalendarOutlined, ClockCircleOutlined, TeamOutlined, ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
-import noCourseAvailable from "../../../assets/images/no-available.jpg";
+import { BookOutlined, InfoCircleOutlined, ClockCircleOutlined, TeamOutlined, ArrowLeftOutlined, ArrowRightOutlined, ReloadOutlined } from '@ant-design/icons';
 import Loading from '../../Loading';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { TQueryParam } from '../../../types';
 import { Link } from 'react-router-dom';
-
-const { Text } = Typography;
+import moment from 'moment';
 
 type TCourse = {
   [index: string]: any;
@@ -18,7 +16,7 @@ const StudentOfferedCourse = () => {
   const [params, setParams] = useState<TQueryParam[]>([]);
   const [page, setPage] = useState(1);
 
-  const { data: myOfferedCourse, isLoading } = useGetMyOfferedCoursesQuery([
+  const { data: myOfferedCourse, isLoading, isError } = useGetMyOfferedCoursesQuery([
     { name: "page", value: page },
     { name: "sort", value: "id" },
     { name: "limit", value: 6 },
@@ -68,51 +66,25 @@ const StudentOfferedCourse = () => {
     return <Loading />;
   }
 
+  if (isError) {
+    return <Result
+      status="error"
+      title="Failed to Student Offered Courses"
+      subTitle="Sorry, we are unable to load the Student Offered Courses at the moment. Please try again later."
+      extra={
+        <Button type="primary" onClick={() => window.location.reload()} icon={<ReloadOutlined />}>
+          Retry
+        </Button>
+      }
+    />
+  }
+
   if (!modifiedData?.length) {
-    return (
-      <Row gutter={[16, 16]} style={{ marginTop: '20px', justifyContent: 'center' }}>
-        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-          <Card
-            style={{
-              width: '100%',
-              textAlign: 'center',
-              padding: '40px',
-              borderRadius: '10px',
-              boxShadow: '0 4px 30px rgba(0, 0, 0, 0.15)',
-              background: 'linear-gradient(135deg, #4a90e2, #50e3c2)',
-              maxWidth: '500px',
-              margin: 'auto',
-            }}
-            bordered={false}
-            hoverable
-          >
-            <img
-              src={noCourseAvailable}
-              alt="no-data"
-              style={{ width: '150px', height: 'auto', marginBottom: '20px' }}
-            />
-            <Typography.Title level={3} style={{ color: '#fff' }}>No Available Courses</Typography.Title>
-            <Text type="secondary" style={{ fontSize: '16px', display: 'block', marginBottom: '20px', color: '#fff' }}>
-              Currently, there are no courses available. Please check back later or contact your admin.
-            </Text>
-            <Button
-              type="primary"
-              icon={<InfoCircleOutlined />}
-              style={{
-                borderRadius: '5px',
-                padding: '10px 20px',
-                background: '#FF4D4F',
-                color: '#fff',
-                border: 'none',
-                fontSize: '16px',
-              }}
-            >
-              Contact Admin
-            </Button>
-          </Card>
-        </Col>
-      </Row>
-    );
+    return <Result
+      status="warning"
+      title="Course Not Available for YOU!"
+      subTitle="Sorry, Course Not Available at the moment. Please try again later."
+    />
   }
 
   return (
@@ -129,29 +101,49 @@ const StudentOfferedCourse = () => {
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
                     background: '#f7f7f7',
                     transition: 'transform 0.3s ease',
-                    border: "15px solid #FFFFFF"
+                    border: "15px solid #FFFFFF",
                   }}
                   cover={<img alt="course-image" src={`https://dummyimage.com/600x400/000/fff&text=${section.section}`} />}
                 >
                   <Typography.Title style={{ color: "#1890ff" }} level={4}>{item.courseTitle}</Typography.Title>
                   <Row justify="space-between" align="middle" style={{ width: '100%' }}>
-                    <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto">
-                      <Tag color="purple" icon={<ClockCircleOutlined />} style={{ fontWeight: 'bold' }}>
-                        {section.startTime} - {section.endTime}
-                      </Tag>
+                    <Col span={24}>
+                      <div
+                        style={{
+                          textAlign: "center",
+                          padding: "5px",
+                          border: "1px solid #d9d9d9",
+                          borderRadius: "5px",
+                          backgroundColor: "#e6f7ff",
+                          cursor: "pointer",
+                          width: "100%", // Set width to 100%
+                        }}
+                      >
+                        <p style={{ color: "#1890ff" }}>{section.days.join(', ')}</p>
+                        <Tag color="green">
+                          <ClockCircleOutlined />
+                          {`${moment(section.startTime, "HH:mm").format("h:mm A")} - ${moment(section.endTime, "HH:mm").format("h:mm A")}`}
+                        </Tag>
+                      </div>
                     </Col>
-                    <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" style={{ textAlign: 'center' }}>
-                      <Tag color="blue" icon={<TeamOutlined />} style={{ fontWeight: 'bold' }}>
-                        {section.maxCapacity} Capacity
-                      </Tag>
-                    </Col>
-                  </Row>
-
-                  <Row justify="space-between" style={{ marginTop: '10px' }}>
-                    <Col span={11}>
-                      <Tag color="purple-inverse" icon={<CalendarOutlined />} style={{ fontWeight: 'bold' }}>
-                        {section.days.join(', ')}
-                      </Tag>
+                    <Col span={24} style={{marginTop: "5px"}}>
+                      <div
+                        style={{
+                          textAlign: "center",
+                          padding: "5px",
+                          border: "1px solid #d9d9d9",
+                          borderRadius: "5px",
+                          backgroundColor: "#E6F7FF",
+                          cursor: "pointer",
+                          width: "100%", // Set width to 100%
+                        }}
+                      >
+                        <p style={{ color: "purple" }}>Capacity</p>
+                        <Tag color="purple">
+                          <TeamOutlined />
+                          {section.maxCapacity} Available
+                        </Tag>
+                      </div>
                     </Col>
                   </Row>
                   <Space direction="horizontal" size="small" style={{ marginTop: '25px' }}>
@@ -182,6 +174,7 @@ const StudentOfferedCourse = () => {
                     </Button>
                   </Space>
                 </Card>
+
               ))}
             </Space>
           </Col>
