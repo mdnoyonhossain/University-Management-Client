@@ -21,6 +21,7 @@ import CreateCourse from "../pages/admin/courseManagement/course/CreateCourse";
 import Courses from "../pages/admin/courseManagement/course/Courses";
 import CreateOfferedCourses from "../pages/admin/courseManagement/offeredCourses/CreateOfferedCourses";
 import OfferedCourses from "../pages/admin/courseManagement/offeredCourses/OfferedCourses";
+import OfferedCourseDetails from "../pages/admin/courseManagement/offeredCourses/OfferedCourseDetails";
 
 export const adminPaths = [
     {
@@ -138,7 +139,7 @@ export const adminPaths = [
                 element: <Courses />,
             },
             {
-                name: 'Offer Course',
+                name: 'Create Offer Course',
                 path: 'offer-course',
                 element: <CreateOfferedCourses />,
             },
@@ -146,6 +147,10 @@ export const adminPaths = [
                 name: 'Offered Courses',
                 path: 'offered-courses',
                 element: <OfferedCourses />,
+            },
+            {
+                path: 'offered-course-details-data/:offeredCourseId',
+                element: <OfferedCourseDetails />,
             },
         ],
     },

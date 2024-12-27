@@ -129,6 +129,18 @@ const courseManagement = baseApi.injectEndpoints({
                 };
             },
         }),
+        adminGetSingleOfferedCourse: builder.query({
+            query: (id: string) => ({
+                url: `/offered-courses/${id}`,
+                method: "GET",
+            }),
+            providesTags: ["courses"],
+            transformResponse: (response: TResponseRedux<any>) => {
+                return {
+                    data: response.data
+                };
+            },
+        }),
     })
 });
 
@@ -141,5 +153,6 @@ export const {
     useUpdateAddAssignFacultiesMutation,
     useGetFacultiesWithCourseQuery,
     useCreateOfferedCourseMutation,
-    useGetAllOfferedCourseQuery
+    useGetAllOfferedCourseQuery,
+    useAdminGetSingleOfferedCourseQuery
 } = courseManagement;

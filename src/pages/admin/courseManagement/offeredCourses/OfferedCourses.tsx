@@ -5,6 +5,7 @@ import Loading from "../../../Loading";
 import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { useGetAllOfferedCourseQuery } from "../../../../redux/features/admin/courseManagement";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const OfferedCourses = () => {
     const [params, setParams] = useState<TQueryParam[]>([]);
@@ -13,10 +14,10 @@ const OfferedCourses = () => {
     const { data: offeredCourseData, isLoading, isFetching } = useGetAllOfferedCourseQuery([
         { name: "limit", value: 6 },
         { name: "page", value: page },
-        { name: "sort", value: "createdAt" },
+        { name: "sort", value: "-createdAt" },
         ...params
     ]);
-    
+
     const columns: TableColumnsType = [
         {
             title: "Offered Course",
@@ -55,7 +56,7 @@ const OfferedCourses = () => {
         {
             title: 'Actions',
             key: 'actions',
-            render: () => {
+            render: (item: any) => {
                 return (
                     <Space size="small">
                         <Button
@@ -81,14 +82,16 @@ const OfferedCourses = () => {
                             </Button>
                         </Popconfirm>
 
-                        <Button
-                            icon={<InfoCircleOutlined />}
-                            type="default"
-                            size="small"
-                            style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
-                        >
-                            Details
-                        </Button>
+                        <Link to={`/admin/offered-course-details-data/${item.key}`}>
+                            <Button
+                                icon={<InfoCircleOutlined />}
+                                type="default"
+                                size="small"
+                                style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
+                            >
+                                Details
+                            </Button>
+                        </Link>
                     </Space>
                 );
             },
