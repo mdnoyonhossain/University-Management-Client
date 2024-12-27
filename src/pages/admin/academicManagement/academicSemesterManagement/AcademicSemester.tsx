@@ -3,7 +3,7 @@ import { useGetAllAcademicSemestersQuery } from "../../../../redux/features/admi
 import { TAcademicSemester, TQueryParam } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
-import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 type TTableData = Pick<TAcademicSemester, "name" | "code" | "year" | "startMonth" | "endMonth">;
 
@@ -92,15 +92,6 @@ const AcademicSemester = () => {
                                 Delete
                             </Button>
                         </Popconfirm>
-
-                        <Button
-                            icon={<InfoCircleOutlined />}
-                            type="default"
-                            size="small"
-                            style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
-                        >
-                            Details
-                        </Button>
                     </Space>
                 );
             },

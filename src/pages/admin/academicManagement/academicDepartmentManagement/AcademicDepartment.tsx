@@ -3,7 +3,7 @@ import { useGetAllAcademicDepartmentsQuery } from "../../../../redux/features/ad
 import { TAcademicDepartment, TQueryParam } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
-import { EditOutlined, DeleteOutlined, InfoCircleOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 
 type TTableData = Pick<TAcademicDepartment, "name" | "academicFaculty">
 
@@ -79,15 +79,6 @@ const AcademicDepartment = () => {
                                 Delete
                             </Button>
                         </Popconfirm>
-
-                        <Button
-                            icon={<InfoCircleOutlined />}
-                            type="default"
-                            size="small"
-                            style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
-                        >
-                            Details
-                        </Button>
                     </Space>
                 );
             },

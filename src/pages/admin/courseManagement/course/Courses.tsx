@@ -2,7 +2,7 @@ import { Button, Col, Modal, Pagination, Popconfirm, Row, Space, Table, TableCol
 import { TCourse, TFaculty, TQueryParam } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
-import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined, UserAddOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined, UserAddOutlined } from '@ant-design/icons';
 import { useGetAllCoursesQuery, useUpdateAddAssignFacultiesMutation } from "../../../../redux/features/admin/courseManagement";
 import PHForm from "../../../../components/form/PHForm";
 import PHSelect from "../../../../components/form/PHSelect";
@@ -93,15 +93,6 @@ const Courses = () => {
                                 Delete
                             </Button>
                         </Popconfirm>
-
-                        <Button
-                            icon={<InfoCircleOutlined />}
-                            type="default"
-                            size="small"
-                            style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
-                        >
-                            Details
-                        </Button>
                     </Space>
                 );
             },
