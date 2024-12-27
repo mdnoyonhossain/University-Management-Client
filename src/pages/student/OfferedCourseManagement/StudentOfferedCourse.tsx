@@ -82,7 +82,7 @@ const StudentOfferedCourse = () => {
   if (!modifiedData?.length) {
     return <Result
       status="warning"
-      title="Course Not Available for YOU!"
+      title="Course Not Available for You!"
       subTitle="Sorry, Course Not Available at the moment. Please try again later."
     />
   }

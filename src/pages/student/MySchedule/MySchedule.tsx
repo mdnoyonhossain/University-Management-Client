@@ -29,6 +29,7 @@ const MySchedule = () => {
             title: "Section",
             dataIndex: "section",
             key: "section",
+            render: (section: string) => <Tag color="geekblue">{section}</Tag>,
         },
         {
             title: "Semester",
