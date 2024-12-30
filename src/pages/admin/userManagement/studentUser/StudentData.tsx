@@ -2,17 +2,19 @@ import { Button, Popconfirm, Space, Table, TableColumnsType, TableProps, Input, 
 import { TQueryParam, TStudent } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
-import { useGetAllStudentsQuery } from "../../../../redux/features/admin/userManagementApi";
+import { useDeleteStudentMutation, useGetAllStudentsQuery } from "../../../../redux/features/admin/userManagementApi";
 import { EditOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, ReloadOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 type TTableData = Pick<TStudent, "fullName" | "_id" | "id" | "gender" | "contactNo" | "email">;
 
 const StudentData = () => {
     const [params, setParams] = useState<TQueryParam[]>([]);
-    const [rollNoSearch, setRollNoSearch] = useState<string>("");  // State for roll number search
+    const [rollNoSearch, setRollNoSearch] = useState<string>("");
     const [page, setPage] = useState(1);
 
+    const [deleteStudent] = useDeleteStudentMutation();
     const { data: studentData, isLoading, isFetching } = useGetAllStudentsQuery([
         { name: "limit", value: 6 },
         { name: "page", value: page },
@@ -41,6 +43,22 @@ const StudentData = () => {
         setPage(1);
         setRollNoSearch("");
     };
+
+    const handleDeleteStudent = async (id: string) => {
+        const toastId = toast.loading("Delete Student...");
+        try {
+            const res = await deleteStudent(id);
+
+            if ('error' in res) {
+                const errorMessage = (res.error as any)?.data?.message;
+                toast.error(errorMessage, { id: toastId });
+            } else if ('data' in res) {
+                toast.success(res.data.message, { id: toastId });
+            }
+        } catch (err: any) {
+            toast.error(err.message, { id: toastId });
+        }
+    }
 
     const columns: TableColumnsType<TTableData> = [
         {
@@ -98,6 +116,7 @@ const StudentData = () => {
                             title="Are you sure you want to delete this student?"
                             okText="Yes"
                             cancelText="No"
+                            onConfirm={() => handleDeleteStudent(item?._id)}
                         >
                             <Button
                                 icon={<DeleteOutlined />}

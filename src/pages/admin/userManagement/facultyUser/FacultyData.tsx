@@ -2,9 +2,10 @@ import { Button, Popconfirm, Space, Table, TableColumnsType, TableProps, Input, 
 import { TFaculty, TQueryParam } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
-import { useGetAllFacultiesQuery } from "../../../../redux/features/admin/userManagementApi";
+import { useDeleteFacultyMutation, useGetAllFacultiesQuery } from "../../../../redux/features/admin/userManagementApi";
 import { EditOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, ReloadOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 type TTableData = Pick<TFaculty, "fullName" | "_id" | "id" | "gender" | "contactNo" | "email">;
 
@@ -13,6 +14,7 @@ const FacultyData = () => {
     const [rollNoSearch, setRollNoSearch] = useState<string>("");  // State for roll number search
     const [page, setPage] = useState(1);
 
+    const [deleteFaculty] = useDeleteFacultyMutation();
     const { data: facultyData, isLoading, isFetching } = useGetAllFacultiesQuery([
         { name: "limit", value: 6 },
         { name: "page", value: page },
@@ -41,6 +43,22 @@ const FacultyData = () => {
         setPage(1);
         setRollNoSearch("");
     };
+
+    const handleDeleteFaculty = async (id: string) => {
+        const toastId = toast.loading("Delete Faculty...");
+        try {
+            const res = await deleteFaculty(id);
+
+            if ('error' in res) {
+                const errorMessage = (res.error as any)?.data?.message;
+                toast.error(errorMessage, { id: toastId });
+            } else if ('data' in res) {
+                toast.success(res.data.message, { id: toastId });
+            }
+        } catch (err: any) {
+            toast.error(err.message, { id: toastId });
+        }
+    }
 
     const columns: TableColumnsType<TTableData> = [
         {
@@ -96,6 +114,7 @@ const FacultyData = () => {
                             title="Are you sure you want to delete this faculty?"
                             okText="Yes"
                             cancelText="No"
+                            onConfirm={() => handleDeleteFaculty(item?._id)}
                         >
                             <Button
                                 icon={<DeleteOutlined />}

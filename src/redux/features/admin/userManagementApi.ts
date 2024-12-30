@@ -47,6 +47,13 @@ const userManagementApi = baseApi.injectEndpoints({
                 };
             },
         }),
+        deleteAdmin: builder.mutation({
+            query: (id: string) => ({
+                url: `/admins/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["user"]
+        }),
         createFaculty: builder.mutation({
             query: (data) => ({
                 url: "/users/create-faculty",
@@ -90,6 +97,13 @@ const userManagementApi = baseApi.injectEndpoints({
                     data: response.data
                 };
             },
+        }),
+        deleteFaculty: builder.mutation({
+            query: (id: string) => ({
+                url: `/faculties/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["user"]
         }),
         createStudent: builder.mutation({
             query: (data) => ({
@@ -143,6 +157,13 @@ const userManagementApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["user"]
         }),
+        deleteStudent: builder.mutation({
+            query: (id: string) => ({
+                url: `/students/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["user"]
+        }),
     })
 });
 
@@ -150,11 +171,14 @@ export const {
     useCreateAdminMutation,
     useGetAllAdminsQuery,
     useGetSingleAdminQuery,
+    useDeleteAdminMutation,
     useCreateFacultyMutation,
     useGetAllFacultiesQuery,
     useGetSingleFacultyQuery,
+    useDeleteFacultyMutation,
     useCreateStudentMutation,
     useGetAllStudentsQuery,
     useGetSingleStudentQuery,
+    useDeleteStudentMutation,
     useUpdateStudentMutation
 } = userManagementApi;
