@@ -3,7 +3,7 @@ import { TCourse, TFaculty, TQueryParam } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
 import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined, UserAddOutlined } from '@ant-design/icons';
-import { useGetAllCoursesQuery, useUpdateAddAssignFacultiesMutation } from "../../../../redux/features/admin/courseManagement";
+import { useDeleteCourseMutation, useGetAllCoursesQuery, useUpdateAddAssignFacultiesMutation } from "../../../../redux/features/admin/courseManagement";
 import PHForm from "../../../../components/form/PHForm";
 import PHSelect from "../../../../components/form/PHSelect";
 import { FieldValues } from "react-hook-form";
@@ -19,6 +19,7 @@ const Courses = () => {
     const [params, setParams] = useState<TQueryParam[]>([]);
     const [page, setPage] = useState(1);
 
+    const [deleteCourse] = useDeleteCourseMutation();
     const { data: allCoursesData, isLoading, isFetching } = useGetAllCoursesQuery([
         { name: "limit", value: 6 },
         { name: "page", value: page },
@@ -33,6 +34,22 @@ const Courses = () => {
             value: typeof value === 'object' && value !== null ? JSON.stringify(value) : String(value),
         }));
     };
+
+    const handleDeleteCourse = async (id: string) => {
+        const toastId = toast.loading("Delete Student...");
+        try {
+            const res = await deleteCourse(id);
+
+            if ('error' in res) {
+                const errorMessage = (res.error as any)?.data?.message;
+                toast.error(errorMessage, { id: toastId });
+            } else if ('data' in res) {
+                toast.success(res.data.message, { id: toastId });
+            }
+        } catch (err: any) {
+            toast.error(err.message, { id: toastId });
+        }
+    }
 
     const columns: TableColumnsType<TTableData> = [
         {
@@ -81,9 +98,10 @@ const Courses = () => {
                         </Button>
 
                         <Popconfirm
-                            title="Are you sure you want to delete this student?"
+                            title="Are you sure you want to delete this course?"
                             okText="Yes"
                             cancelText="No"
+                            onConfirm={() => handleDeleteCourse(item?.key)}
                         >
                             <Button
                                 icon={<DeleteOutlined />}

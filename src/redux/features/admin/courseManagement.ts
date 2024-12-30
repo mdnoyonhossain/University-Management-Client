@@ -75,6 +75,13 @@ const courseManagement = baseApi.injectEndpoints({
                 };
             },
         }),
+        deleteCourse: builder.mutation({
+            query: (id: string) => ({
+                url: `/courses/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["courses"]
+        }),
         updateAddAssignFaculties: builder.mutation({
             query: (args) => ({
                 url: `/courses/${args.id}/assign-faculties`,
@@ -129,6 +136,13 @@ const courseManagement = baseApi.injectEndpoints({
                 };
             },
         }),
+        deleteOfferedCourse: builder.mutation({
+            query: (id: string) => ({
+                url: `/offered-courses/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["courses"]
+        }),
         adminGetSingleOfferedCourse: builder.query({
             query: (id: string) => ({
                 url: `/offered-courses/${id}`,
@@ -150,9 +164,11 @@ export const {
     useUpdateRegistrationSemesterMutation,
     useCreateCourseMutation,
     useGetAllCoursesQuery,
+    useDeleteCourseMutation,
     useUpdateAddAssignFacultiesMutation,
     useGetFacultiesWithCourseQuery,
     useCreateOfferedCourseMutation,
     useGetAllOfferedCourseQuery,
+    useDeleteOfferedCourseMutation,
     useAdminGetSingleOfferedCourseQuery
 } = courseManagement;
