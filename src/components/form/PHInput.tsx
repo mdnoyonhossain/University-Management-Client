@@ -9,20 +9,24 @@ type TPHInputProps = {
     placeholder?: string;
     style?: CSSProperties;
     required?: any;
+    disabled?: boolean;
+    defaultValue?: any;
 }
 
-const PHInput = ({ type, name, placeholder, style, label, required }: TPHInputProps) => {
+const PHInput = ({ type, name, placeholder, style, label, required, disabled, defaultValue }: TPHInputProps) => {
     return (
         <Controller
             name={name}
             render={({ field, fieldState: { error } }) => {
                 if (type === "password") {
                     return (
-                        <Form.Item label={label}>
+                        <Form.Item label={<span style={{ fontWeight: "500" }}>{label}</span>}>
                             <Input.Password
                                 {...field}
                                 required={required}
                                 placeholder={placeholder}
+                                disabled={disabled}
+                                defaultValue={defaultValue}
                                 style={style}
                             />
                             {error && <span style={{ color: 'red', fontSize: '12px' }}>{error.message}</span>}
@@ -30,12 +34,14 @@ const PHInput = ({ type, name, placeholder, style, label, required }: TPHInputPr
                     );
                 }
                 return (
-                    <Form.Item label={label}>
+                    <Form.Item label={<span style={{ fontWeight: "500" }}>{label}</span>}>
                         <Input
                             {...field}
                             type={type}
                             required={required}
                             placeholder={placeholder}
+                            disabled={disabled}
+                            defaultValue={defaultValue}
                             style={style}
                         />
                         {error && <span style={{ color: 'red', fontSize: '12px' }}>{error.message}</span>}

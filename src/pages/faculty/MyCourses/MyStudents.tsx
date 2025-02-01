@@ -322,14 +322,14 @@ const AddMarksUpdate = ({ studentData }: any) => {
                                     fontWeight: 'bold',
                                     color: '#fff',
                                     textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
-                                    marginBottom: '15px',
+                                    marginBottom: '-10px',
                                     fontFamily: 'Arial, sans-serif',
                                 }}
                             >
                                 Enrolled Course Mark
                             </h2>
                             <PHForm onSubmit={handleSubmit} /**resolver={zodResolver(enrollCourseUpdateStudentMarksSchema)} */>
-                                <div style={{ marginBottom: '15px' }}>
+                                <div style={{ marginBottom: '-35px' }}>
                                     <PHInput
                                         type="number"
                                         name="classTest1"
@@ -337,7 +337,7 @@ const AddMarksUpdate = ({ studentData }: any) => {
                                         placeholder="Class Test One"
                                     />
                                 </div>
-                                <div style={{ marginBottom: '15px' }}>
+                                <div style={{ marginBottom: '-35px' }}>
                                     <PHInput
                                         type="number"
                                         name="midTerm"
@@ -345,7 +345,7 @@ const AddMarksUpdate = ({ studentData }: any) => {
                                         placeholder="Mid Term"
                                     />
                                 </div>
-                                <div style={{ marginBottom: '15px' }}>
+                                <div style={{ marginBottom: '-35px' }}>
                                     <PHInput
                                         type="number"
                                         name="classTest2"

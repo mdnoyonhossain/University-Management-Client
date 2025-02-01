@@ -79,7 +79,7 @@ const CreateAcademicFaculty = () => {
                             fontWeight: 'bold',
                             color: '#fff',
                             textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
-                            marginBottom: '30px',
+                            marginBottom: '0px',
                             fontFamily: 'Arial, sans-serif',
                         }}
                     >

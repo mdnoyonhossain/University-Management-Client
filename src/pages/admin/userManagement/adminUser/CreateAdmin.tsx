@@ -72,7 +72,7 @@ const CreateAdmin = () => {
             title: 'Admin Info',
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(adminInfoAdminSchema)}>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="name.firstName"
@@ -80,7 +80,7 @@ const CreateAdmin = () => {
                             placeholder="Enter First Name"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="name.middleName"
@@ -88,7 +88,7 @@ const CreateAdmin = () => {
                             placeholder="Enter Middle Name (Optional)"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="name.lastName"
@@ -145,7 +145,7 @@ const CreateAdmin = () => {
             title: 'Contact Info',
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(adminContactInfoSchema)}>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="email"
                             name="email"
@@ -153,7 +153,7 @@ const CreateAdmin = () => {
                             placeholder="Enter your email address"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="number"
                             name="contactNo"
@@ -161,7 +161,7 @@ const CreateAdmin = () => {
                             placeholder="Enter your contact number"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="number"
                             name="emergencyContactNo"
@@ -169,7 +169,7 @@ const CreateAdmin = () => {
                             placeholder="Enter emergency contact number"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="presentAddress"
@@ -222,7 +222,7 @@ const CreateAdmin = () => {
             title: 'Personal Info',
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(personalInfoAdminSchema)}>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHDatePicker
                             name="dateOfBirth"
                             required
@@ -230,7 +230,7 @@ const CreateAdmin = () => {
                             placeholder="Select Date of Birth (YYYY-MM-DD)"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHSelect
                             name="gender"
                             options={genderOptions}
@@ -332,7 +332,7 @@ const CreateAdmin = () => {
                             fontWeight: 'bold',
                             color: '#fff',
                             textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
-                            marginBottom: '30px',
+                            marginBottom: '0px',
                             fontFamily: 'Arial, sans-serif',
                         }}>
                         Register PH Admin

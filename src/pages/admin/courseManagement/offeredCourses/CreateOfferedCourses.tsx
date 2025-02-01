@@ -108,7 +108,7 @@ const CreateOfferedCourses = () => {
             title: 'Academic & Couse Info',
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(offeredCourseAcademicCourseSchema)}>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHSelect
                             name="semesterRegistration"
                             options={semesterRegistrationOptions}
@@ -117,7 +117,7 @@ const CreateOfferedCourses = () => {
                             disabled={smrisLoading || !!smrError}
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHSelect
                             name="academicFaculty"
                             options={academicFacultyOptions}
@@ -126,7 +126,7 @@ const CreateOfferedCourses = () => {
                             disabled={acfisLoading || !!acferror}
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHSelect
                             name="academicDepartment"
                             options={academicDepartmentOptions}
@@ -135,7 +135,7 @@ const CreateOfferedCourses = () => {
                             disabled={acdisLoading || !!acderror}
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHSelectWithWatch
                             name="course"
                             options={courseOptions}
@@ -172,7 +172,7 @@ const CreateOfferedCourses = () => {
             title: 'Section & Time Info',
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(offeredCourseSectionDateTimeSchema)}>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="number"
                             name="maxCapacity"
@@ -180,7 +180,7 @@ const CreateOfferedCourses = () => {
                             placeholder="Enter Offered Course maxCapacity"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="number"
                             name="section"
@@ -188,7 +188,7 @@ const CreateOfferedCourses = () => {
                             placeholder="Enter Offered Course Section"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHSelect
                             name="days"
                             mode='multiple'
@@ -197,7 +197,7 @@ const CreateOfferedCourses = () => {
                             placeholder="Select Days"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type='Time'
                             name="startTime"
@@ -296,7 +296,7 @@ const CreateOfferedCourses = () => {
                             fontWeight: 'bold',
                             color: '#fff',
                             textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
-                            marginBottom: '30px',
+                            marginBottom: '0px',
                             fontFamily: 'Arial, sans-serif',
                         }}>
                         Create Offered Course

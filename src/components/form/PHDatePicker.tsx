@@ -17,7 +17,7 @@ const PHDatePicker = ({ name, label, placeholder, style, disabled, format, requi
         <Controller
             name={name}
             render={({ field, fieldState: { error } }) => (
-                <Form.Item label={label}>
+                <Form.Item label={<span style={{fontWeight: "500"}}>{label}</span>}>
                     <DatePicker
                         {...field}
                         placeholder={placeholder}

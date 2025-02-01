@@ -17,7 +17,7 @@ const PHSelect = ({ name, label, placeholder, style, options, disabled, mode }: 
         <Controller
             name={name}
             render={({ field, fieldState: { error } }) => (
-                <Form.Item label={label}>
+                <Form.Item label={<span style={{fontWeight: "500"}}>{label}</span>}>
                     <Select
                         {...field}
                         mode={mode}

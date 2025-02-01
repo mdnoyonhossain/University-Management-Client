@@ -73,14 +73,14 @@ const Login = () => {
                             fontWeight: 'bold',
                             color: '#fff',
                             textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
-                            marginBottom: '20px',
+                            marginBottom: '0px',
                             fontFamily: 'Arial, sans-serif',
                         }}>
                         PH University Login
                     </h2>
 
                     <PHForm onSubmit={onSubmit} resolver={zodResolver(loginSchema)}>
-                        <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '-35px' }}>
                             <PHInput
                                 type="text"
                                 name="id"

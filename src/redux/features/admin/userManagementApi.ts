@@ -179,6 +179,6 @@ export const {
     useCreateStudentMutation,
     useGetAllStudentsQuery,
     useGetSingleStudentQuery,
-    useDeleteStudentMutation,
-    useUpdateStudentMutation
+    useUpdateStudentMutation,
+    useDeleteStudentMutation
 } = userManagementApi;

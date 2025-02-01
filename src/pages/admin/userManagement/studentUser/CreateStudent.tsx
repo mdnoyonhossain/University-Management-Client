@@ -90,7 +90,7 @@ const CreateStudent = () => {
             title: 'Personal Info',
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(personalInfoStudentSchema)}>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="name.firstName"
@@ -98,7 +98,7 @@ const CreateStudent = () => {
                             placeholder="Enter First Name"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="name.middleName"
@@ -106,7 +106,7 @@ const CreateStudent = () => {
                             placeholder="Enter Middle Name (Optional)"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="name.lastName"
@@ -114,7 +114,7 @@ const CreateStudent = () => {
                             placeholder="Enter Last Name"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHSelect
                             name="gender"
                             options={genderOptions}
@@ -122,7 +122,7 @@ const CreateStudent = () => {
                             placeholder="Select Gender (Male/Female/Other)"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHDatePicker
                             name="dateOfBirth"
                             required
@@ -179,7 +179,7 @@ const CreateStudent = () => {
             title: 'Contact Info',
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(studentContactInfoSchema)}>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="email"
                             name="email"
@@ -187,7 +187,7 @@ const CreateStudent = () => {
                             placeholder="Enter your email address"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="number"
                             name="contactNo"
@@ -195,7 +195,7 @@ const CreateStudent = () => {
                             placeholder="Enter your contact number"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="number"
                             name="emergencyContactNo"
@@ -203,7 +203,7 @@ const CreateStudent = () => {
                             placeholder="Enter emergency contact number"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="presentAddress"
@@ -256,7 +256,7 @@ const CreateStudent = () => {
             title: 'Guardian Info',
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(studentGuardianInfoSchema)}>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="guardian.fatherName"
@@ -264,7 +264,7 @@ const CreateStudent = () => {
                             placeholder="Enter father's full name"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="guardian.fatherOccupation"
@@ -272,7 +272,7 @@ const CreateStudent = () => {
                             placeholder="Enter father's occupation"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="number"
                             name="guardian.fatherContactNo"
@@ -280,7 +280,7 @@ const CreateStudent = () => {
                             placeholder="Enter father's contact number"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="guardian.motherName"
@@ -288,7 +288,7 @@ const CreateStudent = () => {
                             placeholder="Enter mother's full name"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="guardian.motherOccupation"
@@ -341,7 +341,7 @@ const CreateStudent = () => {
             title: 'Local Guardian Info',
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(studentLocalGuardianInfoSchema)}>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="localGuardian.name"
@@ -349,7 +349,7 @@ const CreateStudent = () => {
                             placeholder="Enter full name of local guardian"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="localGuardian.occupation"
@@ -357,7 +357,7 @@ const CreateStudent = () => {
                             placeholder="Enter occupation of local guardian"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="number"
                             name="localGuardian.contactNo"
@@ -410,7 +410,7 @@ const CreateStudent = () => {
             title: 'Academic Info',
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(studentAcademicInfoSchema)}>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHSelect
                             name="admissionSemester"
                             options={admissionSemesterOptions}
@@ -514,7 +514,7 @@ const CreateStudent = () => {
                             fontWeight: 'bold',
                             color: '#fff',
                             textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
-                            marginBottom: '30px',
+                            marginBottom: '0px',
                             fontFamily: 'Arial, sans-serif',
                         }}>
                         Register PH Student

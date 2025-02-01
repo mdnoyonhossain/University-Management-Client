@@ -71,14 +71,14 @@ const MyCourses = () => {
                             fontWeight: 'bold',
                             color: '#fff',
                             textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
-                            marginBottom: '20px',
+                            marginBottom: '0px',
                             fontFamily: 'Arial, sans-serif',
                         }}
                     >
                         Searching / Filtering Enrolled Course
                     </h2>
                     <PHForm onSubmit={onSubmit}>
-                        <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '-35px' }}>
                             <PHSelect
                                 name="semesterRegistration"
                                 options={semesterOptions}

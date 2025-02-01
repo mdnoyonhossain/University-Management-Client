@@ -84,7 +84,7 @@ const CreateFaculty = () => {
             title: 'Personal Info',
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(personalInfoFacultySchema)}>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="name.firstName"
@@ -92,7 +92,7 @@ const CreateFaculty = () => {
                             placeholder="Enter First Name"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="name.middleName"
@@ -100,7 +100,7 @@ const CreateFaculty = () => {
                             placeholder="Enter Middle Name (Optional)"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="name.lastName"
@@ -108,7 +108,7 @@ const CreateFaculty = () => {
                             placeholder="Enter Last Name"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHSelect
                             name="gender"
                             options={genderOptions}
@@ -116,7 +116,7 @@ const CreateFaculty = () => {
                             placeholder="Select Gender (Male/Female/Other)"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHSelect
                             name="bloogGroup"
                             options={bloodGroupOptions}
@@ -173,7 +173,7 @@ const CreateFaculty = () => {
             title: 'Contact Info',
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(facultyContactInfoSchema)}>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="email"
                             name="email"
@@ -181,7 +181,7 @@ const CreateFaculty = () => {
                             placeholder="Enter your email address"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="number"
                             name="contactNo"
@@ -189,7 +189,7 @@ const CreateFaculty = () => {
                             placeholder="Enter your contact number"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="number"
                             name="emergencyContactNo"
@@ -197,7 +197,7 @@ const CreateFaculty = () => {
                             placeholder="Enter emergency contact number"
                         />
                     </div>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHInput
                             type="text"
                             name="presentAddress"
@@ -250,7 +250,7 @@ const CreateFaculty = () => {
             title: 'Academic Info',
             content: (
                 <PHForm onSubmit={onSubmit} resolver={zodResolver(facultyAcademicInfoSchema)}>
-                    <div style={{ marginBottom: '15px' }}>
+                    <div style={{ marginBottom: '-35px' }}>
                         <PHSelect
                             name="academicDepartment"
                             options={academicDepartmentOptions}
@@ -353,7 +353,7 @@ const CreateFaculty = () => {
                             fontWeight: 'bold',
                             color: '#fff',
                             textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
-                            marginBottom: '30px',
+                            marginBottom: '0px',
                             fontFamily: 'Arial, sans-serif',
                         }}>
                         Register PH Faculty

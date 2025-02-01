@@ -116,14 +116,14 @@ const CreateCourse = () => {
                             fontWeight: 'bold',
                             color: '#fff',
                             textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
-                            marginBottom: '30px',
+                            marginBottom: '0px',
                             fontFamily: 'Arial, sans-serif',
                         }}
                     >
                         Create PH Course
                     </h2>
                     <PHForm onSubmit={onSubmit} resolver={zodResolver(createCourseSchema)}>
-                        <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '-35px' }}>
                             <PHInput
                                 type="text"
                                 name="title"
@@ -131,7 +131,7 @@ const CreateCourse = () => {
                                 placeholder="Enter Course Title"
                             />
                         </div>
-                        <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '-35px' }}>
                             <PHInput
                                 type="text"
                                 name="prefix"
@@ -139,7 +139,7 @@ const CreateCourse = () => {
                                 placeholder="Enter Course Prefix"
                             />
                         </div>
-                        <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '-35px' }}>
                             <PHInput
                                 type="number"
                                 name="code"
@@ -147,7 +147,7 @@ const CreateCourse = () => {
                                 placeholder="Enter Course Code"
                             />
                         </div>
-                        <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '-35px' }}>
                             <PHInput
                                 type="number"
                                 name="credits"

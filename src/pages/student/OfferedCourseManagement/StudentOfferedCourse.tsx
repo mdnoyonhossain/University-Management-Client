@@ -140,8 +140,7 @@ const StudentOfferedCourse = () => {
                       >
                         <p style={{ color: "purple" }}>Capacity</p>
                         <Tag color="purple">
-                          <TeamOutlined />
-                          {section.maxCapacity} Available
+                          <TeamOutlined /> {section.maxCapacity} Available
                         </Tag>
                       </div>
                     </Col>

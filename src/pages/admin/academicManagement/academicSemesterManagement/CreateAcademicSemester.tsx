@@ -94,20 +94,20 @@ const CreateAcademicSemester = () => {
                             fontWeight: 'bold',
                             color: '#fff',
                             textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
-                            marginBottom: '30px',
+                            marginBottom: '0px',
                             fontFamily: 'Arial, sans-serif',
                         }}
                     >
                         Register Academic Semester
                     </h2>
                     <PHForm onSubmit={onSubmit} resolver={zodResolver(academicSemesterSchema)}>
-                        <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '-35px' }}>
                             <PHSelect name="name" options={semesterOptions} style={{ width: '100%' }} placeholder="Select Semester Name" />
                         </div>
-                        <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '-35px' }}>
                             <PHSelect name="year" options={yearOptions} style={{ width: '100%' }} placeholder="Select Semester Year" />
                         </div>
-                        <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '-35px' }}>
                             <PHSelect name="startMonth" options={monthOptions} style={{ width: '100%' }} placeholder="Select Semester Start Month" />
                         </div>
                         <div style={{ marginBottom: '15px' }}>

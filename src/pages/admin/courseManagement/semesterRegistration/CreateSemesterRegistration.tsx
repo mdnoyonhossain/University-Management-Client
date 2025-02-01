@@ -113,20 +113,20 @@ const CreateSemesterRegistration = () => {
                             fontWeight: 'bold',
                             color: '#fff',
                             textShadow: '0 0 10px rgba(0, 210, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.7)',
-                            marginBottom: '30px',
+                            marginBottom: '0px',
                             fontFamily: 'Arial, sans-serif',
                         }}
                     >
                         Semester Registration
                     </h2>
                     <PHForm onSubmit={onSubmit}>
-                        <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '-35px' }}>
                             <PHSelect name="academicSemester" options={academicSemesterOptions} style={{ width: '100%' }} placeholder="Select Semester Name" />
                         </div>
-                        <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '-35px' }}>
                             <PHSelect name="status" options={semesterStatusOptions} style={{ width: '100%' }} placeholder="Select Registration Semester Status" />
                         </div>
-                        <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '-35px' }}>
                             <PHDatePicker
                                 name="startDate"
                                 // required
@@ -134,7 +134,7 @@ const CreateSemesterRegistration = () => {
                                 placeholder="Select Registration Semester Start Date"
                             />
                         </div>
-                        <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '-35px' }}>
                             <PHDatePicker
                                 name="endDate"
                                 required
@@ -142,7 +142,7 @@ const CreateSemesterRegistration = () => {
                                 placeholder="Select Registration Semester End Date"
                             />
                         </div>
-                        <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '-35px' }}>
                             <PHInput
                                 type="number"
                                 name="minCredit"

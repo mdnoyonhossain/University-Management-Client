@@ -112,6 +112,16 @@ const StudentData = () => {
                             </Button>
                         </Link>
 
+                        <Link to={`/admin/student-details-data/${item.key}`}>
+                            <Button
+                                icon={<InfoCircleOutlined />}
+                                type="default"
+                                size="small"
+                                style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
+                            >
+                                Details
+                            </Button>
+                        </Link>
                         <Popconfirm
                             title="Are you sure you want to delete this student?"
                             okText="Yes"
@@ -126,17 +136,6 @@ const StudentData = () => {
                                 Delete
                             </Button>
                         </Popconfirm>
-
-                        <Link to={`/admin/student-details-data/${item.key}`}>
-                            <Button
-                                icon={<InfoCircleOutlined />}
-                                type="default"
-                                size="small"
-                                style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
-                            >
-                                Details
-                            </Button>
-                        </Link>
                     </Space>
                 );
             },
