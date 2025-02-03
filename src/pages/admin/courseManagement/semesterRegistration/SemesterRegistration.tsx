@@ -1,8 +1,8 @@
-import { Button, Dropdown, Pagination, Popconfirm, Space, Table, TableColumnsType, TableProps, Tag } from "antd";
+import { Button, Dropdown, Pagination,  Space, Table, TableColumnsType, TableProps, Tag } from "antd";
 import { TQueryParam, TSemesterRegistration } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
-import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined, CheckCircleOutlined, HourglassOutlined, CloseCircleOutlined, DownOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, ArrowLeftOutlined, CheckCircleOutlined, HourglassOutlined, CloseCircleOutlined, DownOutlined } from '@ant-design/icons';
 import { useGetAllRegistrationSemesterQuery, useUpdateRegistrationSemesterMutation } from "../../../../redux/features/admin/courseManagement";
 import moment from "moment";
 import { toast } from "sonner";
@@ -139,15 +139,6 @@ const SemesterRegistration = () => {
             render: (item) => {
                 return (
                     <Space size="small">
-                        <Button
-                            icon={<EditOutlined />}
-                            type="default"
-                            size="small"
-                            style={{ backgroundColor: "#1890ff", color: "#fff", borderColor: "#1890ff" }}
-                        >
-                            Update
-                        </Button>
-
                         <Dropdown menu={menuProps} trigger={['click']}>
                             <Button
                                 onClick={() => setSemesterRegistrationId(item.key)}
@@ -159,29 +150,6 @@ const SemesterRegistration = () => {
                                 Status
                             </Button>
                         </Dropdown>
-
-                        <Popconfirm
-                            title="Are you sure you want to delete this student?"
-                            okText="Yes"
-                            cancelText="No"
-                        >
-                            <Button
-                                icon={<DeleteOutlined />}
-                                size="small"
-                                style={{ backgroundColor: "#ff4d4f", color: "#fff", borderColor: "#ff4d4f" }}
-                            >
-                                Delete
-                            </Button>
-                        </Popconfirm>
-
-                        <Button
-                            icon={<InfoCircleOutlined />}
-                            type="default"
-                            size="small"
-                            style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
-                        >
-                            Details
-                        </Button>
                     </Space>
                 );
             },

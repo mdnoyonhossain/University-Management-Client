@@ -2,7 +2,7 @@ import { Button, Col, Modal, Pagination, Popconfirm, Row, Space, Table, TableCol
 import { TCourse, TFaculty, TQueryParam } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
-import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined, UserAddOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, ArrowLeftOutlined, DeleteOutlined, UserAddOutlined } from '@ant-design/icons';
 import { useDeleteCourseMutation, useGetAllCoursesQuery, useUpdateAddAssignFacultiesMutation } from "../../../../redux/features/admin/courseManagement";
 import PHForm from "../../../../components/form/PHForm";
 import PHSelect from "../../../../components/form/PHSelect";
@@ -87,16 +87,6 @@ const Courses = () => {
                 return (
                     <Space size="small">
                         <AssignFaculties facultyData={item} />
-
-                        <Button
-                            icon={<EditOutlined />}
-                            type="default"
-                            size="small"
-                            style={{ backgroundColor: "#1890ff", color: "#fff", borderColor: "#1890ff" }}
-                        >
-                            Update
-                        </Button>
-
                         <Popconfirm
                             title="Are you sure you want to delete this course?"
                             okText="Yes"

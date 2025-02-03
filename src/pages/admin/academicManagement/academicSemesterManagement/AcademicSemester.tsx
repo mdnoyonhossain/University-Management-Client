@@ -1,9 +1,9 @@
-import { Button, Pagination, Popconfirm, Space, Table, TableColumnsType, TableProps } from "antd";
+import { Button, Pagination, Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllAcademicSemestersQuery } from "../../../../redux/features/admin/academicManagementApi";
 import { TAcademicSemester, TQueryParam } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
-import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 
 type TTableData = Pick<TAcademicSemester, "name" | "code" | "year" | "startMonth" | "endMonth">;
 
@@ -64,39 +64,6 @@ const AcademicSemester = () => {
             filters: getUniqueValues("endMonth"),
             ellipsis: true,
         },
-        {
-            title: 'Actions',
-            key: 'actions',
-            render: () => {
-                return (
-                    <Space size="small">
-                        <Button
-                            icon={<EditOutlined />}
-                            type="default"
-                            size="small"
-                            style={{ backgroundColor: "#1890ff", color: "#fff", borderColor: "#1890ff" }}
-                        >
-                            Update
-                        </Button>
-
-                        <Popconfirm
-                            title="Are you sure you want to delete this student?"
-                            okText="Yes"
-                            cancelText="No"
-                        >
-                            <Button
-                                icon={<DeleteOutlined />}
-                                size="small"
-                                style={{ backgroundColor: "#ff4d4f", color: "#fff", borderColor: "#ff4d4f" }}
-                            >
-                                Delete
-                            </Button>
-                        </Popconfirm>
-                    </Space>
-                );
-            },
-            width: "1%",
-        }
     ];
 
     const semesterTableData = semesterData?.data?.map((semester) => ({

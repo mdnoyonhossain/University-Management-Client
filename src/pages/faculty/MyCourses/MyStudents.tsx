@@ -1,6 +1,6 @@
-import { Button, Popconfirm, Space, Table, TableProps, Pagination, Modal, Row, Col, Tag } from "antd";
+import { Button, Space, Table, TableProps, Pagination, Modal, Row, Col, Tag } from "antd";
 import { useState } from "react";
-import { EditOutlined, DeleteOutlined, InfoCircleOutlined, ArrowRightOutlined, ArrowLeftOutlined, UserAddOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined, ArrowRightOutlined, ArrowLeftOutlined, UserAddOutlined } from '@ant-design/icons';
 import { Link, useParams } from "react-router-dom";
 import { useEnrollCourseUpdateStudentMarkMutation, useGetAllFacultyCoursesQuery } from "../../../redux/features/faculty/facultyCourseManagementApi";
 import Loading from "../../Loading";
@@ -24,7 +24,7 @@ const MyStudents = () => {
         { name: "sort", value: "id" },
         ...params
     ]);
-    
+
     const columns: any = [
         {
             title: "Student Name",
@@ -86,38 +86,12 @@ const MyStudents = () => {
                 return (
                     <Space size="small">
                         <AddMarksUpdate studentData={item} />
-
-                        <Link to={`/admin/student-update-data/${item.key}`}>
-                            <Button
-                                icon={<EditOutlined />}
-                                type="default"
-                                size="small"
-                                style={{ backgroundColor: "#1890ff", color: "#fff", borderColor: "#1890ff" }}
-                            >
-                                Update
-                            </Button>
-                        </Link>
-
-                        <Popconfirm
-                            title="Are you sure you want to delete this student?"
-                            okText="Yes"
-                            cancelText="No"
-                        >
-                            <Button
-                                icon={<DeleteOutlined />}
-                                size="small"
-                                style={{ backgroundColor: "#ff4d4f", color: "#fff", borderColor: "#ff4d4f" }}
-                            >
-                                Delete
-                            </Button>
-                        </Popconfirm>
-
-                        <Link to={`/faculty/student-details-data/${item.key}`}>
+                        <Link to={`/faculty/student-details-data/${item._id}`}>
                             <Button
                                 icon={<InfoCircleOutlined />}
                                 type="default"
                                 size="small"
-                                style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
+                                style={{ backgroundColor: "black", color: "#fff", borderColor: "black" }}
                             >
                                 Details
                             </Button>

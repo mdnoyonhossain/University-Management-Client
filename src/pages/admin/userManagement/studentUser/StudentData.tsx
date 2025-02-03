@@ -117,7 +117,7 @@ const StudentData = () => {
                                 icon={<InfoCircleOutlined />}
                                 type="default"
                                 size="small"
-                                style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
+                                style={{ backgroundColor: "black", color: "#fff", borderColor: "black" }}
                             >
                                 Details
                             </Button>

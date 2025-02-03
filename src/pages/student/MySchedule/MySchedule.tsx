@@ -83,9 +83,9 @@ const MySchedule = () => {
                             type="default"
                             size="small"
                             style={{
-                                backgroundColor: "#52c41a",
+                                backgroundColor: "black",
                                 color: "#fff",
-                                borderColor: "#52c41a",
+                                borderColor: "black",
                             }}
                         >
                             Details

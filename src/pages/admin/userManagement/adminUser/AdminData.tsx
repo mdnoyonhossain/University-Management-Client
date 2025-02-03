@@ -3,7 +3,7 @@ import { TAdmin, TQueryParam } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
 import { useDeleteAdminMutation, useGetAllAdminsQuery } from "../../../../redux/features/admin/userManagementApi";
-import { EditOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, ReloadOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { DeleteOutlined, InfoCircleOutlined, SearchOutlined, ReloadOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -101,14 +101,16 @@ const AdminData = () => {
             render: (item) => {
                 return (
                     <Space size="small">
-                        <Button
-                            icon={<EditOutlined />}
-                            type="default"
-                            size="small"
-                            style={{ backgroundColor: "#1890ff", color: "#fff", borderColor: "#1890ff" }}
-                        >
-                            Update
-                        </Button>
+                        <Link to={`/admin/admin-details-data/${item.key}`}>
+                            <Button
+                                icon={<InfoCircleOutlined />}
+                                type="default"
+                                size="small"
+                                style={{ backgroundColor: "black", color: "#fff", borderColor: "black" }}
+                            >
+                                Details
+                            </Button>
+                        </Link>
 
                         <Popconfirm
                             title="Are you sure you want to delete this admin?"
@@ -124,17 +126,6 @@ const AdminData = () => {
                                 Delete
                             </Button>
                         </Popconfirm>
-
-                        <Link to={`/admin/admin-details-data/${item.key}`}>
-                            <Button
-                                icon={<InfoCircleOutlined />}
-                                type="default"
-                                size="small"
-                                style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
-                            >
-                                Details
-                            </Button>
-                        </Link>
                     </Space>
                 );
             },

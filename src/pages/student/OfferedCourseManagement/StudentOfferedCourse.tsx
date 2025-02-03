@@ -151,7 +151,7 @@ const StudentOfferedCourse = () => {
                         icon={<InfoCircleOutlined />}
                         type="default"
                         style={{
-                          backgroundColor: "#17A2B8",
+                          backgroundColor: "black",
                           color: "#fff",
                           borderRadius: '5px',
                         }}

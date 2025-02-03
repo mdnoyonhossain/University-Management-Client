@@ -59,13 +59,13 @@ const StudentUpdate = () => {
             data: {
                 student: {
                     name: {
-                        firstName: data.name.firstName,
-                        middleName: data.name.middleName,
-                        lastName: data.name.lastName,
+                        firstName: data.name?.firstName,
+                        middleName: data.name?.middleName,
+                        lastName: data.name?.lastName,
                     },
-                    gender: data.gender,
-                    BloodGroup: data.BloodGroup,
-                    profileImg: data.profileImg,
+                    gender: data?.gender,
+                    BloodGroup: data?.BloodGroup,
+                    profileImg: data?.profileImg,
                     email: student?.email || data.email,
                     contactNo: student?.contactNo || data.contactNo,
                     emergencyContactNo: student?.emergencyContactNo || data.emergencyContactNo,

@@ -1,9 +1,9 @@
-import { Button, Pagination, Popconfirm, Space, Table, TableColumnsType, TableProps } from "antd";
+import { Button, Pagination, Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllAcademicFacultiesQuery } from "../../../../redux/features/admin/academicManagementApi";
 import { TAcademicFaculty, TQueryParam } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
-import { EditOutlined, DeleteOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import {  ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 
 type TTableData = Pick<TAcademicFaculty, "name">
 
@@ -35,39 +35,6 @@ const AcademicFaculty = () => {
             filters: getUniqueValues("name"),
             ellipsis: true,
             render: (text) => <span style={{ fontWeight: 'bold' }}>{text}</span>,
-        },
-        {
-            title: 'Actions',
-            key: 'actions',
-            render: () => {
-                return (
-                    <Space size="small">
-                        <Button
-                            icon={<EditOutlined />}
-                            type="default"
-                            size="small"
-                            style={{ backgroundColor: "#1890ff", color: "#fff", borderColor: "#1890ff" }}
-                        >
-                            Update
-                        </Button>
-
-                        <Popconfirm
-                            title="Are you sure you want to delete this student?"
-                            okText="Yes"
-                            cancelText="No"
-                        >
-                            <Button
-                                icon={<DeleteOutlined />}
-                                size="small"
-                                style={{ backgroundColor: "#ff4d4f", color: "#fff", borderColor: "#ff4d4f" }}
-                            >
-                                Delete
-                            </Button>
-                        </Popconfirm>
-                    </Space>
-                );
-            },
-            width: "1%",
         }
     ];
 

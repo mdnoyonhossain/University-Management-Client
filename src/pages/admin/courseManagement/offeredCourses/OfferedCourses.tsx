@@ -2,7 +2,7 @@ import { Button, Pagination, Popconfirm, Space, Table, TableColumnsType, TablePr
 import { TQueryParam } from "../../../../types";
 import { useState } from "react";
 import Loading from "../../../Loading";
-import { ArrowRightOutlined, ArrowLeftOutlined, EditOutlined, DeleteOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, ArrowLeftOutlined, DeleteOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { useDeleteOfferedCourseMutation, useGetAllOfferedCourseQuery } from "../../../../redux/features/admin/courseManagement";
 import moment from "moment";
 import { Link } from "react-router-dom";
@@ -77,14 +77,16 @@ const OfferedCourses = () => {
             render: (item: any) => {
                 return (
                     <Space size="small">
-                        <Button
-                            icon={<EditOutlined />}
-                            type="default"
-                            size="small"
-                            style={{ backgroundColor: "#1890ff", color: "#fff", borderColor: "#1890ff" }}
-                        >
-                            Update
-                        </Button>
+                        <Link to={`/admin/offered-course-details-data/${item.key}`}>
+                            <Button
+                                icon={<InfoCircleOutlined />}
+                                type="default"
+                                size="small"
+                                style={{ backgroundColor: "black", color: "#fff", borderColor: "black" }}
+                            >
+                                Details
+                            </Button>
+                        </Link>
 
                         <Popconfirm
                             title="Are you sure you want to delete this student?"
@@ -100,17 +102,6 @@ const OfferedCourses = () => {
                                 Delete
                             </Button>
                         </Popconfirm>
-
-                        <Link to={`/admin/offered-course-details-data/${item.key}`}>
-                            <Button
-                                icon={<InfoCircleOutlined />}
-                                type="default"
-                                size="small"
-                                style={{ backgroundColor: "#52c41a", color: "#fff", borderColor: "#52c41a" }}
-                            >
-                                Details
-                            </Button>
-                        </Link>
                     </Space>
                 );
             },
