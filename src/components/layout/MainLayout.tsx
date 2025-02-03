@@ -3,26 +3,31 @@ import { UserOutlined, LogoutOutlined, LockOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
-import { useAppDispatch } from '../../redux/hooks';
-import { logOut } from '../../redux/features/auth/authSlice';
-
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { logOut, selectCurrentToken } from '../../redux/features/auth/authSlice';
+import { verifyToken } from '../../utils/verifyToken';
 const { Header, Content, Footer } = Layout;
 const { Search } = Input;
 
 const MainLayout = () => {
     const [search, setSearch] = useState('');
     const dispatch = useAppDispatch();
-
+    console.log(search);
     const handleLogout = () => {
         dispatch(logOut());
     }
 
-    console.log(search);
+    const token = useAppSelector(selectCurrentToken);
+    let user;
+
+    if (token) {
+        user = verifyToken(token);
+    }
 
     const profileMenu = (
         <Menu>
             <Menu.Item key="1" icon={<UserOutlined />}>
-                Profile
+                <a href={`/${user?.role}/my-profile`}>Profile</a>
             </Menu.Item>
             <Menu.Item key="2" icon={<LockOutlined />}>
                 <Link to="/change-password">Security</Link>

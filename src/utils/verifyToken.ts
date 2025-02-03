@@ -1,5 +1,9 @@
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 
-export const verifyToken = (token: string) => {
+interface CustomJwtPayload extends JwtPayload {
+    role: string;
+}
+
+export const verifyToken = (token: string): CustomJwtPayload | null => {
     return jwtDecode(token);
 }

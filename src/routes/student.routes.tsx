@@ -1,3 +1,4 @@
+import MyProfile from "../pages/MyProfile";
 import MySchedule from "../pages/student/MySchedule/MySchedule";
 import MyScheduleDetails from "../pages/student/MySchedule/MyScheduleDetails";
 import StudentOfferedCourse from "../pages/student/OfferedCourseManagement/StudentOfferedCourse";
@@ -27,5 +28,9 @@ export const studentPaths = [
     {
         path: 'my-schedule-details-data/:enrolledId',
         element: <MyScheduleDetails />,
+    },
+    {
+        path: 'my-profile',
+        element: <MyProfile />,
     },
 ];

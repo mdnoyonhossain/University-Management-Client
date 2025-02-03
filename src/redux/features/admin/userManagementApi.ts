@@ -3,6 +3,30 @@ import { baseApi } from "../../api/baseApi";
 
 const userManagementApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
+        getMyProfile: builder.query({
+            query: (args) => {
+                const params = new URLSearchParams();
+
+                if (args) {
+                    args.forEach((item: TQueryParam) => {
+                        params.append(item.name, item.value as string);
+                    });
+                }
+
+                return {
+                    url: '/users/me',
+                    method: 'GET',
+                    params: params,
+                };
+            },
+            // providesTags: ["profile"],
+            transformResponse: (response: TResponseRedux<any>) => {
+                return {
+                    data: response.data,
+                    meta: response.meta,
+                };
+            },
+        }),
         createAdmin: builder.mutation({
             query: (data) => ({
                 url: "/users/create-admin",
@@ -168,6 +192,7 @@ const userManagementApi = baseApi.injectEndpoints({
 });
 
 export const {
+    useGetMyProfileQuery,
     useCreateAdminMutation,
     useGetAllAdminsQuery,
     useGetSingleAdminQuery,

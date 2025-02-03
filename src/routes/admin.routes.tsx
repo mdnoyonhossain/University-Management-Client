@@ -22,6 +22,7 @@ import Courses from "../pages/admin/courseManagement/course/Courses";
 import CreateOfferedCourses from "../pages/admin/courseManagement/offeredCourses/CreateOfferedCourses";
 import OfferedCourses from "../pages/admin/courseManagement/offeredCourses/OfferedCourses";
 import OfferedCourseDetails from "../pages/admin/courseManagement/offeredCourses/OfferedCourseDetails";
+import MyProfile from "../pages/MyProfile";
 
 export const adminPaths = [
     {
@@ -112,7 +113,11 @@ export const adminPaths = [
             {
                 path: 'admin-details-data/:adminId',
                 element: <AdminDetails />,
-            }
+            },
+            {
+                path: 'my-profile',
+                element: <MyProfile />,
+            },
         ]
     },
     {
