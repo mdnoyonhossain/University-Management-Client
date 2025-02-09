@@ -7,6 +7,7 @@ import { studentPaths } from '../../routes/student.routes';
 import { selectCurrentToken, TUser } from '../../redux/features/auth/authSlice';
 import { useAppSelector } from '../../redux/hooks';
 import { verifyToken } from '../../utils/verifyToken';
+import { Link } from 'react-router-dom';
 
 const { Sider } = Layout;
 
@@ -49,7 +50,6 @@ const Sidebar = () => {
         <Sider
             breakpoint="lg"
             collapsedWidth="0"
-            // onBreakpoint={(broken) => console.log(broken)}
             style={{
                 backgroundImage: 'linear-gradient(45deg, #001529, #004d99)',
                 color: 'red',
@@ -60,18 +60,21 @@ const Sidebar = () => {
             }}
         >
             <div>
-                <img style={{
-                    height: '64px',
-                    margin: '16px',
-                    background: 'rgba(255, 255, 255, 0.2)',
-                    borderRadius: '8px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#fff',
-                    fontWeight: 'bold',
-                    fontSize: '18px',
-                }} src={logo} alt="logo" />
+                <Link to="/">
+                    <img style={{
+                        height: '30%',
+                        marginBottom: '16px',
+                        width: "100%",
+                        background: 'rgba(255, 255, 255, 0.2)',
+                        objectFit: "cover",
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        fontSize: '18px',
+                    }} src={logo} alt="logo" />
+                </Link>
             </div>
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['Dashboard']} items={sidebarItems as any} />
         </Sider>
